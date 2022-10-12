@@ -1,21 +1,15 @@
 #include <iostream>
+#include <vector>
 
-namespace first
+int main ()
 {
-    int x =0;
-}
-namespace second 
-{
-    float x = 0.1;
-}
-namespace second
-{
-    float y =0.5;
-}
+  std::vector<int> myvector;
 
-int main()
-{
-    std::cout << first::x << std::endl;
-    std::cout << second::x << std::endl;
-    std::cout << second::y << std::endl;
+  // set some content in the vector:
+  for (int i=0; i<100; i++) myvector.push_back(i);
+
+  std::cout << "size: " << myvector.size() << "\n";
+  std::cout << "capacity: " << myvector.capacity() << "\n";
+  std::cout << "max_size: " << myvector.max_size() << "\n";
+  return 0;
 }
