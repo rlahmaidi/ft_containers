@@ -1,11 +1,12 @@
 #pragma once
 #include <iostream>
+#include <limits.h>
 //#include "iterator.hpp"
 ///ZA3IM SAID THAT I SHOULD READ ABOUT DYNAMCI ARRAYS.
 // private:
 //         size_type 			_size;
 //         size_type 			_capacity;
-//         pointer 			data_arr;
+//         pointer 			arr_data;
 //         allocator_type		_alloc;
 namespace ft
 {
@@ -22,24 +23,24 @@ namespace ft
                 typedef const value_type* const_pointer;
                 typedef iterator iterator; // it is up to me to define it 
                 typedef const iterator;
-                // some iterator still messing here;
+                // some iterators are still messing here;
                 typedef size_t size_type;
 
                 // ****************** constructors ************    
                 explicit vector (const allocator_type& alloc = allocator_type()) // std::allocator<T>& alloc = std::allocator();
                 {
-                    data_arr = NULL;
+                    arr_data = NULL;
                     arr_size = 0;
 
                 }
                 explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): my_allocator(alloc)
                 {
                     arr_size = n;
-                    data_arr = my_allocator.allocate(n);// i may need to define my own allocator and use instead , 
+                    arr_data = my_allocator.allocate(n);// i may need to define my own allocator and use instead , 
                                                     //but only if i'm gonna need it later;
                     for(int i = 0; i < n; n++)
                     {
-                        my_allocator.construct(data_arr,val);
+                        my_allocator.construct(arr_data, val);
                     }
                 }	
                 template <class InputIterator>
@@ -60,7 +61,7 @@ namespace ft
                 vector& operator= (const vector& x)
                 {
                     this->arr_size = x.size();
-                    this->data_arr = my_allocator.allocate(x.size());
+                    this->arr_data = my_allocator.allocate(x.size());
                     for(int i = 0; i < x.size(); i++)
                     {
                         my_allocator(arr + i, *(x + i));
@@ -123,15 +124,52 @@ namespace ft
                 }
                 size_type max_size() const
                 {
-
+                    return(SIZE_MAX);
                 }
                 void resize (size_type n, value_type val = value_type())
                 {
-
+                    if(n < arr_size)
+                    {
+                        for(int i = n; n < arr_size; i++)
+                            my_allocator.destroy(&arr_data[i]);
+                        my_allocator.deallocate(&arr_data[n], arr_size - n);
+                    }
+                    else if(n > arr_size && n <= arr_capacity)
+                    {
+                        for(int i = arr_size; i < n; i++)
+                        {
+                            my_allocator.construct(&arr_data[i], val);
+                        }
+                    }
+                    else if(n > arr_capacity)
+                    {
+                        try
+                        {
+                            pointer tmp_arr;
+                            tmp_arr = my_allocator.allocate(n);
+                            for(int i = 0; i < arr_size; i++)
+                            {
+                                my_allocator.construct(&tmp_arr[i], arr_data[i]);
+                                my_allocator.destroy(&arr_data[i]);
+                            }
+                            for(int i = arr_size; i < n; i++)
+                            {
+                                my_allocator.construct(&tmp_arr[i], val);
+                                my_allocator.destroy(&arr_data[i]);
+                            }
+                            my_allocator.deallocate(arr_data,arr_capacity);
+                            arr_data = tmp_arr;
+                            arr_capacity = n;
+                        }
+                        catch(std::bad_alloc& bad)
+                        {
+                            std::cout << "bad alloc caught" << bad.what() << std::endl;
+                        }
+                    }
                 }
                 size_type capacity() const
                 {
-
+                    return(arr_capacity);
                 }
                 bool empty() const
                 {
@@ -142,7 +180,29 @@ namespace ft
                 }
                 void reserve (size_type n)
                 {
-
+                    if(n > SIZE_MAX)
+                        throw std::lenght_error("error: the new capacity is bigger than MAX_SIZE the vector can handle");
+                    try
+                    {
+                    
+                        if(n > arr_capacity)
+                        {
+                            pointer tmp_arr;
+                            tmp_arr = my_allocator.allocate(n);
+                            for(int i = 0; i < arr_size; i++)
+                            {
+                                my_allocator.construct(&tmp_arr[i], arr_data[i]);// when will we construct the element above arr_size????;
+                                my_allocator.destroy(&arr_data[i]);
+                            }
+                            my_allocator.deallocate(arr_data,arr_capacity);
+                            arr_data = tmp_arr;
+                            arr_capacity = n;
+                        }
+                    }
+                    catch(std::bad_alloc& ba)
+                    {
+                        std::cout << "bad alloc caught" << ba.what() << std::endl;
+                    }
                 }
                 void shrink_to_fit()
                 {
@@ -151,9 +211,10 @@ namespace ft
                 //*************ELEMENTS ACCESS***************
 
                 private:
-                pointer     data_arr;
+                pointer     arr_data;
                 size_type   arr_size;
                 allocator_type my_allocator;
+                size_type       arr_capacity;
 
     };
 }
