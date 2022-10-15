@@ -127,9 +127,9 @@ namespace ft
 		}
 
 
-		friend iterator operator+(int nb, const iterator& it)
-        {
-            iterator newIt(it);// to not return a refference , but i still need to grasp more;
+		friend iterator operator+(int nb, const iterator& it)// we can't define it outside the class def because iterator neets the T 
+        {													// which is not defined outside the class def;
+            iterator newIt(it);// to not return a refference , but i still need to grasp itd more;
             return (newIt += nb);
         }
         iterator operator-(difference_type const &n)
@@ -141,5 +141,6 @@ namespace ft
 		 {
 			return ptr[n];
 		 }
+		 friend void	print_pointer(pointer ptr);
     };
 }

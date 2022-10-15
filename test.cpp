@@ -1,11 +1,9 @@
-#include <iostream>
-#include <vector>
+#include "test.hpp"
 
 int main ()
 {
- ptrdiff_t tmp;
+  box test(10);
 
- tmp = 10;
- std::cout << tmp << std::endl;
-  return 0;
+  print_a(test);
+  return(0);
 }
