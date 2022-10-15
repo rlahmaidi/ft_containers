@@ -8,6 +8,8 @@ namespace ft
     class iterator
     {
         typedef T* pointer;
+		typedef ptrdiff_t	difference_type;// still not sure wither ptrdiif_t already exist 
+											//or i should alias it with sizet_t or somthing;
         
         private:
             pointer ptr;
@@ -69,10 +71,75 @@ namespace ft
         //********dereferenced as an rvalue***********
         pointer iterator::operator*(iterator const &it)
         {
-            return(this->ptr);
+            return(*ptr);
         }
+		pointer operator->() 
+		{ 
+			return (ptr);// it will always return ptr even if you type(obj->tkharbi9a);
+		}
         //************ dereferenced as an lvalue****
+		//(*a = t) i think it will work since * and = are already overloaded;
+		
+		//***************  INCREMENT AND DECREMENT  *******
+		iterator& iterator::operator++()
+		{// preincrement 
+			(this->ptr)++;
+			return(*this);
+		}
+        iterator& iterator::operator--()
+		{
+			(this->ptr)--;
+			return(*this);			
+		}
+		iterator iterator::operator++(int)
+		{
+			iterator tmp = *this;
+			(this->ptr)++;
+			return(tmp);
+		}
+		iterator iterator::operator--(int)
+		{
+			iterator tmp = *this;
+			(this->ptr)--;
+			return(tmp);
+		}
+		// the *a++ and *a-- should be working since ++ -- and * are overloaded;
 
-        
+		//************   += and -= ************
+		iterator &operator+=(difference_type n) 
+		{
+			 ptr += n; 
+			 return (*this); 
+		}
+		iterator &operator-=(difference_type n) 
+		 { 
+			ptr -= n;
+			return (*this);
+		}
+		//***************   ARITHMETIQUE OPERATORS  *********
+		iterator iterator::operator+(difference_type const &n)// we can replace diffe.. with int if it dosen't work;
+		{
+			return(this->ptr + n);// perhaps it won't work , i need to test it;
+		}
+		iterator iterator::operator-(iterator const &it1)
+		{
+			return(this->ptr - it1.ptr);// perhaps it won't work too;
+		}
+
+
+		friend iterator operator+(int nb, const iterator& it)
+        {
+            iterator newIt(it);// to not return a refference , but i still need to grasp more;
+            return (newIt += nb);
+        }
+        iterator operator-(difference_type const &n)
+        {
+            return (this->ptr - n);
+        }
+		//*********** the [] operator  *********
+		reference operator[](difference_type n) const// should it be refference and why ???????;
+		 {
+			return ptr[n];
+		 }
     };
 }

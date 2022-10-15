@@ -133,6 +133,7 @@ namespace ft
                         for(int i = n; n < arr_size; i++)
                             my_allocator.destroy(&arr_data[i]);
                         my_allocator.deallocate(&arr_data[n], arr_size - n);
+                        arr_size = n;
                     }
                     else if(n > arr_size && n <= arr_capacity)
                     {
@@ -140,6 +141,7 @@ namespace ft
                         {
                             my_allocator.construct(&arr_data[i], val);
                         }
+                        arr_size = n;
                     }
                     else if(n > arr_capacity)
                     {
@@ -160,6 +162,7 @@ namespace ft
                             my_allocator.deallocate(arr_data,arr_capacity);
                             arr_data = tmp_arr;
                             arr_capacity = n;
+                            arr_size = n;// not sure of this one;
                         }
                         catch(std::bad_alloc& bad)
                         {
@@ -206,9 +209,62 @@ namespace ft
                 }
                 void shrink_to_fit()
                 {
-
+                    if(arr_capacity > arr_size)
+                    {
+                        my_allocator.deallocate(&arr_data[n], arr_capacity - n);
+                    }
+                    arr_capacity = arr_size;
                 }
-                //*************ELEMENTS ACCESS***************
+                //*************  ELEMENTS ACCESS  ***************
+                reference operator[] (size_type n)
+                {
+                    return(arr_data[n]);
+                }
+                const_reference operator[] (size_type n) const
+                {
+                    return(arr_data[n]);
+                }
+                reference at (size_type n)
+                {
+                    if(n >= arr_size)
+                        std::out_of_range("this index is out of bounds of valid elements");
+                    return(arr_data[n]);
+                        
+                }
+                const_reference at (size_type n) const
+                {
+                    if(n >= arr_size)
+                        std::out_of_range("this index is out of bounds of valid elements");
+                    return(arr_data[n]);
+                }
+                reference front()
+                {
+                    return(arr_data[0]);
+                }
+                const_reference front() const
+                {
+                    return(arr_data[0]);
+                }
+                reference back()
+                {
+                    return(arr_data[arr_size - 1]);
+                }
+                const_reference back() const
+                {
+                    return(arr_data[arr_size - 1]);
+                }
+                value_type* data() noexcept
+                {
+                    return(pointer);
+                }
+                const value_type* data() const noexcept
+                {
+                    return(pointer);
+                }
+                //**************  MODIFIERS  ************
+
+
+
 
                 private:
                 pointer     arr_data;
