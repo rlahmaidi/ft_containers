@@ -72,7 +72,7 @@ namespace ft
 				return(false);
 		}
         //********dereferenced as an rvalue***********
-        pointer operator*(random_access const &it)
+        pointer operator*()
         {
             return(*ptr);
         }

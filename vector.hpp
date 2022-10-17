@@ -2,6 +2,8 @@
 #include <iostream>
 #include <limits.h>
 #include "random_access_iterator.hpp"
+#include "reverse_iterator.hpp"
+#include <exception>
 //#include "iterator.hpp"
 ///ZA3IM SAID THAT I SHOULD READ ABOUT DYNAMCI ARRAYS.
 namespace ft
@@ -10,7 +12,7 @@ namespace ft
     class Vector
     {
        
-        public: // may be it should be public;
+        public:
                 typedef T   value_type;
                 typedef Alloc   allocator_type; 
                 typedef value_type& reference;
@@ -19,16 +21,18 @@ namespace ft
                 typedef const value_type* const_pointer;
                 typedef random_access<value_type> iterator; // it is up to me to define it 
                 typedef const random_access<value_type> const_iterator;
-                // some iterators are still messing here;
+                typedef ft::reverse_iterator<iterator>      reverse_iterator;
+                typedef ft::reverse_iterator<const_iterator>      const_reverse_iterator;
+                typedef typename  iterator_traits<iterator>::difference_type      difference_type;
                 typedef size_t size_type;
 
                 // ****************** constructors ************    
-                explicit Vector (const allocator_type& alloc = allocator_type()) // std::allocator<T>& alloc = std::allocator();
-                {
-                    arr_data = NULL;
-                    arr_size = 0;
+                // explicit Vector (const allocator_type& alloc = allocator_type()) // std::allocator<T>& alloc = std::allocator();
+                // {
+                //     arr_data = NULL;
+                //     arr_size = 0;
 
-                }
+                // }
                 explicit Vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): my_allocator(alloc)
                 {
                     arr_size = n;
@@ -39,11 +43,11 @@ namespace ft
                         my_allocator.construct(arr_data, val);
                     }
                 }	
-                template <class InputIterator>
-                Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-                {
+                // template <class InputIterator>
+                // Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+                // {
 
-                }
+                // }
                 Vector (const Vector& x)
                 {
                    *this = x;// seems logic to me cause we already have the '=' overloaded but ....?
@@ -60,7 +64,7 @@ namespace ft
                     this->arr_data = my_allocator.allocate(x.size());
                     for(int i = 0; i < x.size(); i++)
                     {
-                        my_allocator(arr + i, *(x + i));
+                        my_allocator(arr_data + i, *(x + i));// changed from arr to arr_dat, not sure?
                     }
                     return(*this);
                 }
@@ -157,14 +161,17 @@ namespace ft
                 bool empty() const
                 {
                     if(arr_size == 0)
-                        return(true)
+                        return(true);
                     else
-                        return(false)
+                        return(false);
                 }
                 void reserve (size_type n)
                 {
                     if(n > SIZE_MAX)
-                        throw std::lenght_error("error: the new capacity is bigger than MAX_SIZE the Vector can handle");
+                    {
+                        throw("error: the new capacity is bigger than MAX_SIZE the Vector can handle");
+                    }
+                         //std::lenght_error("error: the new capacity is bigger than MAX_SIZE the Vector can handle");
                     try
                     {
                     
@@ -233,14 +240,14 @@ namespace ft
                 {
                     return(arr_data[arr_size - 1]);
                 }
-                value_type* data() noexcept
-                {
-                    return(pointer);
-                }
-                const value_type* data() const noexcept
-                {
-                    return(pointer);
-                }
+                // value_type* data() noexcept  TO BE REMOVED(C++11)
+                // {
+                //     return(pointer);
+                // }
+                // const value_type* data() const noexcept
+                // {
+                //     return(pointer);
+                // }
                 //**************  MODIFIERS  ************
 
 

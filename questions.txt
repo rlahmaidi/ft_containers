@@ -1,1 +1,2 @@
 1- still need  to read a bit about the explicit keyword;
+1 -inline function meaning ?;
