@@ -144,6 +144,6 @@ namespace ft
 		 {
 			return ptr[n];
 		 }
-		friend void	print_pointer(pointer ptr);
+		//friend void	print_pointer(pointer ptr);
     };
 }

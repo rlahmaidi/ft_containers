@@ -67,7 +67,7 @@ namespace ft
                 //*************   iterators    *************
                  iterator begin()
                  {
-
+                    
                  }
                  const_iterator begin() const
                  {
@@ -94,22 +94,6 @@ namespace ft
 
                 }
                 const_reverse_iterator rend() const
-                {
-
-                }
-                const_iterator cbegin() const noexcept
-                {
-
-                }
-                const_iterator cend() const noexcept
-                {
-
-                }
-                const_reverse_iterator crbegin() const noexcept
-                {
-
-                }
-                const_reverse_iterator crend() const noexcept
                 {
 
                 }
