@@ -1,9 +1,10 @@
-#include "test.hpp"
+#include <iostream>
+#include <vector>
+
 
 int main ()
 {
-  box test(10);
-
-  print_a(test);
+  std::vector<int> vec(5,1);
+  std::cout << vec[-3] << std::endl;
   return(0);
 }

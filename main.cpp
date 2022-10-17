@@ -1,13 +1,18 @@
-#include <vector>
-#include "vector.hpp"
+#include<iostream>
+#include<vector>
+using namespace std;
 
-int main ()
+int main()
 {
-    ft::vector <int> first;
-    ft::vector <int> second (10,10);
-    
-    for (int i = 0; i < second.size(); i++)
+    // Create a vector of integers
+    vector<int> vec_of_num{1, 3, 4, 7, 8, 9};
+    // Iterate over a vector in backward direction using
+    // reverse iterators
+    std::vector<int>::reverse_iterator it = vec_of_num.rbegin();
+    while (it != vec_of_num.rend())
     {
-        
+        std::cout<<*it<<", ";
+        it++;
     }
+    return 0;
 }

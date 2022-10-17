@@ -1,17 +1,13 @@
 #pragma once
 #include <iostream>
 #include <limits.h>
+#include "random_access_iterator.hpp"
 //#include "iterator.hpp"
 ///ZA3IM SAID THAT I SHOULD READ ABOUT DYNAMCI ARRAYS.
-// private:
-//         size_type 			_size;
-//         size_type 			_capacity;
-//         pointer 			arr_data;
-//         allocator_type		_alloc;
 namespace ft
 {
     template < class T, class Alloc = std::allocator<T> > 
-    class vector
+    class Vector
     {
        
         public: // may be it should be public;
@@ -21,19 +17,19 @@ namespace ft
                 typedef const value_type& const_reference;
                 typedef value_type* pointer;
                 typedef const value_type* const_pointer;
-                typedef iterator iterator; // it is up to me to define it 
-                typedef const iterator;
+                typedef random_access<value_type> iterator; // it is up to me to define it 
+                typedef const random_access<value_type> const_iterator;
                 // some iterators are still messing here;
                 typedef size_t size_type;
 
                 // ****************** constructors ************    
-                explicit vector (const allocator_type& alloc = allocator_type()) // std::allocator<T>& alloc = std::allocator();
+                explicit Vector (const allocator_type& alloc = allocator_type()) // std::allocator<T>& alloc = std::allocator();
                 {
                     arr_data = NULL;
                     arr_size = 0;
 
                 }
-                explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): my_allocator(alloc)
+                explicit Vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): my_allocator(alloc)
                 {
                     arr_size = n;
                     arr_data = my_allocator.allocate(n);// i may need to define my own allocator and use instead , 
@@ -44,21 +40,21 @@ namespace ft
                     }
                 }	
                 template <class InputIterator>
-                vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+                Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
                 {
 
                 }
-                vector (const vector& x)
+                Vector (const Vector& x)
                 {
                    *this = x;// seems logic to me cause we already have the '=' overloaded but ....?
                 }
                 //******************destructor************
-                ~vector()
+                ~Vector()
                 {
                     // either empty or i will deallocate here;
                 }
                 //************   copy assignement operator   *****
-                vector& operator= (const vector& x)
+                Vector& operator= (const Vector& x)
                 {
                     this->arr_size = x.size();
                     this->arr_data = my_allocator.allocate(x.size());
@@ -184,7 +180,7 @@ namespace ft
                 void reserve (size_type n)
                 {
                     if(n > SIZE_MAX)
-                        throw std::lenght_error("error: the new capacity is bigger than MAX_SIZE the vector can handle");
+                        throw std::lenght_error("error: the new capacity is bigger than MAX_SIZE the Vector can handle");
                     try
                     {
                     
