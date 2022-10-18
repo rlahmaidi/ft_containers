@@ -8,15 +8,15 @@ namespace ft
     template<class T>
     class random_access : public iterator<std::random_access_iterator_tag, T>
     {
-		typedef typename iterator<std::random_access_iterator_tag, T>::difference_type		difference_type;
-		typedef typename iterator<std::random_access_iterator_tag, T>::value_type			value_type;
-		typedef typename iterator<std::random_access_iterator_tag, T>::pointer				pointer;
-		typedef typename iterator<std::random_access_iterator_tag, T>::reference			reference;
-		typedef typename iterator<std::random_access_iterator_tag, T>::iterator_category	iterator_category;
+
+		public:
+			typedef typename iterator<std::random_access_iterator_tag, T>::difference_type		difference_type;
+			typedef typename iterator<std::random_access_iterator_tag, T>::value_type			value_type;
+			typedef typename iterator<std::random_access_iterator_tag, T>::pointer				pointer;
+			typedef typename iterator<std::random_access_iterator_tag, T>::reference			reference;
+			typedef typename iterator<std::random_access_iterator_tag, T>::iterator_category	iterator_category;
 		// perhaps some typdefs are still messing here;
-        private:
-            pointer ptr;
-        public:
+
             random_access(){};
             random_access(const random_access& it)
             {
@@ -27,7 +27,10 @@ namespace ft
                 this->ptr = it.ptr;
                 return(*this);
             }
-            ~random_access();
+            ~random_access()
+			{
+				
+			}
         //*********comparison operators************************
         bool	operator==(random_access const &it)
 		{
@@ -144,6 +147,8 @@ namespace ft
 		 {
 			return ptr[n];
 		 }
+		private:
+            pointer ptr;
 		//friend void	print_pointer(pointer ptr);
     };
 }

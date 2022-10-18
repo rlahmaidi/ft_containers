@@ -3,6 +3,7 @@
 #include <limits.h>
 #include "random_access_iterator.hpp"
 #include "reverse_iterator.hpp"
+#include "iterator_traits.hpp"
 #include <exception>
 //#include "iterator.hpp"
 ///ZA3IM SAID THAT I SHOULD READ ABOUT DYNAMCI ARRAYS.
@@ -23,31 +24,51 @@ namespace ft
                 typedef const random_access<value_type> const_iterator;
                 typedef ft::reverse_iterator<iterator>      reverse_iterator;
                 typedef ft::reverse_iterator<const_iterator>      const_reverse_iterator;
-                typedef typename  iterator_traits<iterator>::difference_type      difference_type;
+                typedef typename  std::ptrdiff_t      difference_type;
                 typedef size_t size_type;
 
-                // ****************** constructors ************    
-                // explicit Vector (const allocator_type& alloc = allocator_type()) // std::allocator<T>& alloc = std::allocator();
-                // {
-                //     arr_data = NULL;
-                //     arr_size = 0;
+                //****************** constructors ************    
+                explicit Vector (const allocator_type& alloc = allocator_type()): my_allocator(alloc)// std::allocator<T>& alloc = std::allocator();
+                {
+                    
+                    arr_data = NULL;
+                    arr_size = 0;
+                    arr_capacity = 0;
 
-                // }
+                }
+
                 explicit Vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): my_allocator(alloc)
                 {
                     arr_size = n;
                     arr_data = my_allocator.allocate(n);// i may need to define my own allocator and use instead , 
                                                     //but only if i'm gonna need it later;
-                    for(int i = 0; i < n; n++)
+                    for(size_t i = 0; i < n; n++)
                     {
-                        my_allocator.construct(arr_data, val);
+                        my_allocator.construct(&arr_data[i], val);
                     }
-                }	
-                // template <class InputIterator>
-                // Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-                // {
+                    arr_capacity = n;
+                }
 
-                // }
+                template <class InputIterator>
+                Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()):my_allocator(alloc)
+                {
+                    // this focking function may be confused with the above one, so the enable if may be needed;
+                    difference_type diff;
+                    random_access   it;
+                    //diff = last - first;
+                    diff = std::distance(first, last);
+                    if(diff < 0)
+                        diff = diff * (-1);
+                    arr_data = my_allocator.allocate(diff);
+                    for(difference_type i = 0; i < diff && first != last; i++)
+                    {
+                        my_allocator.contruct(&arr_data[i], *first);
+                        first++;
+                    }
+                    arr_size = diff;
+                    arr_capacity = diff;
+                }
+
                 Vector (const Vector& x)
                 {
                    *this = x;// seems logic to me cause we already have the '=' overloaded but ....?
@@ -71,35 +92,49 @@ namespace ft
                 //*************   iterators    *************
                  iterator begin()
                  {
-                    
+                    iterator it;
+                    it.ptr = &arr_data[0];
+                    return(iterator);
+                    //l3odama has suggested to add a constructor to rand_acc(pointer) to be constructed
+                    // by a pointer and just do (return(arr_data);) so if that dosen't work ....
                  }
                  const_iterator begin() const
                  {
-
+                    const_iterator const_it;
+                    const_it.ptr = arr_data;
+                    return(const_it);
                  }
                  iterator end()
                  {
-
+                    iterator    it;
+                    it.ptr = arr_data + arr_size;
+                    return(it);
                  }
                  const_iterator end() const
                  {
-
+                    const_iterator    it;
+                    it.ptr = arr_data + arr_size;
+                    return(it);
                  }
                 reverse_iterator rbegin()
                 {
-
+                    reverse_iterator rev_it(end());
+                    return(rev_it);
                 }
                 const_reverse_iterator rbegin() const
                 {
-
+                    const_reverse_iterator rev_it(end());
+                    return(rev_it);
                 }
                 reverse_iterator rend()
                 {
-
+                    reverse_iterator rev_it(begin());
+                    return(rev_it);
                 }
                 const_reverse_iterator rend() const
                 {
-
+                    const_reverse_iterator rev_it(begin());
+                    return(rev_it);
                 }
                 //***********CAPACITY**********
                 size_type size() const
@@ -194,17 +229,18 @@ namespace ft
                         std::cout << "bad alloc caught" << ba.what() << std::endl;
                     }
                 }
-                void shrink_to_fit()
-                {
-                    if(arr_capacity > arr_size)
-                    {
-                        my_allocator.deallocate(&arr_data[n], arr_capacity - n);
-                    }
-                    arr_capacity = arr_size;
-                }
+                // void shrink_to_fit()
+                // {
+                //     if(arr_capacity > arr_size)
+                //     {
+                //         my_allocator.deallocate(&arr_data[n], arr_capacity - n);
+                //     }
+                //     arr_capacity = arr_size;
+                // }
                 //*************  ELEMENTS ACCESS  ***************
                 reference operator[] (size_type n)
                 {
+                    std::cout << "printing from operator[]" << std::endl;
                     return(arr_data[n]);
                 }
                 const_reference operator[] (size_type n) const
@@ -249,10 +285,56 @@ namespace ft
                 //     return(pointer);
                 // }
                 //**************  MODIFIERS  ************
+                template <class InputIterator>
+                void assign (InputIterator first, InputIterator last)
+                {
 
+                }
+                void assign (size_type n, const value_type& val)
+                {
 
+                }
+                void push_back (const value_type& val)
+                {
 
+                }
+                void pop_back()
+                {
 
+                }
+
+                //single element (1)	
+                iterator insert (iterator position, const value_type& val)
+                {
+
+                }
+                //fill (2)	
+                    void insert (iterator position, size_type n, const value_type& val)
+                    {
+
+                    }
+                //range (3)	
+                template <class InputIterator>
+                void insert (iterator position, InputIterator first, InputIterator last)
+                {
+
+                }
+                iterator erase (iterator position)
+                {
+
+                }
+                iterator erase (iterator first, iterator last)
+                {
+
+                }
+                void swap (vector& x)
+                {
+
+                }
+                void clear()
+                {
+                    
+                }
                 private:
                 pointer     arr_data;
                 size_type   arr_size;

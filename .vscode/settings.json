@@ -12,6 +12,14 @@
         "string": "cpp",
         "string_view": "cpp",
         "unordered_map": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "__functional_03": "cpp",
+        "__functional_base": "cpp",
+        "__locale": "cpp",
+        "memory_resource": "cpp",
+        "functional": "cpp",
+        "locale": "cpp",
+        "optional": "cpp",
+        "tuple": "cpp"
     }
 }

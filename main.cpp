@@ -1,18 +1,13 @@
-#include<iostream>
-#include<vector>
-using namespace std;
+#include "random_access_iterator.hpp"
+#include"vector.hpp"
+
 
 int main()
 {
-    // Create a vector of integers
-    vector<int> vec_of_num{1, 3, 4, 7, 8, 9};
-    // Iterate over a vector in backward direction using
-    // reverse iterators
-    std::vector<int>::reverse_iterator it = vec_of_num.rbegin();
-    while (it != vec_of_num.rend())
-    {
-        std::cout<<*it<<", ";
-        it++;
-    }
+    ft::random_access<int>  it;
+    ft::Vector<int> vec(3,2);
+   ft::Vector<int>::reverse_iterator rev;
+    std::cout << vec[1] << std::endl;
+ 
     return 0;
 }

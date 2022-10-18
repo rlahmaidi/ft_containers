@@ -4,7 +4,16 @@
 
 int main ()
 {
-  std::vector<int> vec(5,1);
-  std::cout << vec[-3] << std::endl;
+  try
+  {
+   std::vector<int> vec(4,1);
+   std::cout << vec[1] << std::endl;
+  }
+  catch(const std::length_error& e)
+  {
+    std::cerr << e.what() << '\n';
+  }
+  
+  
   return(0);
 }
