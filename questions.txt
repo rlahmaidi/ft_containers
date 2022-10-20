@@ -1,2 +1,4 @@
 1- still need  to read a bit about the explicit keyword;
 1 -inline function meaning ?;
+3 - every function that have first last iterator should be tested with first > last 
+with reverse iterator and with rand_acces(in mine and in std);
