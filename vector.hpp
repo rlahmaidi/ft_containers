@@ -344,18 +344,26 @@ namespace ft
                 }
 
                 //single element (1)	
-                // iterator insert (iterator position, const value_type& val)
-                // {
-                //     if(arr_capacity == arr_size)
-                //     {
-                //         if(!arr_capacity)
-                //             reserve(1);
-                //         else
-                //             reserve(arr_capacity * 2);
-                //     }
-                    
-                // }
-                // //fill (2)	
+                iterator insert (iterator position, const value_type& val)
+                {
+                    if(arr_capacity == arr_size)
+                    {
+                        if(!arr_capacity)
+                            reserve(1);
+                        else
+                            reserve(arr_capacity * 2);
+                    }
+                    difference_type diff;
+                    diff = std::distance(position, end());
+                    for(difference_type i = arr_size; i > diff ; i--)
+                    {
+                        std::swap(arr_data[i], arr_data[i-1]);
+                    }
+                    my_allocator.construct(&arr_data[diff], val);
+                    arr_size++;
+                    return(iterator(arr_data + diff));
+                }
+                //fill (2)	
                 // void insert (iterator position, size_type n, const value_type& val)
                 // {
 
@@ -368,12 +376,33 @@ namespace ft
                 // }
                 iterator erase (iterator position)
                 {
-                    iterator    tmp_iter;
-                    
+                    difference_type diff;
+                    diff = std::distance(begin(), position);
+
+                    for(size_type i = diff; i < arr_size; i++)
+                    {
+                        my_allocator.construct(&arr_data[i], arr_data[i + 1]);
+                    }
+                    arr_size--;
+                    my_allocator.destroy(&arr_data[arr_size - 1]);    
                 }
                 iterator erase (iterator first, iterator last)
                 {
-
+                    difference_type diff, fl;
+                    diff = std::distance(begin(), first);
+                    fl = std::distance(first, last);
+                    for(difference_type i = diff; i + fl < arr_size; i++)
+                    {
+                        my_allocator.construct(&arr_data[i], arr_data[i + fl]);
+                    }
+                    arr_size -= fl;
+                    for(difference_type i = diff + fl; i < arr_size; i++)
+                    {
+                        my_allocator.destroy(&arr_data[i]);
+                    }
+                    return(arr_data + diff);
+                    //"An invalid position or range causes undefined behavior". form cplus
+                    // so i don't have to check for range or postion validity.
                 }
                 void swap (Vector& x)
                 {
@@ -394,10 +423,15 @@ namespace ft
                     // x = tmp;
                     // why wouldn't this work;
                 }
-                // void clear()
-                // {
-                    
-                // }
+                void clear()
+                {
+                    for(size_type i = 0; i < arr_size; i++)
+                    {
+                        my_allocator.destroy(&arr_data[i]);
+                    }
+                   // my_allocator.deallocate(arr_data, arr_size);
+                    arr_size = 0;
+                }
                 private:
                 pointer     arr_data;
                 size_type   arr_size;
