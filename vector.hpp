@@ -22,8 +22,9 @@ namespace ft
                 typedef const value_type& const_reference;
                 typedef value_type* pointer;
                 typedef const value_type* const_pointer;
-                typedef random_access<value_type> iterator; // it is up to me to define it 
-                typedef const random_access<value_type> const_iterator;
+                typedef ft::random_access<value_type> iterator; // it is up to me to define it 
+                typedef  ft::random_access<const value_type> const_iterator;// hamid said that the value type should be const
+                // if iteratror iterate over int const iterator will iterate over const int;
                 typedef ft::reverse_iterator<iterator>      reverse_iterator;
                 typedef ft::reverse_iterator<const_iterator>      const_reverse_iterator;
                 typedef typename  std::ptrdiff_t      difference_type;

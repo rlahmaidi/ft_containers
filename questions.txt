@@ -13,3 +13,9 @@ with reverse iterator and with rand_acces(in mine and in std);
 i'm putting the const because we can't call a non-const function on a const object
 (const iterator in mamoussa's test), but it shouldn't fucking work ,since we changed a data member(ptr)??
 yet..... it does soldier.
+
+6- still don't know how to test the operator-> in random_access;
+7- when we add a interger to a  pointer why does it move us to the next element pointed
+to by the pointer, is the + overloaded here;
+8 - don't know how to test the const iterator without the vector;
+9 - why can't we pass an iterator to the reverse iterator(only the type)?????
