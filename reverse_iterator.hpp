@@ -44,6 +44,11 @@ namespace ft
                                         // it won't work;
                                         //  i will overload the = and use it here; but test first
                 }
+                reverse_iterator& operator=(const reverse_iterator& rev_it)
+                {
+                    this->reverse_it = rev_it.reverse_it;
+                    return(*this);
+                }
                 iterator_type base() const
                 {
                     iterator_type tmp;
@@ -52,12 +57,15 @@ namespace ft
                 }                         // the ++ should work since it is overloaded in base, but.. test
                 reference operator*() const
                 {
-                    iterator_type   tmp = reverse_it - 1;// but this dosen't work = (--reverse_it)?? why
-                    return(*tmp);
+                    // iterator_type   tmp = reverse_it ;// but this dosen't work = (--reverse_it)?? why
+                    // return(*tmp);
+                    return(*reverse_it);
                 }
                 reverse_iterator operator+ (difference_type n) const
                 {
-                    return(reverse_it - n);
+                    iterator_type  tmp;
+                    tmp = (reverse_it -  n + 1);//for you my lazy memory: i'm adding the 1 , because the constructor will do a -1;
+                    return(reverse_iterator(tmp));
                 }
                 reverse_iterator& operator++()
                 {
@@ -72,13 +80,17 @@ namespace ft
                 }
                 reverse_iterator& operator+= (difference_type n)
                 {
-                    reverse_it.operator+=(n); // reverse_it = reverse_it + n;  should work like this too, .. test;
+                    //reverse_it.operator+=(-n); // reverse_it = reverse_it - n;  should work like this too, .. test;
+                    reverse_it -= n;
+                    std::cout << "printing from +=" << "\n";
                     return(*this);
                 }
                 reverse_iterator operator- (difference_type n) const
                 {
-                    reverse_it.operator+(n);
-                    return(*this);
+                    // reverse_it.operator+(n);
+                    // //reverse_it -= -n;
+                    // return(*this);
+                    return(reverse_iterator(reverse_it - n + 1));
                 }
                 reverse_iterator& operator--()
                 {
@@ -87,13 +99,13 @@ namespace ft
                 }
                 reverse_iterator  operator--(int)
                 {
-                    iterator_type tmp = *this;
+                    reverse_iterator tmp = *this;
                     --(*this);
                     return(tmp);
                 }
-                reverse_iterator& operator-= (difference_type n)
+                reverse_iterator& operator-= (difference_type n) 
                 {
-                    reverse_it.operator+=(n);
+                    reverse_it += n;
                     return(*this);
                 }
                 pointer operator->() const 
@@ -102,8 +114,8 @@ namespace ft
                 }
                 reference operator[] (difference_type n) const
                 {
-                    reverse_it -= n + 1; // since base = rev + 1 , and we want to go back n from rev;
-                    return(*this);
+                     // since base = rev + 1 , and we want to go back n from rev;
+                    return(*(reverse_it - n)); // i will change it with base;
                 }
                 // // **************OPERATOR+*********
                 // template <class Iterator>// THIS  WORKS FOR THE CASE n + obj;
@@ -126,7 +138,8 @@ namespace ft
                 // }
 
         private:
-                iterator_type   reverse_it;
+                iterator_type   reverse_it; // to not be confused again , it point where the rev should;
+                                            // not where the base should
     };
     // should those fuckers be freind?(NOTE: WE DON'T USE ANY PRIVATE MEMBER BELOW)
     // if the below dosen't work, i will declare them friend and do the following:
@@ -193,15 +206,17 @@ namespace ft
     typename reverse_iterator<Iterator>::difference_type n,
     const reverse_iterator<Iterator>& rev_it)
     {
-        return(reverse_iterator<Iterator>(n + rev_it));
+        return(reverse_iterator<Iterator>(rev_it + n));
     }
     //************operator-(rev_it , rev_it)
     template <class Iterator>
-    typename reverse_iterator<Iterator>::difference_type operator- (
+    typename reverse_iterator<Iterator>::difference_type operator-(
     const reverse_iterator<Iterator>& lhs,
     const reverse_iterator<Iterator>& rhs)
     {
-        return(rhs.reverse_it - lhs.reverse_it);
+        return(rhs.base() - lhs.base());// cause the difference betwen their bases is the
+                                        // same as the diff between their rev_it;
+        //return(rhs.reverse_it - lhs.reverse_it);
     }
 }
 

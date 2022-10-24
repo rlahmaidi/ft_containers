@@ -12,12 +12,16 @@ int main () {
   for ( ft::random_access< int> rev_from=rand_from; rev_from!= rand_until; rev_from++)// assignement operator and != and operator++(post)
     std::cout << *rev_from << ' '; // operator*()
   std::cout << '\n';
-  //*****************reverse
+  //*****************iterating reverse iterator***
   ft::reverse_iterator<ft::random_access<int> > rev_from(rand_from);
   ft::reverse_iterator<ft::random_access<int> > rev_until(rand_until);
-  
-
-//****************comparaison operaors*****
+  for(;  rev_until != rev_from; rev_until++)
+  {
+    std::cout << *rev_until << " " ;
+  }
+ std::cout << "\n";
+ rev_until = ft::reverse_iterator<ft::random_access<int> >(rand_until);
+// //****************comparaison operaors*****
 ft::reverse_iterator<ft::random_access<int> > rev1 = ft::reverse_iterator<ft::random_access<int> >();
 rev1 = rev_from ;
 ft::reverse_iterator<ft::random_access<int> > constru_test(rev_from);
@@ -25,7 +29,7 @@ ft::reverse_iterator<ft::random_access<int> > constru_test(rev_from);
 if(rev_from == rev1) // == opeartor
     std::cout << "************    == is working " << std::endl;
 else
-    std::cout << "t***********   hey are not equal " << std::endl;
+    std::cout << "t***********   they are not equal " << std::endl;
 //<  operator 
 if(rev_from < rev_until)
     std::cout << "************   < is working " << std::endl;
@@ -35,10 +39,10 @@ if(rev_until > rev_from)
 // <=  opeartor 
 if(rev_from <= rev1 )
     std::cout << "************** <= is working" << std::endl;
-// >=  opeartor 
+// // >=  opeartor 
 if(rev_until >= rev_from)
     std::cout << "************  >= is working " << std::endl;
-// !=  opeartor 
+// // !=  opeartor 
 if(rev_from != rev1)
     std::cout << " ********** !=  is not working " << std::endl;
 else
@@ -46,27 +50,28 @@ else
 //***************derefferenced as an rvalue and lvalue****
 
 // as an rvalue
-    std::cout << *rev_from << std::endl;
+    std::cout << *(rev_until) << std::endl;
 // as an lvalue
-*rev_from = 1337;
-std::cout << *rev_from << std::endl;
-*rev_from = 10;
-//******************incremant and decrement********//
+*(rev_until) = 1337;
+std::cout << *(rev_until) << std::endl;
+*rev_until = 50;
+// //******************incremant and decrement********//
 
-// ++ (pre)
-++rev_from;
-std::cout << *rev_from << std::endl;
 // -- (pre)
 --rev_from;
 std::cout << *rev_from << std::endl;
-//++ (post)
-rev_from++;
+// ++ (pre)
+--rev_from;
+++rev_from;
 std::cout << *rev_from << std::endl;
-// -- (post)
+//-- (post)
 rev_from--;
 std::cout << *rev_from << std::endl;
+// ++ (post)
+rev_from++;
+std::cout << *rev_from << std::endl;
 // += 
-rev_from += 1;
+rev_from += -1;
 std::cout << *rev_from << std::endl;
 // -=
 rev_from -= 1;
@@ -75,20 +80,17 @@ std::cout << *rev_from << std::endl;
 rev_from = rev_from + 1;
 std::cout << *rev_from << std::endl;
 // operator-(reverse_iterator rev_from)
-ptrdiff_t   diff = rev_until - rev_from;
+ptrdiff_t   diff = rev_until - rev1;
 std::cout << diff << " std::distance " << std::endl;// std::distance(rev_from, rev_until) << std::endl;
 // operator-(int n)
-rev_from = rev_until - 5;
+std::cout << *rev_until << "kdjfkjdkjdkfj"<< std::endl;
+rev_from = rev_until - 4;
 std::cout << *rev_from << std::endl;
 // opeartor []
-std::cout << rev_from[0] << " " << rev_from[1]<< " " << rev_from[2] <<  std::endl;
+std::cout << rev_until[0] << " " << rev_until[1]<< " " << rev_until[2] <<  std::endl;
 // opeartor+(int n, rev_from)
-//rev_from = 4 + rev_from;
+rev_from = 4 + rev_until;
 std::cout << *rev_from << std::endl;
-
-
-
-
 
 return 0;
 }

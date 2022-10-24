@@ -15,7 +15,11 @@ i'm putting the const because we can't call a non-const function on a const obje
 yet..... it does soldier.
 
 6- still don't know how to test the operator-> in random_access;
-7- when we add a interger to a  pointer why does it move us to the next element pointed
+7- when we add a interger to a  pointer why does it move us to the next element pointed √√√√√
 to by the pointer, is the + overloaded here;
 8 - don't know how to test the const iterator without the vector;
 9 - why can't we pass an iterator to the reverse iterator(only the type)?????
+10- either we give the random_access the template parametre or not inside the class 
+it workd, why?
+
+11- non-const lvalue reference to type 'int' cannot bind to a value of unrelated type::REA ABOUT IT;
