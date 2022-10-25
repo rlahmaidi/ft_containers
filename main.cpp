@@ -1,48 +1,32 @@
-// Example: of Constant member function
+#include <iostream>
+#include <vector>
+#include <iterator>
+using namespace std;
+int main()
+{
+    vector<int> v;
+    int i;
  
-// #include<iostream>
-// using namespace std;
+    for (i = 0; i < 10; ++i)
+    {
+        v.push_back(i);
+    }
  
-// class Demo
-// {
-//     int x;
+    /*v contains 0 1 2 3 4 5 6 7 8 9*/
  
-//       public:
-//     Demo(int _x):x(_x)
-//     {
-
-//     }
-     
-//     void set_data(int a) 
-//     {
-//         x -= a;
-//     }
-  
-//      int get_data()  const        //constant member function
-//      {
-//          ++x;            // Error while attempting to modify the data member
-//          return x;
-//      }
-  
-// };
+    std::vector<int>::iterator first;
+    vector<int>::iterator last;
  
+    // first pointing to 0
+    first = v.begin();
  
-// int main()
-// {
-//     const Demo d(12);
-//     d.set_data(10);
-//     cout<<endl<<d.get_data();
+    // last pointing to 5
+    last = v.begin() + 5;
  
-//     return 0;
-//}
-// long multiply(int i, int j) { return i * j; }
-
-// template <class T>
-// typename T::multiplication_result multiply(T t1, T t2)
-// {
-//   return t1 * t2;
-// }
-// int main(void)
-// {
-//   multiply(4,5);
-// }
+    // Calculating no. of elements between first and last
+    int num = std::distance(first, last);
+ 
+    // Displaying num
+    cout << num << "\n";
+    return 0;
+}

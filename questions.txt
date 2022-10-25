@@ -23,3 +23,5 @@ to by the pointer, is the + overloaded here;
 it workd, why?
 
 11- non-const lvalue reference to type 'int' cannot bind to a value of unrelated type::REA ABOUT IT;
+
+12-ft::Vector<int> myvector;// we are not calling any  constructor, is it called explicityly?

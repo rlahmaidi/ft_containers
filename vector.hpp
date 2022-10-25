@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <iterator>
 #include <limits.h>
 #include <iterator>
 #include <vector>
@@ -45,7 +46,7 @@ namespace ft
                     arr_size = n;
                     arr_data = my_allocator.allocate(n);// i may need to define my own allocator and use instead , 
                                                     //but only if i'm gonna need it later;
-                    for(size_t i = 0; i < n; n++)
+                    for(size_t i = 0; i < n; i++)
                     {
                         my_allocator.construct(&arr_data[i], val);
                     }
@@ -84,11 +85,13 @@ namespace ft
                 //************   copy assignement operator   *****
                 Vector& operator= (const Vector& x)
                 {
+                    //std::cout << "from the =" << std::endl;
                     this->arr_size = x.size();
                     this->arr_data = my_allocator.allocate(x.size());
-                    for(int i = 0; i < x.size(); i++)
+                    for(size_type i = 0; i < x.size(); i++)
                     {
-                        my_allocator(arr_data + i, *(x + i));// changed from arr to arr_dat, not sure?
+                        my_allocator.construct(arr_data + i, x.arr_data[i]);// changed from arr to arr_dat, not sure?
+                        //std::cout << " from the for " << i << std::endl;
                     }
                     this->arr_capacity = x.capacity();
                     return(*this);
@@ -96,9 +99,9 @@ namespace ft
                 //*************   iterators    *************
                  iterator begin()
                  {
-                    iterator it;
-                    it.ptr = &arr_data[0];
-                    return(it);
+                    // iterator it;
+                    // it.ptr = &arr_data[0];
+                    return(random_access<T>(&arr_data[0]));
                     //l3odama has suggested to add a constructor to rand_acc(pointer) to be constructed
                     // by a pointer and just do (return(arr_data);) so if that dosen't work ....
                  }
@@ -110,9 +113,9 @@ namespace ft
                  }
                  iterator end()
                  {
-                    iterator    it;
-                    it.ptr = arr_data + arr_size;
-                    return(it);
+                    // iterator    it;
+                    // it.ptr = arr_data + arr_size;
+                    return(random_access<T>(arr_data + arr_size));
                  }
                  const_iterator end() const
                  {
@@ -153,14 +156,16 @@ namespace ft
                 {
                     if(n < arr_size)
                     {
-                        for(int i = n; n < arr_size; i++)
+                        std::cout << n << "size " << arr_size << "capa " << arr_capacity << '\n';
+                        for(size_type i = n; i < arr_size; i++)
                             my_allocator.destroy(&arr_data[i]);
+                        std::cout << "she got here" << '\n';
                         my_allocator.deallocate(&arr_data[n], arr_size - n);
-                        arr_size = n;
+                        std::cout << "won't show up as i expect" << '\n';                        arr_size = n;
                     }
                     else if(n > arr_size && n <= arr_capacity)
                     {
-                        for(int i = arr_size; i < n; i++)
+                        for(size_type i = arr_size; i < n; i++)
                         {
                             my_allocator.construct(&arr_data[i], val);
                         }
@@ -172,12 +177,12 @@ namespace ft
                         {
                             pointer tmp_arr;
                             tmp_arr = my_allocator.allocate(n);
-                            for(int i = 0; i < arr_size; i++)
+                            for(size_type i = 0; i < arr_size; i++)
                             {
                                 my_allocator.construct(&tmp_arr[i], arr_data[i]);
                                 my_allocator.destroy(&arr_data[i]);
                             }
-                            for(int i = arr_size; i < n; i++)
+                            for(size_type i = arr_size; i < n; i++)
                             {
                                 my_allocator.construct(&tmp_arr[i], val);
                                 my_allocator.destroy(&arr_data[i]);
@@ -213,18 +218,22 @@ namespace ft
                          //std::lenght_error("error: the new capacity is bigger than MAX_SIZE the Vector can handle");
                     try
                     {
+                        //std::cout << "from reseve " << std::endl;
                     
                         if(n > arr_capacity)
                         {
                             pointer tmp_arr;
                             tmp_arr = my_allocator.allocate(n);
-                            for(int i = 0; i < arr_size; i++)
+                            for(size_type i = 0; i < arr_size; i++)
                             {
                                 my_allocator.construct(&tmp_arr[i], arr_data[i]);// when will we construct the element above arr_size????;
                                 my_allocator.destroy(&arr_data[i]);
                             }
                             my_allocator.deallocate(arr_data,arr_capacity);
                             arr_data = tmp_arr;
+                            // std::cout << "i'm comparing arr_data and tmp_arr";
+                            // std::cout << arr_data[0]<< " " << tmp_arr[0] << "\n";
+                            // std::cout << arr_data[1]<< " " << tmp_arr[1] << "\n";
                             arr_capacity = n;
                         }
                     }
@@ -244,7 +253,7 @@ namespace ft
                 //*************  ELEMENTS ACCESS  ***************
                 reference operator[] (size_type n)
                 {
-                    std::cout << "printing from operator[]" << std::endl;
+                    //std::cout << "printing from operator[]" << std::endl;
                     return(arr_data[n]);
                 }
                 const_reference operator[] (size_type n) const
