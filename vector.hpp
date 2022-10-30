@@ -5,7 +5,7 @@
 #include <iterator>
 #include <vector>
 #include <exception>
-//#include "iterators/random_access_iterator.hpp"
+#include "iterators/random_access_iterator.hpp"
 #include "iterators/reverse_iterator.hpp"
 #include "iterators/iterator_traits.hpp"
 #include "utils/enable_if.hpp"
@@ -25,10 +25,10 @@ namespace ft
                 typedef const value_type& const_reference;
                 typedef value_type* pointer;
                 typedef const value_type* const_pointer;
-              //  typedef ft::random_access<value_type> iterator; // it is up to me to define it 
-                //typedef  ft::random_access<const value_type> const_iterator;// hamid said that the value type should be const
-                typedef pointer iterator;
-                typedef pointer const_iterator;
+               typedef ft::random_access<value_type> iterator; // it is up to me to define it 
+                typedef  ft::random_access<const value_type> const_iterator;// hamid said that the value type should be const
+              //  typedef pointer iterator;
+               // typedef pointer const_iterator;
                 // if iteratror iterate over int const iterator will iterate over const int;
                 typedef ft::reverse_iterator<iterator>      reverse_iterator;
                 typedef ft::reverse_iterator<const_iterator>      const_reverse_iterator;
@@ -438,7 +438,7 @@ namespace ft
                             else 
                                 reserve(arr_capacity * 2);
                         }
-                        
+
                         // {
                         //         iterator it;
                         //         for (it = this->begin() ;it< this->end(); it++)
@@ -475,6 +475,8 @@ namespace ft
                 //fill (2)	
                 void insert (iterator position, size_type n, const value_type& val)
                 {
+                    difference_type diff;
+                    diff = abs(std::distance(begin(), position));
                     arr_size += n; 
                     if(!arr_capacity)
                         reserve(1);
@@ -483,15 +485,13 @@ namespace ft
                             reserve(arr_capacity * 2);// there is sill a bug here 
                             // if the arr_size + n > arr_capacity * 2;
                     }  
-                    difference_type diff;
                     //difference_type diff_end;
-                    diff = abs(std::distance(begin(), position));
                     //diff_end  = end() - position;
-                    size_type j = 0;
+                    
                     for(difference_type i = arr_size - 1 ; i >= diff; i--)
                     {// because we are moving n element from the arr;
                         my_allocator.construct(&arr_data[i + n], arr_data[i]);
-                        j++;
+                        
                     }
                     for(difference_type i = diff; n > 0; i++)
                     {
@@ -500,15 +500,43 @@ namespace ft
                     }
                 }
                 //range (3)	
-                // template <class InputIterator>    void insert (iterator position, InputIterator first, InputIterator last,
-                // enable_if<!is_integral<InputIterator>, InputIterator>::type *usless = 0)
-                // {// hi future rachid(the explanation you gonna forget): if is_integral returned true we will get false above
-                //     // which means our type won't be difined and so the compiler will face an error  recognizing the last argument
-                //     // and eventually dropping this signature of the function candidate.
-                //     // in other case type will defined and function will considered as a candiate(the winning one of course)
-                //     // and we won't use that dummy parametre .
+                template <class InputIterator>    void insert (iterator position, InputIterator first, InputIterator last,typename
+                ft::enable_if< !ft::is_integral<InputIterator>::value >::type *usless = 0)
+                {// hi future rachid(the explanation you gonna forget): if is_integral returned true we will get false above
+                    // which means our type won't be difined and so the compiler will face an error  recognizing the last argument
+                    // and eventually dropping this signature of the function candidate.
+                    // in other case type will defined and function will considered as a candiate(the winning one of course)
+                    // and we won't use that dummy parametre .
+                    (void)usless;
+                    difference_type diff;
+                    diff = abs(std::distance(begin(), position));
+                    difference_type n = last - first;
+                    arr_size += n; //wouldn't it be a broblem to add size_type to difference_type;
+                    if(!arr_capacity)
+                        reserve(1);
+                    if(arr_capacity <= arr_size + n)
+                    {
+                            reserve(arr_capacity * 2);// there is sill a bug here 
+                            // if the arr_size + n > arr_capacity * 2;
+                    }  
                     
-                // }
+                    for(difference_type i = arr_size - 1 ; i >= diff; i--)
+                    {
+                        my_allocator.construct(&arr_data[i + n], arr_data[i]);
+                        
+                    }
+                    for(difference_type i = diff; n > 0 && first != last; i++)
+                    {
+                        my_allocator.construct(&arr_data[i], *first);
+                        n--;
+                        first++;
+                    }
+                    
+                }
+                allocator_type get_allocator() const
+                {
+                    return(my_allocator);
+                }
 
                 private:
                 pointer     arr_data;

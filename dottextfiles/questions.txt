@@ -27,3 +27,6 @@ it workd, why?
 12-ft::Vector<int> myvector;// we are not calling any  constructor, is it called explicityly?
 13- a test case of enable_if in both insert and the constructor?
 14- reread about the compilation flag?;
+ 15- why can we pass InputIterator instead of iterator in same function and it works perfect , 
+ is just bacause a random_access is also InputIterator??
+ 16 - still need to look for an enable if case and understand it clearly;
