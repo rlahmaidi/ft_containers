@@ -1,32 +1,27 @@
+// Static assertion using #error directive
 #include <iostream>
-#include <vector>
-#include <iterator>
-using namespace std;
+#include  <type_traits>
+
+template <bool, class T = void> 
+struct enable_if 
+{};
+
+template <class T> 
+struct enable_if<true, T> 
+{ 
+  typedef T type; 
+};
+template <class T>
+typename enable_if<is_arithmetic<T>::value , T>::type
+foo(T t)
+{
+  // ...
+  return t;
+}
+template <class T>
+T foo(T t, typename enable_if<is_arithmetic<T>::value >::type* dummy = 0);
+
 int main()
 {
-    vector<int> v;
-    int i;
- 
-    for (i = 0; i < 10; ++i)
-    {
-        v.push_back(i);
-    }
- 
-    /*v contains 0 1 2 3 4 5 6 7 8 9*/
- 
-    std::vector<int>::iterator first;
-    vector<int>::iterator last;
- 
-    // first pointing to 0
-    first = v.begin();
- 
-    // last pointing to 5
-    last = v.begin() + 5;
- 
-    // Calculating no. of elements between first and last
-    int num = std::distance(first, last);
- 
-    // Displaying num
-    cout << num << "\n";
-    return 0;
+    
 }

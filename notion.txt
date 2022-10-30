@@ -1,0 +1,24 @@
+ Static variables in a Function: When a variable is declared as static,
+ space for it gets allocated for the lifetime of the program. Even if 
+ the function is called multiple times, space for the static variable 
+ is allocated only once and the value of variable in the previous call 
+ gets carried through the next function call. This is useful for 
+ implementing coroutines in C/C++ or any other application where 
+ previous state of function needs to be stored.
+
+ Static variables in a class: As the variables declared as static are 
+ initialized only once as they are allocated space in separate static 
+ storage so, the static variables in a class are shared by the objects. 
+ There can not be multiple copies of same static variables for different 
+ objects. Also because of this reason static variables can not be initialized using 
+ constructors.
+
+ a static variable in a class can only be initialized outside of the class def like this : 
+ calssname::name_of_static = 1;
+
+-static variables can't be initialized using constructors , because we can't create multiple versions of it;
+
+
+Each instantiation of class template has its own copy of member static variables.
+
+ -https://www.geeksforgeeks.org/templates-and-static-variables-in-c/

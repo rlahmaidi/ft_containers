@@ -4,10 +4,12 @@
 #include <limits.h>
 #include <iterator>
 #include <vector>
-#include "random_access_iterator.hpp"
-#include "reverse_iterator.hpp"
-#include "iterator_traits.hpp"
 #include <exception>
+//#include "iterators/random_access_iterator.hpp"
+#include "iterators/reverse_iterator.hpp"
+#include "iterators/iterator_traits.hpp"
+#include "utils/enable_if.hpp"
+#include "utils/is_integral.hpp"
 //#include "iterator.hpp"
 ///ZA3IM SAID THAT I SHOULD READ ABOUT DYNAMCI ARRAYS.
 namespace ft
@@ -23,8 +25,10 @@ namespace ft
                 typedef const value_type& const_reference;
                 typedef value_type* pointer;
                 typedef const value_type* const_pointer;
-                typedef ft::random_access<value_type> iterator; // it is up to me to define it 
-                typedef  ft::random_access<const value_type> const_iterator;// hamid said that the value type should be const
+              //  typedef ft::random_access<value_type> iterator; // it is up to me to define it 
+                //typedef  ft::random_access<const value_type> const_iterator;// hamid said that the value type should be const
+                typedef pointer iterator;
+                typedef pointer const_iterator;
                 // if iteratror iterate over int const iterator will iterate over const int;
                 typedef ft::reverse_iterator<iterator>      reverse_iterator;
                 typedef ft::reverse_iterator<const_iterator>      const_reverse_iterator;
@@ -32,9 +36,9 @@ namespace ft
                 typedef size_t size_type;
 
                 //****************** constructors ************    
-                explicit Vector (const allocator_type& alloc = allocator_type()): my_allocator(alloc)// std::allocator<T>& alloc = std::allocator();
+                explicit Vector (const allocator_type& alloc = allocator_type()):  my_allocator(alloc)// std::allocator<T>& alloc = std::allocator();
                 {
-                    
+                   
                     arr_data = NULL;
                     arr_size = 0;
                     arr_capacity = 0;
@@ -52,26 +56,28 @@ namespace ft
                     }
                     arr_capacity = n;
                 }
-
-                // template <class InputIterator>
-                // Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()):my_allocator(alloc)
-                // {
-                //     // this focking function may be confused with the above one, so the enable if may be needed;
-                //     difference_type diff;
-                //     random_access<T>   it;
-                //     //diff = last - first;
-                //     diff = std::distance(first, last);
-                //     if(diff < 0)
-                //         diff = diff * (-1);
-                //     arr_data = my_allocator.allocate(diff);
-                //     for(difference_type i = 0; i < diff && first != last; i++)
-                //     {
-                //         my_allocator.contruct(&arr_data[i], *first);
-                //         first++;
-                //     }
-                //     arr_size = diff;
-                //     arr_capacity = diff;
-                // }
+        //vector (InputIterator first, typename enable_if<Type<typename std::iterator_traits<InputIterator>::iterator_category>::val, InputIterator>::type last, const Allocator& alloc = Allocator())
+                template <class InputIterator>
+		        Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), 
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type *f = NULL) : my_allocator(alloc) //(first, last)
+                {    
+                    (void ) f;   	
+                    difference_type diff;
+                    //+//random_access<T>   it;
+                    iterator it;
+                    //diff = last - first;
+                    diff = std::distance(first, last);
+                    if(diff < 0)
+                        diff = diff * (-1);
+                    arr_data = my_allocator.allocate(diff);
+                    for(difference_type i = 0; i < diff && first != last; i++)
+                    {
+                        my_allocator.contruct(&arr_data[i], *first);
+                        first++;
+                    }
+                    arr_size = diff;
+                    arr_capacity = diff;
+                }
 
                 Vector (const Vector& x)
                 {
@@ -101,26 +107,29 @@ namespace ft
                  {
                     // iterator it;
                     // it.ptr = &arr_data[0];
-                    return(random_access<T>(&arr_data[0]));
+                    return(iterator(&arr_data[0]));
                     //l3odama has suggested to add a constructor to rand_acc(pointer) to be constructed
                     // by a pointer and just do (return(arr_data);) so if that dosen't work ....
                  }
                  const_iterator begin() const
                  {
-                    const_iterator const_it;
-                    const_it.ptr = arr_data;
+                    //const_iterator const_it;
+                    const_iterator const_it = arr_data;
+                    //+//const_it.ptr = arr_data;
+                    
                     return(const_it);
                  }
                  iterator end()
                  {
                     // iterator    it;
                     // it.ptr = arr_data + arr_size;
-                    return(random_access<T>(arr_data + arr_size));
+                    return(iterator(arr_data + arr_size ));
                  }
                  const_iterator end() const
                  {
                     const_iterator    it;
-                    it.ptr = arr_data + arr_size;
+                    //+//it.ptr = arr_data + arr_size ;
+                    it = arr_data + arr_size;
                     return(it);
                  }
                 reverse_iterator rbegin()
@@ -295,7 +304,8 @@ namespace ft
                 void assign (InputIterator first, InputIterator last)
                 {
                     difference_type diff;
-                    diff = std::distance(first,last);
+                    //diff = std::distance(first,last);
+                    diff = last - first;
                     if(diff < 0)// i need to make sure of this if????
                         diff *= (-1); 
                     
@@ -353,60 +363,30 @@ namespace ft
                         }
                 }
 
-                //single element (1)	
-                iterator insert (iterator position, const value_type& val)
-                {
-                    if(arr_capacity == arr_size)
-                    {
-                        if(!arr_capacity)
-                            reserve(1);
-                        else
-                            reserve(arr_capacity * 2);
-                    }
-                    difference_type diff;
-                    diff = std::distance(position, end());
-                    for(difference_type i = arr_size; i > diff ; i--)
-                    {
-                        std::swap(arr_data[i], arr_data[i-1]);
-                    }
-                    my_allocator.construct(&arr_data[diff], val);
-                    arr_size++;
-                    return(iterator(arr_data + diff));
-                }
-                //fill (2)	
-                // void insert (iterator position, size_type n, const value_type& val)
-                // {
-
-                // }
-                // //range (3)	
-                // template <class InputIterator>
-                // void insert (iterator position, InputIterator first, InputIterator last)
-                // {
-
-                // }
                 iterator erase (iterator position)
                 {
                     difference_type diff;
-                    diff = std::distance(begin(), position);
+                    diff = abs(std::distance(begin(), position)); // this
 
                     for(size_type i = diff; i < arr_size; i++)
                     {
                         my_allocator.construct(&arr_data[i], arr_data[i + 1]);
                     }
                     arr_size--;
-                    my_allocator.destroy(&arr_data[arr_size - 1]);    
+                    my_allocator.destroy(&arr_data[arr_size - 1]);
+                    return(arr_data + diff);
                 }
                 iterator erase (iterator first, iterator last)
                 {
                     difference_type diff, fl;
-                    diff = std::distance(begin(), first);
-                    fl = std::distance(first, last);
-                    for(difference_type i = diff; i + fl < arr_size; i++)
+                    diff = abs(std::distance(begin(), first));// i'm no't sure about the abs ;
+                    fl = abs(std::distance(first, last));// i'm not sure about the abs;
+                    for(size_type i = diff; i + fl < arr_size; i++)
                     {
                         my_allocator.construct(&arr_data[i], arr_data[i + fl]);
                     }
                     arr_size -= fl;
-                    for(difference_type i = diff + fl; i < arr_size; i++)
+                    for(size_type i = diff + fl; i < arr_size; i++)
                     {
                         my_allocator.destroy(&arr_data[i]);
                     }
@@ -442,6 +422,94 @@ namespace ft
                    // my_allocator.deallocate(arr_data, arr_size);
                     arr_size = 0;
                 }
+                iterator insert (iterator position, const value_type& val)
+                {
+                    difference_type diff  = abs(position -  begin());
+                        // pointer p = position;
+                        // pointer b = arr_data;
+                        // size_t diff = (int *)p - (int *)b;    // SA3ADAT ZA3IM SIGNATURE: WON'T BE DELETED EVER;
+
+                       // std::cout << "Niya " <<diff << std::endl;
+
+                        if(arr_capacity == arr_size)
+                        {
+                            if(!arr_capacity)
+                                reserve(1);
+                            else 
+                                reserve(arr_capacity * 2);
+                        }
+                        
+                        // {
+                        //         iterator it;
+                        //         for (it = this->begin() ;it< this->end(); it++)
+                        //             std::cout << ' ' << *it << " "<< &*it << std::endl;
+                        // }   
+                       //+// difference_type diff  = abs(position -  begin());
+                       //size_t diff = static_cast<int*>(position) - static_cast<int*>(arr_data);
+
+                      //  std::cout << "Niya " <<diff << std::endl;
+
+                    // std::cerr << "[cd Rays] " << diff << " "<< &(*position)  << " " << arr_data << std::endl;
+                        //std::cerr << "sidi ziad " << &*(this->begin()) << " " << arr_data << std::endl; 
+                        
+                        for(difference_type i = arr_size; i > diff; i--)
+                        {// REM :arr_size is the lenght of the segement and diff is the distace form position
+                            //std::swap(arr_data[i], arr_data[diff - 1]);
+                            
+                            my_allocator.construct(&arr_data[i], arr_data[i - 1]);
+                        }
+                        
+                        my_allocator.construct(&arr_data[diff], val);
+                        arr_size++;
+
+                        return(iterator(arr_data + diff));
+                    
+                    /*  pointer p = position;
+                      pointer b = arr_data;
+                      size_t dist = (int *)p - (int *)b;
+                      std::cout << "Niya " <<dist << std::endl;
+
+                    return (position + val);*/
+                }
+        
+                //fill (2)	
+                void insert (iterator position, size_type n, const value_type& val)
+                {
+                    arr_size += n; 
+                    if(!arr_capacity)
+                        reserve(1);
+                    if(arr_capacity <= arr_size + n)
+                    {
+                            reserve(arr_capacity * 2);// there is sill a bug here 
+                            // if the arr_size + n > arr_capacity * 2;
+                    }  
+                    difference_type diff;
+                    //difference_type diff_end;
+                    diff = abs(std::distance(begin(), position));
+                    //diff_end  = end() - position;
+                    size_type j = 0;
+                    for(difference_type i = arr_size - 1 ; i >= diff; i--)
+                    {// because we are moving n element from the arr;
+                        my_allocator.construct(&arr_data[i + n], arr_data[i]);
+                        j++;
+                    }
+                    for(difference_type i = diff; n > 0; i++)
+                    {
+                        my_allocator.construct(&arr_data[i], val);
+                        n--;
+                    }
+                }
+                //range (3)	
+                // template <class InputIterator>    void insert (iterator position, InputIterator first, InputIterator last,
+                // enable_if<!is_integral<InputIterator>, InputIterator>::type *usless = 0)
+                // {// hi future rachid(the explanation you gonna forget): if is_integral returned true we will get false above
+                //     // which means our type won't be difined and so the compiler will face an error  recognizing the last argument
+                //     // and eventually dropping this signature of the function candidate.
+                //     // in other case type will defined and function will considered as a candiate(the winning one of course)
+                //     // and we won't use that dummy parametre .
+                    
+                // }
+
                 private:
                 pointer     arr_data;
                 size_type   arr_size;

@@ -1,0 +1,2 @@
+1 -resize still got a problem when tryin to resize to a lower size;
+2- in erase i added abs to std::distance and i'm not sure .. test (abs(std::distance(begin(), first)));

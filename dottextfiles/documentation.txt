@@ -1,0 +1,59 @@
+1-functions that differ only in their return type cannot be overloaded(return type deosen't
+ play any role,there should be different argument).
+
+2- Both function overloading and templates are examples of polymorphism features of OOP. 
+Function overloadingis used when multiple functions do quite similar (not identical) operations, 
+templates are used when multiple functions do identical operations.
+
+3-when a function is doing the same thing for different it is not efficient to right
+different code for each,so we use function template instead.
+
+4- template specialization example:
+    // A generic sort function
+template <class T>
+void sort(T arr[], int size)
+{
+    // code to implement Quick Sort
+}
+ 
+// Template Specialization: A function
+// specialized for char data type
+template <>
+void sort<char>(char arr[], int size)
+{
+    // code to implement counting sort
+}
+
+5- Exception specification
+Older code may contain dynamic exception specifications. They are now deprecated in C++, 
+but still supported. A dynamic exception specification follows the declaration of a function,
+ appending a throw specifier to it. For example:
+
+1
+double myfunction (char param) throw (int);
+
+This declares a function called myfunction, which takes one argument of type char and returns a value of type double.
+ If this function throws an exception of some type other than int, the function calls std::unexpected instead 
+ of looking for a handler or calling std::terminate.
+
+If this throw specifier is left empty with no type, this means that std::unexpected is called for any exception. 
+Functions with no throw specifier (regular functions) never call std::unexpected, but follow the normal path of 
+looking for their exception handler.
+
+1
+2
+int myfunction (int param) throw(); // all exceptions call unexpected
+int myfunction (int param);         // normal exception handling 
+
+6-za3im's said that i should read about dynamic arrays.
+
+
+
+7- in c++98 you can allocate a block of memory by an allocator of type int an deallocate it by an
+ allocator of type double.
+
+8-reinterpret_cast is a type of casting operator used in C++. 
+It is used to convert a pointer of some data type into a pointer of another data type, 
+even if the data types before and after conversion are different.
+It does not check if the pointer type and data pointed by the pointer is same or not.
+

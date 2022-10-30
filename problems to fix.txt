@@ -1,1 +1,0 @@
-1 -resize still got a problem when tryin to resize to a lower size;

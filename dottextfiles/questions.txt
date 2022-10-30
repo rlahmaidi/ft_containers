@@ -1,0 +1,29 @@
+1- still need  to read a bit about the explicit keyword;
+1 -inline function meaning ?;
+3 - every function that have first last iterator should be tested with first > last 
+with reverse iterator and with rand_acces(in mine and in std);
+4 - read about const in different before and aftera a type, it is withly used;
+
+5-      random_access operator-(difference_type const &n) const
+        {
+			ptr -= n;
+            return (*this);
+			
+        }
+i'm putting the const because we can't call a non-const function on a const object
+(const iterator in mamoussa's test), but it shouldn't fucking work ,since we changed a data member(ptr)??
+yet..... it does soldier.
+
+6- still don't know how to test the operator-> in random_access;
+7- when we add a interger to a  pointer why does it move us to the next element pointed √√√√√
+to by the pointer, is the + overloaded here;
+8 - don't know how to test the const iterator without the vector;
+9 - why can't we pass an iterator to the reverse iterator(only the type)?????
+10- either we give the random_access the template parametre or not inside the class 
+it workd, why?
+
+11- non-const lvalue reference to type 'int' cannot bind to a value of unrelated type::REA ABOUT IT;
+
+12-ft::Vector<int> myvector;// we are not calling any  constructor, is it called explicityly?
+13- a test case of enable_if in both insert and the constructor?
+14- reread about the compilation flag?;
