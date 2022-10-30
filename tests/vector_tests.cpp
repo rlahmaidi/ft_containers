@@ -345,21 +345,21 @@ int main ()
         // std::cout << '\n';
     }
     {// INSERT 
-        ft::Vector<int> myvector (3,100);
-        ft::Vector<int>::iterator it;
-        // std::cout << "myvector contains:";
-        for (it = myvector.begin() ;it<myvector.end(); it++)
-            std::cout << ' ' << *it;
-        std::cout << "\n";
+        // ft::Vector<int> myvector (3,100);
+        // ft::Vector<int>::iterator it;
+    //     // std::cout << "myvector contains:";
+    //     for (it = myvector.begin() ;it<myvector.end(); it++)
+    //         std::cout << ' ' << *it;
+    //     std::cout << "\n";
 
         
-        it = myvector.begin() + 1;
-        //std::cerr << "molay [cd Rays] " << it - myvector.begin() <<" "<< sizeof(ptrdiff_t) <<"++" << &*myvector.begin() << std::endl;
-        it = myvector.insert ( it , 200);
-       // std::cerr <<__LINE__ <<  "molay [cd Rays] " << &*myvector.begin() << std::endl;
-        for (it = myvector.begin() ;it<myvector.end(); it++)
-            std::cout << ' ' << *it;
-        std::cout << "\n";
+    //     it = myvector.begin() + 1;
+    //     //std::cerr << "molay [cd Rays] " << it - myvector.begin() <<" "<< sizeof(ptrdiff_t) <<"++" << &*myvector.begin() << std::endl;
+    //     it = myvector.insert ( it , 200);
+    //    // std::cerr <<__LINE__ <<  "molay [cd Rays] " << &*myvector.begin() << std::endl;
+    //     for (it = myvector.begin() ;it<myvector.end(); it++)
+    //         std::cout << ' ' << *it;
+    //     std::cout << "\n";
         //  std::cout << *it  <<" " << &*it << std::endl;
         //  std::cout << *it  <<" " << &*myvector.begin() << std::endl;
 
@@ -371,32 +371,32 @@ int main ()
         //     i++ ;
         // }
 
-        it = myvector.begin() + 1;
-        myvector.insert (it,2,300);
-        std::cout << "myvector contains:\n";
-        for (it = myvector.begin() ;it<myvector.end(); it++)
-            std::cout << "\t " << *it ;//<< " "<< &*it << std::endl;
-        std::cout << '\n';
+        // it = myvector.begin() + 1;
+        // myvector.insert (it,2,300);
+        // std::cout << "myvector contains:\n";
+        // for (it = myvector.begin() ;it<myvector.end(); it++)
+        //     std::cout << "\t " << *it ;//<< " "<< &*it << std::endl;
+        // std::cout << '\n';
 
-        // "it" no longer valid, get a new one:
-         it = myvector.begin();
-        std::vector<int> anothervector (2,400);
-        myvector.insert (it+2,anothervector.begin(),anothervector.end());
-        std::cout << "myvector contains:\n";
-        for (it = myvector.begin() ;it<myvector.end(); it++)
-            std::cout << "\t " << *it ;//<< " "<< &*it << std::endl;
-        std::cout << '\n';
+        // // "it" no longer valid, get a new one:
+        //  it = myvector.begin();
+        // std::vector<int> anothervector (2,400);
+        // myvector.insert (it+2,anothervector.begin(),anothervector.end());
+        // std::cout << "myvector contains:\n";
+        // for (it = myvector.begin() ;it<myvector.end(); it++)
+        //     std::cout << "\t " << *it ;//<< " "<< &*it << std::endl;
+        // std::cout << '\n';
 
-        int myarray [] = { 501,502,503 };
-        myvector.insert (myvector.begin(), myarray, myarray+3);
-        it = myvector.end() ;
-        it--;
-        std::cout << *it << std::endl;
+        // int myarray [] = { 501,502,503 };
+        // myvector.insert (myvector.begin(), myarray, myarray+3);
+        // it = myvector.end() ;
+        // it--;
+        // std::cout << *it << std::endl;
         
-        std::cout << "myvector contains:\n";
-        for (it = myvector.begin() ;it<myvector.end(); it++)
-            std::cout << "\t " << *it ;//<< " "<< &*it << std::endl;
-        std::cout << '\n';
+        // std::cout << "myvector contains:\n";
+        // for (it = myvector.begin() ;it<myvector.end(); it++)
+        //     std::cout << "\t " << *it ;//<< " "<< &*it << std::endl;
+        // std::cout << '\n';
      }
     {
     //     std::vector<int> myvector (3,100);
@@ -423,24 +423,54 @@ int main ()
     //     std::cout << '\n';
     }
     {// GET ALLOCATOR
-          ft::Vector<int> myvector;
-        int * p;
-        unsigned int i;
+        //   ft::Vector<int> myvector;
+        // int * p;
+        // unsigned int i;
 
-        // allocate an array with space for 5 elements using vector's allocator:
-        p = myvector.get_allocator().allocate(5);
+        // // allocate an array with space for 5 elements using vector's allocator:
+        // p = myvector.get_allocator().allocate(5);
 
-        // construct values in-place on the array:
-        for (i=0; i<5; i++) myvector.get_allocator().construct(&p[i],i);
+        // // construct values in-place on the array:
+        // for (i=0; i<5; i++) myvector.get_allocator().construct(&p[i],i);
 
-        std::cout << "The allocated array contains:";
-        for (i=0; i<5; i++) std::cout << ' ' << p[i];
-        std::cout << '\n';
+        // std::cout << "The allocated array contains:";
+        // for (i=0; i<5; i++) std::cout << ' ' << p[i];
+        // std::cout << '\n';
 
-        // destroy and deallocate:
-        for (i=0; i<5; i++) myvector.get_allocator().destroy(&p[i]);
-        myvector.get_allocator().deallocate(p,5);
+        // // destroy and deallocate:
+        // for (i=0; i<5; i++) myvector.get_allocator().destroy(&p[i]);
+        // myvector.get_allocator().deallocate(p,5);
 
+    }
+    {// == OPERATOR
+        // ft::Vector<int> v1(3,100);
+        // ft::Vector<int> v2(3,200);
+        // if(v1 == v2)
+        //     std::cout << " your vectors are equal\n";
+        // else
+        //     std::cout << " your vectors are not equal\n";
+        ft::Vector<int> foo (5,200);   // three ints with a value of 100
+        ft::Vector<int> bar (5,100);   // two ints with a value of 200
+
+        if (foo==bar) std::cout << "foo and bar are equal\n";
+         if (foo!=bar) std::cout << "foo and bar are not equal\n";
+         if (foo< bar) std::cout << "foo is less than bar\n";
+        if (foo> bar) std::cout << "foo is greater than bar\n";
+         if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+         if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+         std::cout << "\n\n\n";
+
+    }
+    {
+        std::vector<int> foo (5,200);   // three ints with a value of 100
+        std::vector<int> bar (5,100);   // two ints with a value of 200
+
+        if (foo==bar) std::cout << "std: foo and bar are equal\n";
+        if (foo!=bar) std::cout << "std: foo and bar are not equal\n";
+        if (foo< bar) std::cout << "std: foo is less than bar\n";
+        if (foo> bar) std::cout << "std: foo is greater than bar\n";
+        if (foo<=bar) std::cout << "std: foo is less than or equal to bar\n";
+        if (foo>=bar) std::cout << "std: foo is greater than or equal to bar\n";
     }
   return 0;     
 }

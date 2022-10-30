@@ -25,7 +25,7 @@ namespace ft
                 typedef const value_type& const_reference;
                 typedef value_type* pointer;
                 typedef const value_type* const_pointer;
-               typedef ft::random_access<value_type> iterator; // it is up to me to define it 
+                typedef ft::random_access<value_type> iterator; // it is up to me to define it 
                 typedef  ft::random_access<const value_type> const_iterator;// hamid said that the value type should be const
               //  typedef pointer iterator;
                // typedef pointer const_iterator;
@@ -113,9 +113,9 @@ namespace ft
                  }
                  const_iterator begin() const
                  {
-                    //const_iterator const_it;
+                    
                     const_iterator const_it = arr_data;
-                    //+//const_it.ptr = arr_data;
+                    //const_it.ptr = arr_data;
                     
                     return(const_it);
                  }
@@ -545,4 +545,102 @@ namespace ft
                 size_type       arr_capacity;
 
     };
+
+                //(1)	
+                template <class T, class Alloc>
+                bool operator== (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+                {
+                    if(lhs.size() != rhs.size())
+                        return(false);
+                    for(size_t i = 0; i < lhs.size(); i++)
+                    {
+                        if(lhs[i] != rhs[i])
+                            return(false);
+
+                    }
+                    return(true);
+                    
+                }
+                //(2)	
+                template <class T, class Alloc>
+                bool operator!= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+                {
+                    if(lhs.size() != rhs.size())
+                        return(true);
+                    for(size_t i = 0; i < lhs.size(); i++)
+                    {
+                        if(lhs[i] != rhs[i])
+                            return(true);
+
+                    }
+                    return(false);
+                }
+                // //(3)	
+                template <class T, class Alloc>
+                bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+                {// implementation based on lexicographical_compare;
+                    size_t i = 0;
+                    for(; i < lhs.size() ; i++)
+                    {
+                        if(i == rhs.size() || rhs[i] < lhs[i])// try the same thing with operator* ins of []
+                            return(false);
+                        else if(lhs[i] < rhs[i])
+                            return(true);
+
+                    }
+                    return(i != rhs.size());
+                }
+                // //(4)	
+                 template <class T, class Alloc>
+                bool operator<= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+                {
+                    size_t i = 0;
+                    for(; i < lhs.size() ; i++)
+                    {
+                       
+                        if(i == rhs.size() || rhs[i] < lhs[i])// try the same thing with operator* ins of []
+                            return(false);
+                        else if(lhs[i] < rhs[i])
+                            return(true);
+
+                    }
+                    if(rhs.size() >= lhs.size())
+                        return(true);
+                    else
+                        return(false);
+                }
+                // //(5)	
+                template <class T, class Alloc>
+                bool operator>  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+                {
+                    size_t i = 0;
+                    for(; i < rhs.size() ; i++)
+                    {
+                        if(i == lhs.size() || rhs[i] > lhs[i])// try the same thing with operator* ins of []
+                            return(false);
+                        else if(lhs[i] > rhs[i])
+                            return(true);
+
+                    }
+                    return(i != lhs.size());
+                }
+                // //(6)	
+                template <class T, class Alloc>
+                bool operator>= (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+                {
+                    size_t i = 0;
+                    for(; i < rhs.size() ; i++)
+                    {
+                       
+                        if(i == lhs.size() || rhs[i] > lhs[i])// try the same thing with operator* ins of []
+                            return(false);
+                        else if(lhs[i] > rhs[i])
+                            return(true);
+
+                    }
+                    if(rhs.size() <= lhs.size())
+                        return(true);
+                    else
+                        return(false);
+                }
 }

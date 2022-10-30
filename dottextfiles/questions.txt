@@ -30,3 +30,12 @@ it workd, why?
  15- why can we pass InputIterator instead of iterator in same function and it works perfect , 
  is just bacause a random_access is also InputIterator??
  16 - still need to look for an enable if case and understand it clearly;
+ 17- i need to ask za3im about this one he changed:
+ const_iterator begin() const
+ {
+    
+    const_iterator const_it = arr_data;(const_it = pointer) how is that;
+    //const_it.ptr = arr_data;
+    
+    return(const_it);
+ }
