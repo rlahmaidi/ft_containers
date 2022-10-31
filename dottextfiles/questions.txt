@@ -39,3 +39,13 @@ it workd, why?
     
     return(const_it);
  }
+ 18- 
+                  const_iterator end() const
+                 {
+                    const_iterator    it;
+                    //+//it.ptr = arr_data + arr_size ;
+                    it = arr_data + arr_size;// za3im did it , why can we assign a pointerr to an iterator;
+                    return(it);
+                 }
+
+19-

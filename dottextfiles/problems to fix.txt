@@ -1,2 +1,11 @@
-1 -resize still got a problem when tryin to resize to a lower size;
+1 -resize still got a problem when tryin to resize to a lower size;  FIXED;
 2- in erase i added abs to std::distance and i'm not sure .. test (abs(std::distance(begin(), first)));
+3 INSERT METHOD (SINGLE ELEMENT);
+4- front method;
+5 at method         FIXED;
+6- segfault after pop_pack method
+7 - segfault (insert method fill)
+8 -  segfault (insert method range)
+9 front method (WA);
+10 - there is still a data member in reverse iterartor that is pubplic , it should be private and the 
+operators that are defined outside the calsse will be freinds;

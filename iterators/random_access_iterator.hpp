@@ -3,6 +3,7 @@
 //#include "vector.hpp"
 #include <iterator>
 #include "iterator_traits.hpp"
+#define IMHERE ;//std::cout  << "DeBug " << __LINE__ << "Function " << __PRETTY_FUNCTION__ << "FILE " << __FILE__ << std::endl;
 
 namespace ft
 {
@@ -24,6 +25,7 @@ namespace ft
 			}
             random_access(const random_access& it)
             {
+				IMHERE
                 this->ptr = it.ptr;
             }
 			random_access(pointer	_ptr)
@@ -33,6 +35,7 @@ namespace ft
 			}
              random_access&  operator=( const random_access  & it) // i removed the <T>
             {
+				IMHERE
                 ptr = it.ptr;
                 return(*this);
             }
@@ -41,10 +44,9 @@ namespace ft
 				
 			}
 
-			//copied from youssef ssabbah
 			operator random_access<const value_type>() const
             {
-                return random_access<const value_type>(ptr);  // DON'T WITHER I NEED IT OR NOT;
+                return random_access<const value_type>(ptr);  
             }
         //*********comparison operators************************
         bool	operator==(random_access const &it) const
@@ -152,32 +154,7 @@ namespace ft
 			return(this->ptr - it1.ptr);// perhaps it won't work too;
 		}
 
-		// //to test
-		// template <class Iterator>
-		// reverse_iterator<Iterator>
-		// operator+(
-		// typename reverse_iterator<Iterator>::difference_type n,
-		// const reverse_iterator<Iterator>& x);
-        //     iterator_op operator+(int nb) const
-        //     {
-        //         // std::cout << "test" << std::endl;                
-        //         iterator_op it(*this);
-        //         add(it._ptr, nb);
-        //         return (it);
-        //     }
-        //       iterator_op operator-(int nb) const
-        //     {
-        //         iterator_op it(*this);
-        //         sub(it._ptr, nb);
-        //         return (it);
-        //     }
-		// // end to test
-
-		//friend random_access operator+(int nb, const random_access& it); // we can't define it outside the class def because random_access neets the T 
-        // {													// which is not defined outside the class def;
-        //     random_access newIt(it);// to not return a refference , but i still need to grasp itd more;
-        //     return (newIt += nb);
-        // }
+	
         random_access operator-(difference_type const &n) const
         {
 			return(random_access(ptr - n));
@@ -193,14 +170,12 @@ namespace ft
 		 }
 		private:
             pointer ptr;
-		//friend void	print_pointer(pointer ptr);
+	
     };
 
 	template<class T>
-	random_access<T>	operator+(int nb, const random_access<T>& it) // we can't define it outside the class def because random_access neets the T 
-    {													// which is not defined outside the class def;
-        // random_access newIt(it);// to not return a refference , but i still need to grasp itd more;
-        // return (newIt += nb);
+	random_access<T>	operator+(int nb, const random_access<T>& it) 
+    {
 		return(it + nb);
     }
 }
