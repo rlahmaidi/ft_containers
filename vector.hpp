@@ -85,7 +85,16 @@ namespace ft
                 //******************destructor************
                 ~Vector()
                 {
-                    
+                    pointer         arrb = &*begin();
+                    pointer         arre = &*end();
+                    while (arrb != arre)
+                    {
+                        my_allocator.destroy(arrb);
+                        arrb++;
+                    }
+                    my_allocator.deallocate(&*begin(), arr_size);
+                    arr_size = 0;
+                    arr_capacity = 0;
                 }
                 //************   copy assignement operator   *****
                 Vector& operator= (const Vector& x)

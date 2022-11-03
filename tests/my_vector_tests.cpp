@@ -756,9 +756,9 @@ int main ()
             ft_v.insert(ft_v.begin() + 15, 70, "hello");
           
 
-            str.erase();
+            str.clear();
             std::cout << "std str size is " << str.size() << std::endl;
-            ft_str.erase();
+            ft_str.clear();
             std::cout << " my size is " << ft_str.size() << std::endl;
             s = v.size();
             ft_s = ft_v.size();
@@ -767,7 +767,7 @@ int main ()
             for (size_t i = 0; i < v.size(); ++i)
                 str += v[i];
             std::cout << " kirir kiri i " << v[10]<< "\n";
-            for (size_t i = 0; i < ft_v.size() - 1; ++i)
+            for (size_t i = 0; i < ft_v.size() ; ++i)
                 ft_str += ft_v[i];
             std::cout << "for dubug message 4" << "\n";
             std::cout << "for dubug message " << "\n";
