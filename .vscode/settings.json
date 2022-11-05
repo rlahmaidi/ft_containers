@@ -64,6 +64,9 @@
         "utility": "cpp",
         "iomanip": "cpp",
         "deque": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "__tree": "cpp",
+        "map": "cpp",
+        "queue": "cpp"
     }
 }

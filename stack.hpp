@@ -49,12 +49,24 @@ namespace ft
                 {
                     my_container.pop_back();
                 }
+                template <class T1, class container>
+                friend bool operator== (const stack<T1,container>& lhs, const stack<T1,container>& rhs);
+                template <class T1, class container>
+                friend bool operator!= (const stack<T1,container>& lhs, const stack<T1,container>& rhs);
+                template <class T1, class container>
+                friend bool operator< (const stack<T1,container>& lhs, const stack<T1,container>& rhs);
+                template <class T1, class container>
+                friend bool operator> (const stack<T1,container>& lhs, const stack<T1,container>& rhs);
+                template <class T1, class container>
+                friend bool operator<= (const stack<T1,container>& lhs, const stack<T1,container>& rhs);
+                template <class T1, class container>
+                friend bool operator>= (const stack<T1,container>& lhs, const stack<T1,container>& rhs);
 
         private:
                 container_type  my_container;
     };
 
-    template <class T, class Container>
+  template <class T, class Container>
   bool operator== (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
   {
     return(lhs.my_container == rhs.my_container);

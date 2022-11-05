@@ -3,7 +3,7 @@
 //#include "random_access_iterator.hpp"
 #include "iterator_traits.hpp"
 
-#define IMHERE ; //std::cout  << "DeBug " << __LINE__ << "Function " << __PRETTY_FUNCTION__ << "FILE " << __FILE__ << std::endl;
+//#define IMHERE ; //std::cout  << "DeBug " << __LINE__ << "Function " << __PRETTY_FUNCTION__ << "FILE " << __FILE__ << std::endl;
 
 namespace ft
 {
@@ -51,7 +51,7 @@ typename iterator_traits<Iterator>::reference>
         IMHERE
         return (current);
     }
-    reference operator*() const
+    reference operator*() const 
     {
         IMHERE
         Iterator tmp = current;

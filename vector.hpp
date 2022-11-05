@@ -80,7 +80,14 @@ namespace ft
 
                 Vector (const Vector& x)
                 {
-                   *this = x;// seems logic to me cause we already have the '=' overloaded but ....?
+                   //+//*this = x;// seems logic to me cause we already have the '=' overloaded but ....?
+                    this->arr_size = x.size();
+                    this->arr_data = my_allocator.allocate(x.size());
+                    for(size_type i = 0; i < x.size(); i++)
+                    {
+                        my_allocator.construct(arr_data + i, x.arr_data[i]);
+                    }
+                    this->arr_capacity = x.capacity();
                 }
                 //******************destructor************
                 ~Vector()
@@ -99,6 +106,19 @@ namespace ft
                 //************   copy assignement operator   *****
                 Vector& operator= (const Vector& x)
                 {
+                    if (this->arr_data)
+                        {
+                            pointer         arrb = &*begin();
+                            pointer         arre = &*end();
+                            while (arrb != arre)
+                            {
+                                my_allocator.destroy(arrb);
+                                arrb++;
+                            }
+                            my_allocator.deallocate(&*begin(), arr_size);
+                            arr_size = 0;
+                            arr_capacity = 0;
+                        }
                     this->arr_size = x.size();
                     this->arr_data = my_allocator.allocate(x.size());
                     for(size_type i = 0; i < x.size(); i++)
@@ -441,18 +461,7 @@ namespace ft
                                 reserve(arr_capacity * 2);
                         }
 
-                        // {
-                        //         iterator it;
-                        //         for (it = this->begin() ;it< this->end(); it++)
-                        //             std::cout << ' ' << *it << " "<< &*it << std::endl;
-                        // }   
-                       //+// difference_type diff  = abs(position -  begin());
-                       //size_t diff = static_cast<int*>(position) - static_cast<int*>(arr_data);
-
-                      //  std::cout << "Niya " <<diff << std::endl;
-
-                    // std::cerr << "[cd Rays] " << diff << " "<< &(*position)  << " " << arr_data << std::endl;
-                        //std::cerr << "sidi ziad " << &*(this->begin()) << " " << arr_data << std::endl; 
+                    
                         
                         for(difference_type i = arr_size; i > diff; i--)
                         {// REM :arr_size is the lenght of the segement and diff is the distace form position
@@ -477,29 +486,24 @@ namespace ft
                 //fill (2)	
                 void insert (iterator position, size_type n, const value_type& val)
                 {
-                    //std::cout << " we are inside second insert\n";
+                    std::cout << " we are inside second insert\n";
                     difference_type diff;
                     if(arr_size == 0)
                         diff = 0;
                     else
                         diff = abs(std::distance(begin(), position));
                      
-                    // if(!arr_capacity)
-                    //     reserve(1);
-                    // if(arr_capacity <= arr_size + n)
-                    // {
-                    //         reserve(arr_capacity * 2);// there is sill a bug here 
-                    //         // if the arr_size + n > arr_capacity * 2;
-                    // }  
+                    if (arr_size + n > arr_capacity)
+                    {
+                    if (arr_size + n <= arr_capacity * 2)
+                        reserve(arr_capacity * 2);
+                    else
+                        reserve(arr_size + n);
+                    }
 
-                        if(!arr_capacity || arr_capacity < arr_size + n )
-                        {
-                            reserve(arr_size + n);
-                        }
-                     arr_size += n;
-                    // std::cout << "arr size is " << arr_size << "  capcity is" << arr_capacity << "\n";
-                    //difference_type diff_end;
-                    //diff_end  = end() - position;
+                    
+                     
+
                     if(arr_size != 0)
                     {
                         for(difference_type i = arr_size - 1 ; i >= diff; i--)
@@ -508,6 +512,7 @@ namespace ft
                             
                         }
                     }
+                    arr_size += n;
                     for(difference_type i = diff; n > 0; i++)
                     {
                         my_allocator.construct(&arr_data[i], val);
@@ -515,6 +520,7 @@ namespace ft
                     }
                    
                 }
+
                 //range (3)	
                 template <class InputIterator>    void insert (iterator position, InputIterator first, InputIterator last,typename
                 ft::enable_if< !ft::is_integral<InputIterator>::value >::type *usless = 0)
@@ -532,10 +538,14 @@ namespace ft
                         diff = abs(std::distance(begin(), position));
                     difference_type n = last - first;
                     
-                     if(arr_capacity < arr_size + n )
-                        {
-                            reserve(arr_size + n);
-                        }
+                    if (arr_size + n > arr_capacity)
+                    {
+                    if (arr_size + n <= arr_capacity * 2)
+                        reserve(arr_capacity * 2);
+                    else
+                        reserve(arr_size + n);
+                    }
+
                     if(arr_size != 0)
                     {
                         for(difference_type i = arr_size - 1 ; i >= diff; i--)
@@ -544,13 +554,14 @@ namespace ft
                             
                         }
                     }
+                    arr_size += n; 
                     for(difference_type i = diff; n > 0 && first != last; i++)
                     {
                         my_allocator.construct(&arr_data[i], *first);
                         n--;
                         first++;
                     }
-                    arr_size += n; //wouldn't it be a broblem to add size_type to difference_type;
+                    //wouldn't it be a broblem to add size_type to difference_type;
                 }
                 allocator_type get_allocator() const
                 {
