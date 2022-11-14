@@ -79,11 +79,12 @@ Node *insertNode(Node *node, int key) {
     node->left = insertNode(node->left, key);
   else if (key > node->key)
     node->right = insertNode(node->right, key);
-  else
-    return node;
+  //else
+    //return node;
 
   // Update the balance factor of each node and
   // balance the tree
+  std::cout << "we are balancing inside insert" << std::endl;
   node->height = 1 + max(height(node->left),
                height(node->right));
   int balanceFactor = getBalanceFactor(node);

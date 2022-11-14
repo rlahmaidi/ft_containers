@@ -1,0 +1,8 @@
+1- why do we need an inputiterator in constructor, and form 
+where will we get it since we don't have ours defined??
+MY ANSWER: I THINK A RANDOM ACCESS AND A BIDERCTIRONEL ARE ALSO AN inputiterator;
+
+2- iterator category and iterator_tag meaning and use????????
+
+
+

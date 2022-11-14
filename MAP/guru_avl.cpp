@@ -36,7 +36,6 @@ public:
                return p->right->height + 1;
             }
             return 0;
-
     }
 
     int bf(struct node *n){
@@ -123,9 +122,9 @@ public:
         }
         else{
             if(data < r->data)
-            r->left = insert(r->left,data);
+                r->left = insert(r->left,data);
             else
-            r->right = insert(r->right,data);
+                r->right = insert(r->right,data);
         }
 
         r->height = calheight(r);
@@ -142,47 +141,53 @@ public:
         else if(bf(r)==2 && bf(r->left)==-1){
             r = lrrotation(r);
         }        
-
         return r;
 
         }
 
-    void levelorder_newline(){
-        if (this->root == NULL){
-            cout<<"\n"<<"Empty tree"<<"\n";
-            return;            
-        }
-        levelorder_newline(this->root);
+void printTree(node *root, string indent, bool last) {
+  if (root != nullptr) {
+    cout << indent;
+    if (last) {
+      cout << "R----";
+      indent += "   ";
+    } else {
+      cout << "L----";
+      indent += "|  ";
     }
+    cout << root->data << endl;
+    printTree(root->left, indent, false);
+    printTree(root->right, indent, true);
+  }
 
-    void levelorder_newline(struct node *v){
-        queue <struct node *> q;
-        struct node *cur;
-        q.push(v);
-        q.push(NULL);      
+    // void levelorder_newline(struct node *v){
+    //     queue <struct node *> q;
+    //     struct node *cur;
+    //     q.push(v);
+    //     q.push(NULL);      
 
-        while(!q.empty()){
-            cur = q.front();
-            q.pop();
-            if(cur == NULL && q.size()!=0){
-                cout<<"\n";
+    //     while(!q.empty()){
+    //         cur = q.front();
+    //         q.pop();
+    //         if(cur == NULL && q.size()!=0){
+    //             cout<<"\n";
                 
-                q.push(NULL);
-                continue;
-            }
-            if(cur!=NULL){
-                cout<<" "<<cur->data;
+    //             q.push(NULL);
+    //             continue;
+    //         }
+    //         if(cur!=NULL){
+    //             cout<<" "<<cur->data;
 
-                if (cur->left!=NULL){
-                q.push(cur->left);
-                }
-                if (cur->right!=NULL){
-                    q.push(cur->right);
-                }
-            }
+    //             if (cur->left!=NULL){
+    //             q.push(cur->left);
+    //             }
+    //             if (cur->right!=NULL){
+    //                 q.push(cur->right);
+    //             }
+    //         }
             
             
-        }
+    //     }
     }
  
     struct node * deleteNode(struct node *p,int data){
@@ -194,7 +199,7 @@ public:
             return NULL;
         }
 
-        struct node *t;
+        //struct node *t;
         struct node *q;
         if(p->data < data){
             p->right = deleteNode(p->right,data);
@@ -214,7 +219,7 @@ public:
                 p->right = deleteNode(p->right,q->data);
             }
         }
-
+        p->height = calheight(p);
         if(bf(p)==2 && bf(p->left)==1){ p = llrotation(p); }                  
         else if(bf(p)==2 && bf(p->left)==-1){ p = lrrotation(p); }
         else if(bf(p)==2 && bf(p->left)==0){ p = llrotation(p); }
@@ -262,7 +267,7 @@ int main(){
         switch (c)
         {
         case 1:
-            b.levelorder_newline();
+            b.  printTree(b.root, "", true);
             // to print the tree in level order
             break;
                   

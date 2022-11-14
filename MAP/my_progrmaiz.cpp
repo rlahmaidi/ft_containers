@@ -22,5 +22,15 @@ Node *newNode(int key)
 
 Node *insertNode(Node *node, int key)
 {
-
+    if(node == NULL)
+        return(newNode(key));
+    else if(key > node->key)
+        insertNode(node->right, key);
+    else if(key < node->key)
+        insertNode(node->left, key);
+    
+}
+Node *deleteNode(Node *root, int key)
+{
+    
 }
