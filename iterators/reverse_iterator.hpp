@@ -4,7 +4,7 @@
 #include "iterator_traits.hpp"
 
 //#define IMHERE ; //std::cout  << "DeBug " << __LINE__ << "Function " << __PRETTY_FUNCTION__ << "FILE " << __FILE__ << std::endl;
-
+// token from page 520 in iso+iec
 namespace ft
 {
 
