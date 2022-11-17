@@ -4,5 +4,7 @@ MY ANSWER: I THINK A RANDOM ACCESS AND A BIDERCTIRONEL ARE ALSO AN inputiterator
 
 2- iterator category and iterator_tag meaning and use????????
 
+3- why do we take the pointer and refference defintion from allocator??;
 
-
+4- rebind??? (begginnig of avll_tree);
+5- pragma once vs ifndef;

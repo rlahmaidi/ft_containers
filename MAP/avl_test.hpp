@@ -1,12 +1,13 @@
-#pragma once
+#ifndef AVL_TREE_HPP
+#define AVL_TREE_HPP
 
 #include <iostream>
 #include <functional>
 #include <memory>
 #include <stdexcept>
 #include <algorithm>
-
 //#include "../utilities/utilities.hpp"
+#include "../utils/pair.hpp"
 
 namespace ft
 {
@@ -23,12 +24,8 @@ namespace ft
         // allcator_type _alloc;
 
         node(const T &data):data(data),height(0),left(NULL),right(NULL),parent(NULL){};
-        ~node() 
-        {
-
-        }
-        node() 
-        {
+        ~node() {};
+        node() {
                 this->left = NULL;
                 this->right = NULL;
                 this->height = 0;
@@ -42,17 +39,17 @@ namespace ft
             this->left = rhs.left;
             this->right = rhs.right;
             this->parent = rhs.parent;
-        }
+        };
 
         bool operator== (const node& rhs)
         {
             return (this->data == rhs.data);
-        }
+        };
 
         bool operator!= (const node& rhs)
         {
             return !(*this == rhs);
-        }
+        };
         node &operator=(const node& rhs)
         {
             // this->data = rhs.data;
@@ -62,7 +59,7 @@ namespace ft
             this->right = rhs.right;
             this->parent = rhs.parent;
             return *this;
-        }
+        };
 
         node *operator=(const node* rhs)
         {
@@ -73,7 +70,7 @@ namespace ft
             this->right = rhs->right;
             this->parent = rhs->parent;
             return this;
-        }
+        };
 
     };
 
@@ -88,6 +85,8 @@ namespace ft
         typedef typename T::second_type	mapped_type;
         // typedef Allconode				alloc_node;
         typedef typename Alloc::template rebind<node_type>::other alloc_node;
+        
+        
         node_type		*_root;
 
         private:
@@ -182,7 +181,7 @@ namespace ft
         node_type *find_next(key_type data, node_type *p)//find the node_type in the tree
         {
             node_type *here;
-            if(exist(p, data))
+            if(search(p,data) != NULL/*exist(p, data)*/)
             {
                 // std::cout << "the node_type is exist" << std::endl;
                 here = search(p, data);
@@ -222,7 +221,7 @@ namespace ft
         node_type *find_prev(key_type data, node_type *p)//find the node_type in the tree
         {
             node_type *here;
-            if(exist(p, data))
+            if(search(p,data) != NULL/*exist(p, data)*/)
             {
                 here = search(p, data);
                 if(here->left)
@@ -276,10 +275,10 @@ namespace ft
             return (p);
         }
 
-        bool exist(key_type data) const
-        {
-            return exist(_root, data);
-        }
+        // bool exist(key_type data) const
+        // {
+        //     return exist(_root, data);
+        // }
 
         node_type *upper_bound(key_type data) const {
 
@@ -317,7 +316,7 @@ namespace ft
 
             node_type *ret = NULL;
             node_type *node = _root;
-            if (exist(node, data))
+            if (search(node,data) != NULL/*exist(node, data)*/)
             {
                 node_type *ret = search(data);
                 return ret;
@@ -338,7 +337,7 @@ namespace ft
 
             node_type *ret = NULL;
             node_type *node = _root;
-            if (exist(node, data))
+            if (search(node,data) != NULL/*exist(node, data)*/)
             {
                 node_type *ret = search(data);
                 return ret;
@@ -355,46 +354,46 @@ namespace ft
             return ret;
         }
 
-        bool exist(T data) const
-        {
-            return exist_(_root, data);
-        }
+        // bool exist(T data) const
+        // {
+        //     return exist_(_root, data);
+        // }
 
-        bool exist_(node_type *p, T data) const
-        {
-            if(p == NULL)
-                return false;
-            if(p->data.first == data.first)
-                return true;
-            int cmp = _compare(data.first, p->data.first);
-            if(cmp)
-                return exist_(p->left, data);
-            else
-                return exist_(p->right, data);
-        }
+        // bool exist_(node_type *p, T data) const
+        // {
+        //     if(p == NULL)
+        //         return false;
+        //     if(p->data.first == data.first)
+        //         return true;
+        //     int cmp = _compare(data.first, p->data.first);
+        //     if(cmp)
+        //         return exist_(p->left, data);
+        //     else
+        //         return exist_(p->right, data);
+        // }
 
-        bool exist(node_type* p, key_type data) const//check if the data is in the tree
-        {
+        // bool exist(node_type* p, key_type data) const//check if the data is in the tree
+        // {
             
-            if(p == NULL)
-            {
-                return false;
-            }
-            // std::cout << data << "||"<< p->data.first << std::endl;
-            if(p->data.first == data)
-                return true;
+        //     if(p == NULL)
+        //     {
+        //         return false;
+        //     }
+        //     // std::cout << data << "||"<< p->data.first << std::endl;
+        //     if(p->data.first == data)
+        //         return true;
             
-            int cmp = _compare(data, p->data.first);
-            // std::cout << cmp << std::endl;
-            // if(p->data > data)
-            if(cmp && p->left)
-                return exist(p->left, data);
-            else if (p->right)
-                return exist(p->right, data);
-            else
-                return false;
-            // else
-        }
+        //     int cmp = _compare(data, p->data.first);
+        //     // std::cout << cmp << std::endl;
+        //     // if(p->data > data)
+        //     if(cmp && p->left)
+        //         return exist(p->left, data);
+        //     else if (p->right)
+        //         return exist(p->right, data);
+        //     else
+        //         return false;
+        //     // else
+        // }
 
         node_type* search(key_type data) const
         {
@@ -568,7 +567,7 @@ namespace ft
         
         bool insert_(T data)
         {
-            if (exist(_root, data.first))
+            if (search(_root,data.first) != NULL/*exist(_root, data.first)*/)
                 return false;
             this->_root = this->insert_(_root, data);
             this->_size++;
@@ -577,7 +576,7 @@ namespace ft
         }
         node_type* insert(T data)
         {
-            if (exist(_root, data.first))
+            if (search(_root,data.first) != NULL/*exist(_root, data.first)*/)
                 return search(data.first);
             this->_root = this->insert_(_root, data);
             this->_size++;
@@ -654,7 +653,7 @@ namespace ft
 
         int delete_(key_type key)
         {
-            if (!exist(_root, key))
+            if (search(_root, key) == NULL/*!exist(_root, key)*/)
                 return (0);
             _root = delete_(_root, key);
             _size--;
@@ -776,3 +775,4 @@ namespace ft
         }
     };
 }
+#endif

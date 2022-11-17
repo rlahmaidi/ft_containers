@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 namespace ft
 {
@@ -18,16 +19,20 @@ namespace ft
                 }
                 //copy (2)	
                 template<class U, class V> 
-                pair (const pair<U,V>& pr)
+                pair ( const pair<U,V>& pr):first(pr.first),second(pr.second)
                 {
-                    first = pr.first;
-                    second = pr.second;
+                    // i'm assigning here , not copying and that cause me
+                    // a 3 hours of headach, lesson :
+                    // do not use assignement operator in copy constructors again
+                    // first = pr.first;
+                    // second = pr.second;
                 }
                 //initialization (3)	
-                pair (const first_type& a, const second_type& b)
+                pair (const first_type& a, const second_type& b):first(a), second(b)
                 {
-                    first = a;
-                    second = b;
+                    // same here;
+                    // first = a;
+                    // second = b;
                 }
                 pair& operator= (const pair& pr)
                 {
@@ -40,11 +45,11 @@ namespace ft
 
                 
     };
-template <class T1,class T2>
-  pair<T1,T2> make_pair (T1 x, T2 y)
-  {
-    return ( pair<T1,T2>(x,y) );
-  }
+                template <class T1,class T2>
+                pair<T1,T2> make_pair (T1 x, T2 y)
+                {
+                    return ( pair<T1,T2>(x,y) );
+                }
                 template <class T1, class T2>
                 bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
                 {
