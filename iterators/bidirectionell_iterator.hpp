@@ -154,6 +154,10 @@ namespace ft
               return(tmp);
             }
 
+            node_type   getNode(void) const
+            {
+                return(_node);
+            }
 
             private:
                     //const tree::node_type *node;

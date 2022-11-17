@@ -165,12 +165,11 @@ namespace ft
 
             mapped_type& operator[] (const key_type& k)
             {
-                mapped_type *tmp = tree.search_second(k);
-                if(tmp == NULL)
-                {
-                    //insert(k) and construct second  with default const of second;
-                }
-                return(*tmp);
+         
+                value_type  val(k,mapped_type());
+                node_type    *tmp_node = tree.insert(val);
+
+                return(tmp_node->data.second);
             }
             //********** MODIFIERS ******
             //single element (1)	
@@ -227,6 +226,23 @@ namespace ft
                     insert(*first);
                     ++last;
                 }
+            }
+            //(1)
+            void erase (iterator position)
+            {
+                tree.delete_(position.getNode()->data.first);
+            }
+
+            //(2)	
+            size_type erase (const key_type& k)
+            {
+
+            }
+
+           // (3)	
+            void erase (iterator first, iterator last)
+            {
+
             }
 
 
