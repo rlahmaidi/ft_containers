@@ -651,7 +651,7 @@ namespace ft
             std::swap(this->_alloc_node, other._alloc_node);//to check
         }
 
-        int delete_(key_type key)
+        int delete_(key_type key)// for erase (2)
         {
             if (search(_root, key) == NULL/*!exist(_root, key)*/)
                 return (0);

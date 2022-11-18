@@ -236,16 +236,22 @@ namespace ft
             //(2)	
             size_type erase (const key_type& k)
             {
-
+                return(tree.delete_(k));
             }
 
            // (3)	
             void erase (iterator first, iterator last)
             {
-
+                // size_type i = 0;
+                // iterator tmp = first;
+                // while(i < 10)
+                // {
+                //     ++tmp;
+                //     erase(tmp);
+                //     std::cout << "for the " << i << " time " << std::endl;
+                //     i++;
+                // }
             }
-
-
 
             private:
                     tree_type tree;

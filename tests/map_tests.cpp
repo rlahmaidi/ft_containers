@@ -120,19 +120,42 @@ int main ()
         mymap['d']=40;
         mymap['e']=50;
         mymap['f']=60;
-        ft::map<char,int>::iterator it = mymap.begin();
+        mymap['p'] = 70;
+        mymap['q']=80;
+        mymap['r'] = 90;
+        mymap['z'] = 100;
+        //ft::map<char,int>::iterator it = mymap.begin();
 
         //it=mymap.find('b');
-        mymap.erase (it);                   // erasing by iterator
+        //mymap.erase (it);                   // erasing by iterator
 
         //mymap.erase ('c');                  // erasing by key
+        //mymap.erase ('b');                  // erasing by key
 
-        //it=mymap.find ('e');
-       // mymap.erase ( it, mymap.end() );    // erasing by range
+        ft::map<char,int>::iterator it = mymap.begin()  ;
+       mymap.erase ( mymap.begin(), mymap.end());    // erasing by range
 
         // show content:
         for (it=mymap.begin(); it!=mymap.end(); ++it)
           std::cout << it->first << " => " << it->second << '\n';
+    }
+    {
+        // std::map<char,int> mymap;
+        // std::map<char,int>::iterator it;
+
+        // // insert some values:
+        // mymap['a']=10;
+        // mymap['b']=20;
+        // mymap['c']=30;
+        // mymap['d']=40;
+        // mymap['e']=50;
+        // mymap['f']=60;
+
+        // it=mymap.find('b');
+        // mymap.erase (it);                   // erasing by iterator
+
+        // std::cout << mymap.erase ('c') << std::endl; 
+
     }
     
     return 0;
