@@ -164,17 +164,22 @@ namespace ft
                     node_type		    _node;
 			              node_type			_root;
 
-                    node_type max_of_root(node_type _root)
+                    node_type max_of_root(node_type root)
                     {
-                      node_type tmp = _root;
+                      node_type tmp = root;
                       if(tmp == NULL)
                         return(NULL);
-                      while(tmp->right != NULL )
+                      while( tmp != NULL && tmp->right != NULL )
                         tmp = tmp->right;
                       return(tmp);
                     }
-
-        };
+    // node_type max(node_type root){
+    //             node_type tmp = root;
+    //             while (tmp != NULL && tmp->right != NULL) // max value
+    //                     tmp = tmp->right;
+    //             return tmp;
+    //         }
+         };
 }
 
 // template < typename Value_type, typename node_type>

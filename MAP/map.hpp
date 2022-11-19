@@ -57,7 +57,7 @@ namespace ft
             // ****** CONSTRUCTORS********
             //empty (1)	
             explicit map (const key_compare& comp = key_compare(),
-                        const allocator_type& alloc = allocator_type()):tree(),my_allocator(alloc), my_compare(comp),tree_size(0)
+                        const allocator_type& alloc = allocator_type()):tree(),my_allocator(alloc), my_compare(comp)
             {
 
             }
@@ -100,7 +100,7 @@ namespace ft
             //***********CAPACITY**********//
             bool empty() const
             {
-                if(tree_size == 0)
+                if(tree.size() == 0)
                     return(true);
                 else
                     return(false);
@@ -253,10 +253,44 @@ namespace ft
                 // }
             }
 
+            void swap (map& x)//All iterators, references and pointers remain valid for the swapped objects.
+            {
+                tree.swap(x.tree);
+            }
+
+            void clear()
+            {
+                tree.clear();
+            }
+            //************* Observers *********
+
+            key_compare key_comp() const
+            {
+                return(my_compare);
+            }
+            // value_compare value_comp() const
+            // {
+
+            // }
+            value_compare value_comp() const
+            {
+                return(value_compare(my_compare));
+            }
+            //*********** Operations ********
+            iterator find (const key_type& k)
+            {
+                
+            }
+
+            const_iterator find (const key_type& k) const
+            {
+
+            }
+
             private:
                     tree_type tree;
                     allocator_type  my_allocator;
                     key_compare     my_compare;
-                    size_type       tree_size;
+                    //size_type       tree_size;
     };
 }
