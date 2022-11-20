@@ -121,7 +121,9 @@ namespace ft
             {
               if(_node == NULL)
               {
-                 return(max_of_root(_root));
+                _node = _root;
+                  _node = max_of_root(_root);
+                 
               }
               else
               {

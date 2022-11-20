@@ -1,6 +1,6 @@
 #include "../vector.hpp"
-#include "../random_access_iterator.hpp"
-#include "../iterator_traits.hpp"
+#include "../iterators/random_access_iterator.hpp"
+#include "../iterators/iterator_traits.hpp"
 int main () {
   int numbers[]={10,20,30,40,50};
    ft::random_access< int> from(numbers);// constuctor with(pointer);

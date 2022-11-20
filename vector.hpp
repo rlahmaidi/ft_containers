@@ -38,11 +38,9 @@ namespace ft
                 //****************** constructors ************    
                 explicit Vector (const allocator_type& alloc = allocator_type()):  my_allocator(alloc)// std::allocator<T>& alloc = std::allocator();
                 {
-                   
                     arr_data = NULL;
                     arr_size = 0;
                     arr_capacity = 0;
-
                 }
 
                 explicit Vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): my_allocator(alloc)

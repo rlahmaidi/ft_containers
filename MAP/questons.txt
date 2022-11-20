@@ -8,3 +8,6 @@ MY ANSWER: I THINK A RANDOM ACCESS AND A BIDERCTIRONEL ARE ALSO AN inputiterator
 
 4- rebind??? (begginnig of avll_tree);
 5- pragma once vs ifndef;
+
+6- i need to see how to test any function that returns
+an iterator and a const_iterator(?), lower_bound for example?

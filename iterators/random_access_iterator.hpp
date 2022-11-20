@@ -33,7 +33,7 @@ namespace ft
 				ptr = _ptr; // not required by coo but we need it if we want to retunr from a function
 							// that return iterator on specific  position or 
 			}
-             random_access&  operator=( const random_access  & it) // i removed the <T>
+            random_access&  operator=( const random_access& it) // i removed the <T>
             {
 				IMHERE
                 ptr = it.ptr;
