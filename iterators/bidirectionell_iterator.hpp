@@ -28,6 +28,11 @@ namespace ft
                 this->_node = other._node;
                 this->_root = other._root;
             }
+            operator tree_iterator<const value_type, node_type>() const
+            {
+                return tree_iterator<const value_type, node_type>(_node, _root);  
+            }
+
             const tree_iterator& operator=(const tree_iterator& other)
             {
                 this->_node = other._node;
@@ -52,7 +57,7 @@ namespace ft
             {
                 return (_node->data);
             }
-            pointer operator->()
+            pointer operator->() const
             {
                 return(&(_node->data));
             }

@@ -127,34 +127,29 @@ int main ()
 
       // std::cout << "mymap now contains " << mymap.size() << " elements.\n";
     }   
-    {
-      //   ft::map<char,int> mymap;
+    {// erase methods
+      ft::map<char,int> mymap;
+      ft::map<char,int>::iterator it, it_end;
 
-      //   // insert some values:
-      //   mymap['a']=10;
-      //   mymap['b']=20;
-      //   mymap['c']=30;
-      //   mymap['d']=40;
-      //   mymap['e']=50;
-      //   mymap['f']=60;
-      //   mymap['p'] = 70;
-      //   mymap['q']=80;
-      //   mymap['r'] = 90;
-      //   mymap['z'] = 100;
-      //   //ft::map<char,int>::iterator it = mymap.begin();
+      // insert some values:
+      mymap['a']=10;
+      mymap['b']=20;
+      mymap['c']=30;
+      mymap['d']=40;
+      mymap['e']=50;
+      mymap['f']=60;
 
-      //   //it=mymap.find('b');
-      //   //mymap.erase (it);                   // erasing by iterator
+      it=mymap.find('b');
+      //mymap.erase (it);                   // erasing by iterator
 
-      //   //mymap.erase ('c');                  // erasing by key
-      //   //mymap.erase ('b');                  // erasing by key
+      //mymap.erase ('c');                  // erasing by key
 
-      //   ft::map<char,int>::iterator it = mymap.begin()  ;
-      //  mymap.erase ( mymap.begin(), mymap.end());    // erasing by range
+      it_end = mymap.find ('e');
+      mymap.erase ( it, it_end );    // erasing by range
 
-      //   // show content:
-      //   for (it=mymap.begin(); it!=mymap.end(); ++it)
-      //     std::cout << it->first << " => " << it->second << '\n';
+      // show content:
+      for (it=mymap.begin(); it!=mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
     }
     {
         // std::map<char,int> mymap;
@@ -409,21 +404,56 @@ int main ()
         //     std::cout << "The contents of both sequences differ.\n";
       }
       {
-          char foo[]="Apple";
-          char bar[]="apartment";
+          // char foo[]="Apple";
+          // char bar[]="apartment";
 
-          std::cout << std::boolalpha;
+          // std::cout << std::boolalpha;
 
-          std::cout << "Comparing foo and bar lexicographically (foo<bar):\n";
+          // std::cout << "Comparing foo and bar lexicographically (foo<bar):\n";
 
-          std::cout << "Using default comparison (operator<): ";
-          std::cout << ft::lexicographical_compare(foo,foo+5,bar,bar+9);
-          std::cout << '\n';
+          // std::cout << "Using default comparison (operator<): ";
+          // std::cout << ft::lexicographical_compare(foo,foo+5,bar,bar+9);
+          // std::cout << '\n';
 
-          std::cout << "Using mycomp as comparison object: ";
-          std::cout << ft::lexicographical_compare(foo,foo+5,bar,bar+9,mycomp);
-          std::cout << '\n';
+          // std::cout << "Using mycomp as comparison object: ";
+          // std::cout << ft::lexicographical_compare(foo,foo+5,bar,bar+9,mycomp);
+          // std::cout << '\n';
 
+      }
+      {
+          // ft::map<int, char> alice;
+          // alice[1] = 'a';
+          // alice[2] = 'b';
+          // alice[3] = 'c';
+          // ft::map<int, char> bob;
+          // bob[7] = 'Z';
+          // bob[8] = 'Y';
+          // bob[9] = 'X';
+          // bob[10] = 'W';
+          // ft::map<int, char> eve;
+          // eve[1] = 'a';
+          // eve[2] = 'b';
+          // eve[3] = 'c';
+      
+          // std::cout << std::boolalpha;
+      
+          // // Compare non equal containers
+          // std::cout << "alice == bob returns " << (alice == bob) << '\n';
+          // std::cout << "alice != bob returns " << (alice != bob) << '\n';
+          // std::cout << "alice <  bob returns " << (alice < bob) << '\n';
+          // std::cout << "alice <= bob returns " << (alice <= bob) << '\n';
+          // std::cout << "alice >  bob returns " << (alice > bob) << '\n';
+          // std::cout << "alice >= bob returns " << (alice >= bob) << '\n';
+      
+          // std::cout << '\n';
+      
+          // // Compare equal containers
+          // std::cout << "alice == eve returns " << (alice == eve) << '\n';
+          // std::cout << "alice != eve returns " << (alice != eve) << '\n';
+          // std::cout << "alice <  eve returns " << (alice < eve) << '\n';
+          // std::cout << "alice <= eve returns " << (alice <= eve) << '\n';
+          // std::cout << "alice >  eve returns " << (alice > eve) << '\n';
+          // std::cout << "alice >= eve returns " << (alice >= eve) << '\n';
       }
       
     

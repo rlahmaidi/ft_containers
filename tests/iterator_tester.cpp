@@ -63,6 +63,7 @@ it -= 1;
 std::cout << *it << std::endl;
 // operator+(int n)
 it = it + 1;
+std::cout << "i'm testing the + operator now, it should show the pre + 1\n";
 std::cout << *it << std::endl;
 // operator-(random_access it)
 std::cout << (until - it) << " std::distance " << std::distance(it, until) << std::endl;

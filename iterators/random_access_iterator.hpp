@@ -3,7 +3,7 @@
 //#include "vector.hpp"
 #include <iterator>
 #include "iterator_traits.hpp"
-#define IMHERE ;//std::cout  << "DeBug " << __LINE__ << "Function " << __PRETTY_FUNCTION__ << "FILE " << __FILE__ << std::endl;
+//#define //IMHERE ; std::cout  << " DeBug " << __LINE__ << "  Function " << __PRETTY_FUNCTION__ << " FILE " << __FILE__ << std::endl;
 
 namespace ft
 {
@@ -25,7 +25,7 @@ namespace ft
 			}
             random_access(const random_access& it)
             {
-				IMHERE
+				//IMHERE
                 this->ptr = it.ptr;
             }
 			random_access(pointer	_ptr)
@@ -35,7 +35,7 @@ namespace ft
 			}
             random_access&  operator=( const random_access& it) // i removed the <T>
             {
-				IMHERE
+				//IMHERE
                 ptr = it.ptr;
                 return(*this);
             }
@@ -133,7 +133,7 @@ namespace ft
 		// the *a++ and *a-- should be working since ++ -- and * are overloaded;
 
 		//************   += and -= ************
-		random_access &operator+=(difference_type n)
+		random_access & operator+=(difference_type n)
 		{
 			 ptr += n; 
 			 return (*this); 
