@@ -5,11 +5,11 @@
 #include <iterator>
 #include <vector>
 #include <exception>
-#include "iterators/random_access_iterator.hpp"
-#include "iterators/reverse_iterator.hpp"
-#include "iterators/iterator_traits.hpp"
-#include "utils/enable_if.hpp"
-#include "utils/is_integral.hpp"
+#include "../iterators/random_access_iterator.hpp"
+#include "../iterators/reverse_iterator.hpp"
+//#include "../iterators/iterator_traits.hpp"
+#include "../utils/enable_if.hpp"
+#include "../utils/is_integral.hpp"
 //#include "iterator.hpp"
 ///ZA3IM SAID THAT I SHOULD READ ABOUT DYNAMCI ARRAYS.
 namespace ft

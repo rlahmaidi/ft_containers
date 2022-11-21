@@ -84,7 +84,8 @@ namespace ft
         typedef typename T::first_type	key_type;
         typedef typename T::second_type	mapped_type;
         // typedef Allconode				alloc_node;
-        typedef typename Alloc::template rebind<node_type>::other alloc_node;
+        //typedef typename Alloc::template rebind<node_type>::other alloc_node;
+         typedef std::allocator<node_type> alloc_node;
         
         
         node_type		*_root;
