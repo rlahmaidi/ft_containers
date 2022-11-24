@@ -422,10 +422,10 @@ namespace ft
         }
 
         //*****************roatations
-        node_type* llrotation(node_type *n)
+        node_type* llrotation(node_type *n)// n is root;
         {
             node_type *p;
-            node_type *tp;
+            node_type *tp;// change tp to new_top;
             p = n;
             tp = p->left;
             p->left = tp->right;
@@ -436,7 +436,7 @@ namespace ft
             {
                 node_type *n;
                 n = p->left;
-                n->parent = tp->right;
+                n->parent = p/*tp->right*/; // I MODIFIED THIS;
             }
             p->height = calcul_height(p);
             tp->height = calcul_height(tp);
@@ -458,7 +458,7 @@ namespace ft
             {
                 node_type *n;
                 n = p->right;
-                n->parent = tp->left;
+                n->parent = p /*tp->left*/;
             }
             p->height = calcul_height(p);
             tp->height = calcul_height(tp);
@@ -600,7 +600,7 @@ namespace ft
                 r->left = r->right = r->parent = NULL;
                 r->height = 1;
                 // this->_root = r;
-                return r;             
+                return r;
             }
             else
             {

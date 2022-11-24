@@ -13,3 +13,6 @@ MY ANSWER: I THINK A RANDOM ACCESS AND A BIDERCTIRONEL ARE ALSO AN inputiterator
 an iterator and a const_iterator(?), lower_bound for example?
 7 - how can we test the -> operator in random_access?;
 8 - why can we call random_access without template parametre inside class definition;
+
+
+9 - why do we need the parent for in avll_tree??
