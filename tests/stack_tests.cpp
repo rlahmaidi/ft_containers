@@ -1,4 +1,4 @@
-#include "../stack.hpp"
+#include "../STACK/stack.hpp"
 #include <map>
 
 int main()
@@ -60,17 +60,17 @@ int main()
         // std::cout << "mystack.top() is now " << mystack.top() << '\n';
     }
     {// push and pop;
-        // ft::stack<int> mystack;
+        ft::stack<int> mystack;
 
-        // for (int i=0; i<5; ++i) mystack.push(i);
+        for (int i=0; i<5; ++i) mystack.push(i);
 
-        // std::cout << "Popping out elements...";
-        // while (!mystack.empty())
-        // {
-        //     std::cout << ' ' << mystack.top();
-        //     mystack.pop();
-        // }
-        // std::cout << '\n';
+        std::cout << "Popping out elements...";
+        while (!mystack.empty())
+        {
+            std::cout << ' ' << mystack.top();
+            mystack.pop();
+        }
+        std::cout << '\n';
     }
 }
                             

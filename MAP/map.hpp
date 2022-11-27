@@ -1,18 +1,18 @@
 #pragma once
 #include <iostream>
-#include "../utils/pair.hpp"
-#include "../iterators/random_access_iterator.hpp" // i think we should define a bidir now;
-#include "../iterators/iterator_traits.hpp"
+#include "../UTILS/pair.hpp"
+#include "../ITERATORS/random_access_iterator.hpp" // i think we should define a bidir now;
+#include "../ITERATORS/iterator_traits.hpp"
 #include "avl_test.hpp"
-#include "../iterators/bidirectionell_iterator.hpp"
-#include "../iterators/reverse_iterator.hpp"
-#include "../utils/equal_lexecographi.hpp"
-#include "../ft_vector/vector.hpp"
+#include "../ITERATORS/bidirectionell_iterator.hpp"
+#include "../ITERATORS/reverse_iterator.hpp"
+#include "../UTILS/equal_lexecographi.hpp"
+#include "../VECTOR/vector.hpp"
 
 namespace ft
 {
     template <class Key, class T, class Compare = std::less<Key>,
-              class Allocator = std::allocator<pair<const Key, T>>>
+              class Allocator = std::allocator<pair<const Key, T> > >
     class map
     {
     public:

@@ -1,0 +1,6 @@
+1 seems like this needs sfinae
+        ft::Vector<int> second (4,100);                       // four ints with value 100
+        ft::Vector<int> third (second.begin(),second.end()); 
+
+why is iterator being confuse with 4 and 100 , as far as i know
+int * is an iterator (although i don't know how to test it);

@@ -8,10 +8,11 @@
 namespace ft
 {
     template<class T>
-    class random_access : public iterator<std::random_access_iterator_tag, T>
+    class random_access /*: public iterator<std::random_access_iterator_tag, T>*/
     {
 
 		public:
+		
 			typedef typename iterator<std::random_access_iterator_tag, T>::difference_type		difference_type;
 			typedef typename iterator<std::random_access_iterator_tag, T>::value_type			value_type;
 			typedef typename iterator<std::random_access_iterator_tag, T>::pointer				pointer;
@@ -48,6 +49,11 @@ namespace ft
             {
                 return random_access<const value_type>(ptr);  
             }
+			// // operator for conversion from 'Iterator<int>' to Iterator<const int>'
+			// operator random_access<const T> () 
+			// {
+			// 	return (const pointer)ptr;
+			// }
         //*********comparison operators************************
         bool	operator==(random_access const &it) const
 		{
@@ -168,6 +174,16 @@ namespace ft
 		 {
 			return ptr[n];
 		 }
+
+		// template <class U>
+		// bool operator== (const random_access<U>& lhs)
+		// {
+		// 	return (lhs.base() == base());
+		// }
+		 pointer base() const 
+		 {
+			 return ptr; 
+		 }
 		private:
             pointer ptr;
 	
@@ -177,5 +193,36 @@ namespace ft
 	random_access<T>	operator+(int nb, const random_access<T>& it) 
     {
 		return(it + nb);
+    }
+
+    // template <class T>
+    // bool operator== (const random_access<T>& lhs, const random_access<T>& rhs)
+    // {
+    //     return (lhs.base() == rhs.base());
+    // }
+    template <class T>
+    bool operator!= (const random_access<T>& lhs, const random_access<T>& rhs)
+    {
+        return (lhs.base() != rhs.base());
+    }
+    template <class T>
+    bool operator<  (const random_access<T>& lhs, const random_access<T>& rhs)
+    {
+        return (lhs.base() < rhs.base());
+    }
+    template <class T>
+    bool operator<= (const random_access<T>& lhs, const random_access<T>& rhs)
+    {
+        return (lhs.base() <= rhs.base());
+    }
+    template <class T>
+    bool operator>  (const random_access<T>& lhs, const random_access<T>& rhs)
+    {
+        return (lhs.base() > rhs.base());
+    }
+    template <class T>
+    bool operator>= (const random_access<T>& lhs, const random_access<T>& rhs)
+    {
+        return (lhs.base() >= rhs.base());
     }
 }

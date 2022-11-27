@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <algorithm>
 //#include "../utilities/utilities.hpp"
-#include "../utils/pair.hpp"
+#include "../UTILS/pair.hpp"
 
 namespace ft
 {
@@ -61,16 +61,16 @@ namespace ft
             return *this;
         };
 
-        node *operator=(const node* rhs)
-        {
-            // this->data = rhs.data;
-            _alloc.construct(&this->data, rhs->data);
-            this->height = rhs->height;
-            this->left = rhs->left;
-            this->right = rhs->right;
-            this->parent = rhs->parent;
-            return this;
-        };
+        // node *operator=(const node* rhs)
+        // {
+        //     // this->data = rhs.data;
+        //     _alloc.construct(&this->data, rhs->data);
+        //     this->height = rhs->height;
+        //     this->left = rhs->left;
+        //     this->right = rhs->right;
+        //     this->parent = rhs->parent;
+        //     return this;
+        // };
 
     };
 

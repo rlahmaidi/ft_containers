@@ -5,11 +5,11 @@
 #include <iterator>
 #include <vector>
 #include <exception>
-#include "../iterators/random_access_iterator.hpp"
-#include "../iterators/reverse_iterator.hpp"
-//#include "../iterators/iterator_traits.hpp"
-#include "../utils/enable_if.hpp"
-#include "../utils/is_integral.hpp"
+#include "../ITERATORS/random_access_iterator.hpp"
+#include "../ITERATORS/reverse_iterator.hpp"
+//#include "../ITERATORS/iterator_traits.hpp"
+#include "../UTILS/enable_if.hpp"
+#include "../UTILS/is_integral.hpp"
 //#include "iterator.hpp"
 ///ZA3IM SAID THAT I SHOULD READ ABOUT DYNAMCI ARRAYS.
 namespace ft
@@ -26,6 +26,7 @@ namespace ft
                 typedef value_type* pointer;
                 typedef const value_type* const_pointer;
                 typedef ft::random_access<value_type> iterator; // it is up to me to define it 
+                //typedef T* iterator;
                 typedef  ft::random_access<const value_type> const_iterator;// hamid said that the value type should be const
                // typedef pointer iterator;
                 //typedef pointer const_iterator;
@@ -61,7 +62,7 @@ namespace ft
                     (void ) f;   	
                     difference_type diff;
                     //+//random_access<T>   it;
-                    iterator it;
+                    //iterator it;
                     //diff = last - first;
                     diff = std::distance(first, last);
                     if(diff < 0)
@@ -90,7 +91,7 @@ namespace ft
                 //******************destructor************
                 ~Vector()
                 {
-                    pointer         arrb = &*begin();
+                    pointer         arrb = &*begin(); // may be i will modify this cha3wada to make more clear later;
                     pointer         arre = &*end();
                     while (arrb != arre)
                     {

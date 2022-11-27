@@ -1,11 +1,11 @@
-#include"../vector.hpp"
+#include"../VECTOR/vector.hpp"
 #include <iomanip>
 // #include <vector>
 // #include <iostream>
 #define EQUAL(x) ((x) ? (std::cout << "\033[1;32mAC\033[0m\n") : (std::cout << "\033[1;31mWA\033[0m\n"))
 int main ()
 {
-    {
+     {
     //       ft::Vector<int>::size_type sz;
 
     //     ft::Vector<int> foo;
@@ -32,21 +32,33 @@ int main ()
     //     }
     }
     {// CONSTRUCTORS;
-         // constructors used in the same order as described above:
-        // std::vector<int> first;                                // empty vector of ints
-        // std::vector<int> second (4,100);                       // four ints with value 100
-        // std::vector<int> third (second.begin(),second.end());  // iterating through second
-        // std::vector<int> fourth (third);                       // a copy of third
+        //constructors used in the same order as described above:
+        ft::Vector<int> first;                                // empty Vector of ints
+        ft::Vector<int> second (4,100);    
+        ft::Vector<int>::iterator it1,it2;                   // four ints with value 100
+        it1 = second.begin();
 
-        // // the iterator constructor can also be used to construct from arrays:
-        // int myints[] = {16,2,77,29};
-        // std::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+        it2 = second.end();
+        int *f1 = &(*it1);
+        int *f2 = &(*it2);
 
-        // std::cout << "The contents of fifth are:";
-        // for (std::vector<int>::iterator it = fifth.begin(); it != fifth.end(); ++it)
-        //     std::cout << ' ' << *it;
-        // std::cout << '\n';
-    }
+
+        ft::Vector<int> third (f1,f2); // iterating through second
+        ft::Vector<int> fourth (third);                     // a copy of third
+
+        // the iterator constructor can also be used to construct from arrays:
+        int myints[] = {16,2,77,29};
+        ft::Vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+
+        std::cout << "The contents of third are:";
+        for (ft::Vector<int>::iterator it = third.begin(); it != third.end(); ++it)
+            std::cout << ' ' << *it;
+        std::cout << '\n';
+        // ft::Vector<int>::const_iterator const_it;
+        // // const_it = fifth.begin();
+        // // ft::Vector<int>::iterator it = fifth.begin();
+   
+     }
     {
         //     // constuctor (n,val)
         // ft::Vector<int> foo (3,0);
@@ -311,20 +323,27 @@ int main ()
 
     }
     {// swap()
-    //     ft::Vector<int> foo (3,100);   // three ints with a value of 100
-    //     ft::Vector<int> bar (5,200);   // five ints with a value of 200
+        // ft::Vector<int> foo ;   
+        // foo.push_back(44);
+        // foo.push_back(45);
+        // foo.push_back(46);
+        // foo.push_back(47);
+        // ft::Vector<int> bar (5,200);   // five ints with a value of 200
 
-    //     foo.swap(bar);
+        // ft::Vector<int>::iterator it1, it2;
+ 
 
-    //     std::cout << "foo contains:";
-    //     for (unsigned i=0; i<foo.size(); i++)
-    //         std::cout << ' ' << foo[i];
-    //     std::cout << '\n';
+        // foo.swap(bar);
+    
+    
+        // for (unsigned i=0; i<foo.size(); i++)
+        //     std::cout << ' ' << foo[i];
+        // std::cout << '\n';
 
-    //     std::cout << "bar contains:";
-    //     for (unsigned i=0; i<bar.size(); i++)
-    //         std::cout << ' ' << bar[i];
-    //     std::cout << '\n';
+        // std::cout << "bar contains:";
+        // for (unsigned i=0; i<bar.size(); i++)
+        //     std::cout << ' ' << bar[i];
+        // std::cout << '\n';
     }
     {// clear()
         // std::vector<int> myvector;
@@ -508,15 +527,46 @@ int main ()
         // std::cout << '\n';
     }
     {
-        std::vector<int> v(10,5);
-        std::cout << "vector size is : " << v.size() << std::endl;
-        std::cout << "vector capacity is : " << v.capacity() << std::endl;
-        v.insert(v.begin(),11,6);
-        std::cout << "vector size is : " << v.size() << std::endl;
-        std::cout << "vector capacity is : " << v.capacity() << std::endl;
+        // std::vector<int> v(10,5);
+        // std::cout << "vector size is : " << v.size() << std::endl;
+        // std::cout << "vector capacity is : " << v.capacity() << std::endl;
+        // v.insert(v.begin(),11,6);
+        // std::cout << "vector size is : " << v.size() << std::endl;
+        // std::cout << "vector capacity is : " << v.capacity() << std::endl;
     }
-    
-    
+    {// itertor comparaison
+        ft::Vector<int> v(2,5);
+        ft::Vector<int>::iterator it1;
+        ft::Vector<int>::const_iterator it2;
+        it1 = v.begin();
+
+        it2 = v.begin();
+        if(it2 == it1)
+            std::cout << "it is working \n";
+        else
+            std::cout << "it is not working\n";
+    }
+    {
+        ft::Vector<int> v;
+        v.push_back(1);
+        v.push_back(2);
+        ft::Vector<int> v2(v);
+        ft::Vector<int> v3(1,4);
+
+    }
+    {// example form stackoverflow fot prove 
+    //  that iterator are pointer;
+        
+        typedef std::iterator_traits<int*> traits;
+        if (typeid(traits::iterator_category)==typeid(std::random_access_iterator_tag))
+            std::cout <<"int* is a random-access iterator\n";
+    }
+    {
+        std::string str[] = {"hello","world"};
+        
+        ft::Vector<std::string> v(str, str + 1);
+        std::cout << v[0] << std::endl;
+    }
         
     
   return 0;

@@ -3,8 +3,9 @@
 #include <signal.h>
 #include "../MAP/map.hpp"
 #include <vector>
-#include "../utils/equal_lexecographi.hpp"
-#include "../vector.hpp"
+#include "../UTILS/equal_lexecographi.hpp"
+#include "../VECTOR/vector.hpp"
+#include "../UTILS/pair.hpp"
 //#include "../MAP/map.hpp"
 
           bool fncomp (char lhs, char rhs) {return lhs<rhs;}
@@ -128,28 +129,28 @@ int main ()
       // std::cout << "mymap now contains " << mymap.size() << " elements.\n";
     }   
     {// erase methods
-      ft::map<char,int> mymap;
-      ft::map<char,int>::iterator it, it_end;
+      // ft::map<char,int> mymap;
+      // ft::map<char,int>::iterator it, it_end;
 
-      // insert some values:
-      mymap['a']=10;
-      mymap['b']=20;
-      mymap['c']=30;
-      mymap['d']=40;
-      mymap['e']=50;
-      mymap['f']=60;
+      // // insert some values:
+      // mymap['a']=10;
+      // mymap['b']=20;
+      // mymap['c']=30;
+      // mymap['d']=40;
+      // mymap['e']=50;
+      // mymap['f']=60;
 
-      it=mymap.find('b');
-      //mymap.erase (it);                   // erasing by iterator
+      // it=mymap.find('b');
+      // //mymap.erase (it);                   // erasing by iterator
 
-      //mymap.erase ('c');                  // erasing by key
+      // //mymap.erase ('c');                  // erasing by key
 
-      it_end = mymap.find ('e');
-      mymap.erase ( it, it_end );    // erasing by range
+      // it_end = mymap.find ('e');
+      // mymap.erase ( it, it_end );    // erasing by range
 
-      // show content:
-      for (it=mymap.begin(); it!=mymap.end(); ++it)
-        std::cout << it->first << " => " << it->second << '\n';
+      // // show content:
+      // for (it=mymap.begin(); it!=mymap.end(); ++it)
+      //   std::cout << it->first << " => " << it->second << '\n';
     }
     {
         // std::map<char,int> mymap;
@@ -454,6 +455,24 @@ int main ()
           // std::cout << "alice <= eve returns " << (alice <= eve) << '\n';
           // std::cout << "alice >  eve returns " << (alice > eve) << '\n';
           // std::cout << "alice >= eve returns " << (alice >= eve) << '\n';
+      }
+      {
+        ft::pair<std::string, int> p1;
+        ft::pair<std::string, int> p2;
+        p1 = ft::make_pair("lawla", 1);
+        p2 = ft::make_pair("tanya",2);
+
+        std::cout << p1.first << std::endl;
+        std::cout << p1.second << std::endl;
+        std::cout << p2.first << std::endl;
+        std::cout << p2.second << std::endl;
+
+      }
+      {
+        ft::map<int, char> mp;
+        mp[1] = 'a';
+        mp[2] = 'b';
+        
       }
       
     
