@@ -7,11 +7,8 @@
 #include <exception>
 #include "../ITERATORS/random_access_iterator.hpp"
 #include "../ITERATORS/reverse_iterator.hpp"
-//#include "../ITERATORS/iterator_traits.hpp"
 #include "../UTILS/enable_if.hpp"
 #include "../UTILS/is_integral.hpp"
-//#include "iterator.hpp"
-///ZA3IM SAID THAT I SHOULD READ ABOUT DYNAMCI ARRAYS.
 namespace ft
 {
     template < class T, class Alloc = std::allocator<T> > 
@@ -25,9 +22,9 @@ namespace ft
                 typedef const value_type& const_reference;
                 typedef value_type* pointer;
                 typedef const value_type* const_pointer;
-                typedef ft::random_access<value_type> iterator; // it is up to me to define it 
+                typedef ft::random_access<value_type> iterator; 
                 //typedef T* iterator;
-                typedef  ft::random_access<const value_type> const_iterator;// hamid said that the value type should be const
+                typedef  ft::random_access<const value_type> const_iterator;
                // typedef pointer iterator;
                 //typedef pointer const_iterator;
                 // if iteratror iterate over int const iterator will iterate over const int;
@@ -37,7 +34,7 @@ namespace ft
                 typedef size_t size_type;
 
                 //****************** constructors ************    
-                explicit Vector (const allocator_type& alloc = allocator_type()):  my_allocator(alloc)// std::allocator<T>& alloc = std::allocator();
+                explicit Vector (const allocator_type& alloc = allocator_type()):  my_allocator(alloc)
                 {
                     arr_data = NULL;
                     arr_size = 0;
@@ -47,8 +44,8 @@ namespace ft
                 explicit Vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): my_allocator(alloc)
                 {
                     arr_size = n;
-                    arr_data = my_allocator.allocate(n);// i may need to define my own allocator and use instead , 
-                                                    //but only if i'm gonna need it later;
+                    arr_data = my_allocator.allocate(n);
+                                                    
                     for(size_t i = 0; i < n; i++)
                     {
                         my_allocator.construct(&arr_data[i], val);
@@ -61,9 +58,6 @@ namespace ft
                 {    
                     (void ) f;   	
                     difference_type diff;
-                    //+//random_access<T>   it;
-                    //iterator it;
-                    //diff = last - first;
                     diff = std::distance(first, last);
                     if(diff < 0)
                         diff = diff * (-1);
@@ -133,10 +127,9 @@ namespace ft
                     return(iterator(&arr_data[0]));
                  }
                  const_iterator begin() const
-                 {
-                    
+                 {  
                     const_iterator const_it = arr_data;
-                    
+
                     return(const_it);
                  }
                  iterator end()
@@ -145,13 +138,13 @@ namespace ft
                  }
                  const_iterator end() const
                  {
-                    const_iterator    it;
-                    //+//it.ptr = arr_data + arr_size ;
-                    it = arr_data + arr_size;// za3im did it , why can we assign a pointerr to an iterator;
+                    const_iterator    it(arr_data + arr_size);
+                    
                     return(it);
                  }
                 reverse_iterator rbegin()
                 {
+                   
                     reverse_iterator rev_it(end());
                     return(rev_it);
                 }
@@ -183,12 +176,8 @@ namespace ft
                 {
                     if(n < arr_size)
                     {
-                       
                         for(size_type i = n; i < arr_size; i++)
                             my_allocator.destroy(&arr_data[i]);
-                    
-                       // my_allocator.deallocate(&arr_data[n], arr_size - n);
-                                            
                         arr_size = n;
                     }
                     else if(n > arr_size && n <= arr_capacity)
@@ -213,8 +202,6 @@ namespace ft
                             for(size_type i = arr_size; i < n; i++)
                             {
                                 my_allocator.construct(&tmp_arr[i], val);
-                               // my_allocator.destroy(&arr_data[i]);    // if any problem 
-                               // apperaed in resize check this;
                             }
                             my_allocator.deallocate(arr_data,arr_capacity);
                             arr_data = tmp_arr;
@@ -240,35 +227,29 @@ namespace ft
                 }
                 void reserve (size_type n)
                 {
-                    if(n > SIZE_MAX)
+                    if(n > max_size())
                     {
-                        throw("error: the new capacity is bigger than MAX_SIZE the Vector can handle");
+                         std::bad_alloc();
                     }
-                         //std::lenght_error("error: the new capacity is bigger than MAX_SIZE the Vector can handle");
                     try
                     {
-                        //std::cout << "from reseve " << std::endl;
-                    
                         if(n > arr_capacity)
                         {
                             pointer tmp_arr;
                             tmp_arr = my_allocator.allocate(n);
                             for(size_type i = 0; i < arr_size; i++)
                             {
-                                my_allocator.construct(&tmp_arr[i], arr_data[i]);// when will we construct the element above arr_size????;
+                                my_allocator.construct(&tmp_arr[i], arr_data[i]);
                                 my_allocator.destroy(&arr_data[i]);
                             }
                             my_allocator.deallocate(arr_data,arr_capacity);
                             arr_data = tmp_arr;
-                            // std::cout << "i'm comparing arr_data and tmp_arr";
-                            // std::cout << arr_data[0]<< " " << tmp_arr[0] << "\n";
-                            // std::cout << arr_data[1]<< " " << tmp_arr[1] << "\n";
                             arr_capacity = n;
                         }
                     }
                     catch(std::bad_alloc& ba)
                     {
-                        std::cout << "bad alloc caught" << ba.what() << std::endl;
+                        std::cout << "bad alloc caught"  << std::endl;
                     }
                 }
                 // void shrink_to_fit()
@@ -282,7 +263,6 @@ namespace ft
                 //*************  ELEMENTS ACCESS  ***************
                 reference operator[] (size_type n)
                 {
-                    //std::cout << "printing from operator[]" << std::endl;
                     return(arr_data[n]);
                 }
                 const_reference operator[] (size_type n) const
@@ -322,7 +302,8 @@ namespace ft
                 //**************  MODIFIERS  ************
                 template <class InputIterator>
                 void assign (InputIterator first, InputIterator last)
-                {
+                { //Replaces the contents with copies of those in the range [first, last)
+                // . The behavior is undefined if either argument is an iterator into *this
                     difference_type diff;
                     //diff = std::distance(first,last);
                     diff = last - first;
@@ -371,8 +352,6 @@ namespace ft
                     }
                     my_allocator.construct(&arr_data[arr_size], val);
                     arr_size++;
-                    //Note: we are updating arr_capacity because reserve do it;
-
                 }
                 void pop_back()
                 {
@@ -386,7 +365,7 @@ namespace ft
                 iterator erase (iterator position)
                 {
                     difference_type diff;
-                    diff = abs(std::distance(begin(), position)); // this
+                    diff = abs(std::distance(begin(), position)); 
 
                     for(size_type i = diff; i < arr_size; i++)
                     {
@@ -394,13 +373,13 @@ namespace ft
                     }
                     arr_size--;
                     my_allocator.destroy(&arr_data[arr_size - 1]);
-                    return(arr_data + diff);
+                    return(iterator(arr_data + diff));
                 }
                 iterator erase (iterator first, iterator last)
                 {
                     difference_type diff, fl;
-                    diff = abs(std::distance(begin(), first));// i'm no't sure about the abs ;
-                    fl = abs(std::distance(first, last));// i'm not sure about the abs;
+                    diff = abs(std::distance(begin(), first));
+                    fl = abs(std::distance(first, last));
                     for(size_type i = diff; i + fl < arr_size; i++)
                     {
                         my_allocator.construct(&arr_data[i], arr_data[i + fl]);
@@ -432,25 +411,21 @@ namespace ft
                     // *this = x;           this small vesion will be tested later;
                     // x = tmp;
                     // why wouldn't this work;
+                    //√ casue we will reallocate at operatro=
+                    // and our iterators will be invalidate;
                 }
                 void clear()
-                {
+                {// although it is called clear we can't deallocate here, otherwise we
+                //  will be causing a double free , cause we will free at destructor;
                     for(size_type i = 0; i < arr_size; i++)
                     {
                         my_allocator.destroy(&arr_data[i]);
                     }
-                   // my_allocator.deallocate(arr_data, arr_size);
                     arr_size = 0;
                 }
                 iterator insert (iterator position, const value_type& val)
                 {
-                    std::cout << " we are inside first insert\n";
                     difference_type diff  = abs(position -  begin());
-                        // pointer p = position;
-                        // pointer b = arr_data;
-                        // size_t diff = (int *)p - (int *)b;    // SA3ADAT ZA3IM SIGNATURE: WON'T BE DELETED EVER;
-
-                       // std::cout << "Niya " <<diff << std::endl;
 
                         if(arr_capacity == arr_size)
                         {
@@ -459,33 +434,19 @@ namespace ft
                             else 
                                 reserve(arr_capacity * 2);
                         }
-
-                    
-                        
                         for(difference_type i = arr_size; i > diff; i--)
                         {// REM :arr_size is the lenght of the segement and diff is the distace form position
-                            //std::swap(arr_data[i], arr_data[diff - 1]);
-                            
                             my_allocator.construct(&arr_data[i], arr_data[i - 1]);
                         }
                         
                         my_allocator.construct(&arr_data[diff], val);
                         arr_size++;
-
                         return(iterator(arr_data + diff));
-                    
-                    /*  pointer p = position;
-                      pointer b = arr_data;
-                      size_t dist = (int *)p - (int *)b;
-                      std::cout << "Niya " <<dist << std::endl;
-
-                    return (position + val);*/
                 }
         
                 //fill (2)	
                 void insert (iterator position, size_type n, const value_type& val)
                 {
-                    std::cout << " we are inside second insert\n";
                     difference_type diff;
                     if(arr_size == 0)
                         diff = 0;
@@ -494,21 +455,16 @@ namespace ft
                      
                     if (arr_size + n > arr_capacity)
                     {
-                    if (arr_size + n <= arr_capacity * 2)
-                        reserve(arr_capacity * 2);
-                    else
-                        reserve(arr_size + n);
+                        if (arr_size + n <= arr_capacity * 2)
+                            reserve(arr_capacity * 2);
+                        else
+                            reserve(arr_size + n);
                     }
-
-                    
-                     
-
                     if(arr_size != 0)
                     {
                         for(difference_type i = arr_size - 1 ; i >= diff; i--)
                         {// because we are moving n element from the arr;
                             my_allocator.construct(&arr_data[i + n], arr_data[i]);
-                            
                         }
                     }
                     arr_size += n;
@@ -517,19 +473,17 @@ namespace ft
                         my_allocator.construct(&arr_data[i], val);
                         n--;
                     }
-                   
                 }
 
                 //range (3)	
-                template <class InputIterator>    void insert (iterator position, InputIterator first, InputIterator last,typename
+                template <class InputIterator>    void insert (iterator position, InputIterator first, InputIterator last ,typename
                 ft::enable_if< !ft::is_integral<InputIterator>::value >::type *usless = 0)
                 {// hi future rachid(the explanation you gonna forget): if is_integral returned true we will get false above
                     // which means our type won't be difined and so the compiler will face an error  recognizing the last argument
                     // and eventually dropping this signature of the function candidate.
-                    // in other case type will defined and function will considered as a candiate(the winning one of course)
+                    // in other case type will be  defined and function will considered as a candiate(the winning one of course)
                     // and we won't use that dummy parametre .
                     (void)usless;
-                    std::cout << " we are inside third insert\n";
                     difference_type diff;
                     if(arr_size == 0)
                         diff = 0;
@@ -539,10 +493,10 @@ namespace ft
                     
                     if (arr_size + n > arr_capacity)
                     {
-                    if (arr_size + n <= arr_capacity * 2)
-                        reserve(arr_capacity * 2);
-                    else
-                        reserve(arr_size + n);
+                        if (arr_size + n <= arr_capacity * 2)
+                            reserve(arr_capacity * 2);
+                        else
+                            reserve(arr_size + n);
                     }
 
                     if(arr_size != 0)
@@ -560,7 +514,6 @@ namespace ft
                         n--;
                         first++;
                     }
-                    //wouldn't it be a broblem to add size_type to difference_type;
                 }
                 allocator_type get_allocator() const
                 {
@@ -607,7 +560,7 @@ namespace ft
                 // //(3)	
                 template <class T, class Alloc>
                 bool operator<  (const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
-                {// implementation based on lexicographical_compare;
+                {
                     size_t i = 0;
                     for(; i < lhs.size() ; i++)
                     {
@@ -627,7 +580,7 @@ namespace ft
                     for(; i < lhs.size() ; i++)
                     {
                        
-                        if(i == rhs.size() || rhs[i] < lhs[i])// try the same thing with operator* ins of []
+                        if(i == rhs.size() || rhs[i] < lhs[i])
                             return(false);
                         else if(lhs[i] < rhs[i])
                             return(true);
@@ -661,7 +614,7 @@ namespace ft
                     for(; i < rhs.size() ; i++)
                     {
                        
-                        if(i == lhs.size() || rhs[i] > lhs[i])// try the same thing with operator* ins of []
+                        if(i == lhs.size() || rhs[i] > lhs[i])
                             return(false);
                         else if(lhs[i] > rhs[i])
                             return(true);

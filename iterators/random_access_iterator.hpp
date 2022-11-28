@@ -3,7 +3,7 @@
 //#include "vector.hpp"
 #include <iterator>
 #include "iterator_traits.hpp"
-//#define //IMHERE ; std::cout  << " DeBug " << __LINE__ << "  Function " << __PRETTY_FUNCTION__ << " FILE " << __FILE__ << std::endl;
+//#define IMHERE ; std::cout  << " DeBug " << __LINE__ << "  Function " << __PRETTY_FUNCTION__ << " FILE " << __FILE__ << std::endl;
 
 namespace ft
 {
@@ -26,17 +26,16 @@ namespace ft
 			}
             random_access(const random_access& it)
             {
-				//IMHERE
+				
                 this->ptr = it.ptr;
             }
 			random_access(pointer	_ptr)
 			{
-				ptr = _ptr; // not required by coo but we need it if we want to retunr from a function
-							// that return iterator on specific  position or 
+				ptr = _ptr;  
 			}
-            random_access&  operator=( const random_access& it) // i removed the <T>
+            random_access&  operator=( const random_access& it)
             {
-				//IMHERE
+				
                 ptr = it.ptr;
                 return(*this);
             }
@@ -45,15 +44,12 @@ namespace ft
 				
 			}
 
+			// operator for conversion from 'Iterator<int>' to Iterator<const int>'
 			operator random_access<const value_type>() const
             {
                 return random_access<const value_type>(ptr);  
             }
-			// // operator for conversion from 'Iterator<int>' to Iterator<const int>'
-			// operator random_access<const T> () 
-			// {
-			// 	return (const pointer)ptr;
-			// }
+		
         //*********comparison operators************************
         bool	operator==(random_access const &it) const
 		{

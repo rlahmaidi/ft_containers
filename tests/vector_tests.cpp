@@ -33,30 +33,28 @@ int main ()
     }
     {// CONSTRUCTORS;
         //constructors used in the same order as described above:
-        ft::Vector<int> first;                                // empty Vector of ints
-        ft::Vector<int> second (4,100);    
-        ft::Vector<int>::iterator it1,it2;                   // four ints with value 100
-        it1 = second.begin();
+        // ft::Vector<int> first;                                // empty Vector of ints
+        // ft::Vector<int> second (4,100);    
+        // ft::Vector<int>::iterator it1,it2;                   // four ints with value 100
+        // it1 = second.begin();
 
-        it2 = second.end();
-        int *f1 = &(*it1);
-        int *f2 = &(*it2);
+        // it2 = second.end();
+        // int *f1 = &(*it1);
+        // int *f2 = &(*it2);
 
 
-        ft::Vector<int> third (f1,f2); // iterating through second
-        ft::Vector<int> fourth (third);                     // a copy of third
+        // ft::Vector<int> third (f1,f2); // iterating through second
+        // ft::Vector<int> fourth (third);                     // a copy of third
 
-        // the iterator constructor can also be used to construct from arrays:
-        int myints[] = {16,2,77,29};
-        ft::Vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+        // // the iterator constructor can also be used to construct from arrays:
+        // int myints[] = {16,2,77,29};
+        // ft::Vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
 
-        std::cout << "The contents of third are:";
-        for (ft::Vector<int>::iterator it = third.begin(); it != third.end(); ++it)
-            std::cout << ' ' << *it;
-        std::cout << '\n';
-        // ft::Vector<int>::const_iterator const_it;
-        // // const_it = fifth.begin();
-        // // ft::Vector<int>::iterator it = fifth.begin();
+        // std::cout << "The contents of third are:";
+        // for (ft::Vector<int>::iterator it = third.begin(); it != third.end(); ++it)
+        //     std::cout << ' ' << *it;
+        // std::cout << '\n';
+
    
      }
     {
@@ -420,28 +418,25 @@ int main ()
         // std::cout << '\n';
      }
     {
-    //     std::vector<int> myvector (3,100);
-    //     std::vector<int>::iterator it;
+        ft::Vector<int> myvector (3,100);
+        ft::Vector<int>::iterator it;
 
-    //     it = myvector.begin();
-    //    // std::cout << " form test , the distance in std is " << std::distance(myvector.end(), myvector.end());
-    //     it = myvector.insert ( it , 200 );
+        it = myvector.begin();
+        it = myvector.insert (it , 200);
+        myvector.insert (it,3,300);
+        //"it" no longer valid, get a new one:
+        it = myvector.begin();
 
-    //     myvector.insert (it,2,300);
+        ft::Vector<int> anothervector (2,400);
+        myvector.insert (it+2,anothervector.begin(),anothervector.end());
 
-    //     // "it" no longer valid, get a new one:
-    //     it = myvector.begin();
+        int myarray [] = { 501,502,503 };
+        myvector.insert (myvector.begin(), myarray, myarray+3);
 
-    //     std::vector<int> anothervector (2,400);
-    //     myvector.insert (it+2,anothervector.begin(),anothervector.end());
-
-    //     int myarray [] = { 501,502,503 };
-    //     myvector.insert (myvector.begin(), myarray, myarray+3);
-
-    //     std::cout << "myvector contains:";
-    //     for (it=myvector.begin(); it<myvector.end(); it++)
-    //         std::cout << ' ' << *it;
-    //     std::cout << '\n';
+        std::cout << "myvector contains:";
+        for (it=myvector.begin(); it<myvector.end(); it++)
+            std::cout << ' ' << *it;
+        std::cout << '\n';
     }
     {// GET ALLOCATOR
         //   ft::Vector<int> myvector;
@@ -535,37 +530,115 @@ int main ()
         // std::cout << "vector capacity is : " << v.capacity() << std::endl;
     }
     {// itertor comparaison
-        ft::Vector<int> v(2,5);
-        ft::Vector<int>::iterator it1;
-        ft::Vector<int>::const_iterator it2;
-        it1 = v.begin();
+        // ft::Vector<int> v(2,5);
+        // ft::Vector<int>::iterator it1;
+        // it1 = v.begin() + 1;
+        // ft::Vector< int>::reverse_iterator it2(it1);
 
-        it2 = v.begin();
-        if(it2 == it1)
-            std::cout << "it is working \n";
-        else
-            std::cout << "it is not working\n";
+        // std::cout << "iterator "<< *it1 << "\n";
+        // std::cout << " reverse iterator "<< *it2 << "\n";
+
+        // it2 = v.begin();
+        // if(it2 >= it1)
+        //     std::cout << "it is working \n";
+        // else
+        //     std::cout << "it is not working\n";
+        
     }
-    {
-        ft::Vector<int> v;
-        v.push_back(1);
-        v.push_back(2);
-        ft::Vector<int> v2(v);
-        ft::Vector<int> v3(1,4);
+    {// ASSIGN ISN'T TESTED YET;
+        // //constructors;
+        // ft::Vector<int> v;
+        // v.push_back(1);
+        // v.push_back(2);
+        // ft::Vector<int> v2(v);
+        // ft::Vector<int> v3(4,4);
+        // ft::Vector<int> v4 = v3;
+        // for(ft::Vector<int>::iterator it = v4.begin(); it!= v4.end(); ++it)
+        // {
+        //     std::cout << *it<< "\n";
+        // }
+        // // get_allocator()
+        // ft::Vector<int>::allocator_type allo;
+        // allo = v.get_allocator();
+        // int *p = allo.allocate(5);
+        // for(int i = 0; i < 5; i++)
+        // {
+        //     allo.construct(p+i,1);
+        // }
+        // for(int i = 0; i < 5; i++)
+        // {
+        //     std::cout << p[i] << "\n";
+        // }
+        // // at
+        // std::cout << v.at(1) << "\n";
+        // // operator []
+        // std::cout <<"lmhaloussa chaksyan"<< v[-1] << "\n";
+        // // front 
+        // std::cout << v.front() << std::endl;
+        // //back 
+        // std::cout << v.back() << std::endl;
+        // // begin()
+        // std::cout << *v.begin() << std::endl;
+        // //end()
+        // std::cout << *(v.end() -1) << std::endl;
+        // //rbegin()
+        // std::cout << *v.rbegin() << std::endl;
+        // // rend()
+        // std::cout << *v.rend() << std::endl;
+        // //empty()
+        // if(!v.empty())
+        //     std::cout << " it is not empty\n";
+        // //size()
+        // std::cout << v.size() << std::endl;
+        // // reserve()
+        // v.reserve(100);
+        // std::cout << "new capacity is " << v.capacity() << "\n";
+        // //max_size()
+        // std::cout << "max size is " << v.max_size() << "\n";
+        // //v.reserve( 461168601842);
+        // std::cout << "new capacity is " << v.capacity() << "\n";
+        // //clear()
+        // v.clear();
+        // std::cout << "capacity after clear is " << v.size() << std::endl;
+        // //insert
+        
+
+ 
+
+
 
     }
     {// example form stackoverflow fot prove 
     //  that iterator are pointer;
         
-        typedef std::iterator_traits<int*> traits;
-        if (typeid(traits::iterator_category)==typeid(std::random_access_iterator_tag))
-            std::cout <<"int* is a random-access iterator\n";
+        // typedef std::iterator_traits<int*> traits;
+        // if (typeid(traits::iterator_category)==typeid(std::random_access_iterator_tag))
+        //     std::cout <<"int* is a random-access iterator\n";
     }
     {
-        std::string str[] = {"hello","world"};
-        
-        ft::Vector<std::string> v(str, str + 1);
-        std::cout << v[0] << std::endl;
+    //  ft::Vector<int> v;
+    //  v.push_back(1);
+    //  v.push_back(2);
+    //  v.push_back(3);
+    //  v.push_back(4);
+    //  v.push_back(5);
+    //  ft::Vector<int>::iterator it = v.begin() ;
+    //  v.insert(it,10);
+    //  it = v.begin() + 1;
+    //  v.insert(it,2,20);
+    //  it = v.begin() + 4;
+    //  ft::Vector<int> v2(12,30);
+    //  v.insert(v.begin(), v2.begin(),v2.end());
+    
+    //  it = v.begin();
+    //  std::cout << "content of v is ";
+    //  for(;it != v.end(); ++it)
+    //  {
+    //     std::cout << *it  << "  ";
+    //  }
+    //  std::cout << "\n";
+    }
+    {
     }
         
     

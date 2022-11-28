@@ -3,4 +3,8 @@
         ft::Vector<int> third (second.begin(),second.end()); 
 
 why is iterator being confuse with 4 and 100 , as far as i know
-int * is an iterator (although i don't know how to test it);
+int * is an iterator (although i don't know how to test it); √
+
+2- operator[ ] in reverse iterator need to be tested;
+3 - insert dosen't need enable_if to pass mamoussa test,
+which seems redeculous;
