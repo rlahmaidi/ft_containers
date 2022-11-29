@@ -39,28 +39,25 @@
 //     *x = z;
 //     printf("\n ----> value of 'a' is: %p inside function, same as 'f', BUT will it be the same outside of this function? lets see\n", *x);
 #include <iostream>
+#include "avl_tree.hpp"
 
-struct Counter {
-    int operator()() { return ++count; }
 
-  //private:
-    int count = 0;
-};
 int main()
 {
-Counter count1;
-Counter count2;
+  ft::node<ft::pair<int,std::string> > nodee;
+  ft::avl_tree<ft::pair<int,std::string> > tree;
+  ft::pair<int,std::string> p = ft::make_pair(1,std::string("a"));
+  tree.insert(p);
+  //tree.print_tree();
 
-std::cout << count1() << std::endl; // 1
-std::cout << count1.count << std::endl; // 2
-// std::cout << count1() << std::endl; // 3
+  tree.insert(ft::make_pair(2,"b"));
+  tree.insert(ft::make_pair(3,"c"));
+  tree.insert(ft::make_pair(4,"d"));
+  tree.insert(ft::make_pair(5,"e"));
+  tree.delete_(1);
+  tree.print_tree();
 
-// std::cout << count2() << std::endl; // 1
-// std::cout << count2() << std::endl; // 2
-// std::cout << count2() << std::endl; // 3
 
-// std::cout << count1() << std::endl; // 4
-// std::cout << count2() << std::endl; // 4
 return(0);
 }
 

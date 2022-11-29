@@ -3,7 +3,7 @@
 //#include "random_access_iterator.hpp"
 #include "iterator_traits.hpp"
 
-//#define //IMHERE ; //std::cout  << "DeBug " << __LINE__ << "Function " << __PRETTY_FUNCTION__ << "FILE " << __FILE__ << std::endl;
+//#define  ; //std::cout  << "DeBug " << __LINE__ << "Function " << __PRETTY_FUNCTION__ << "FILE " << __FILE__ << std::endl;
 // token from page 520 in iso+iec
 namespace ft
 {
@@ -41,87 +41,82 @@ typename iterator_traits<Iterator>::reference>
     }
     explicit reverse_iterator(Iterator x)
     {
-        //IMHERE
+        
         this->current = x;
     }
     template <class U> reverse_iterator(const reverse_iterator<U>& u)
     {
-        //IMHERE
+        
        
         current = u.base();
     }
     Iterator base() const
     { // explicit
-        //IMHERE
+        
         return (current);
     }
     reference operator*() const 
     {
-        //IMHERE
+        
         
         Iterator tmp = current;
         return *--tmp;
     }
     pointer operator->() const
     {
-        //IMHERE
+        
         return &(operator*());
     }
     reverse_iterator& operator++()
     {
-        //IMHERE
+        
         --current;
         return (*this);
     }
     reverse_iterator operator++(int)
     {
-        //IMHERE
+        
         reverse_iterator tmp = *this;
         --current;
         return (tmp);
     }
     reverse_iterator& operator--()
     {
-        //IMHERE
+        
         ++current;
         return(*this);
     }
     reverse_iterator operator--(int)
     {
-        //IMHERE
+        
         reverse_iterator tmp = *this;
         ++current;
         return(tmp);
     }
     reverse_iterator operator+ (difference_type n) const
     {
-        //IMHERE
+        
         return(reverse_iterator(current - n));
     }
     reverse_iterator& operator+=(difference_type n)
     {
-        //IMHERE
+        
         current -= n;
         return(*this);
     }
     reverse_iterator operator- (difference_type n) const
     {
-        //IMHERE
+        
         return(reverse_iterator(current+n));
     }
     reverse_iterator& operator-=(difference_type n)
     {
-        //IMHERE
         current += n;
         return(*this);
     }
     reference operator[](difference_type n) const
     {
-        //IMHERE
-        return(current[-n-1]);
-    	// reference operator[](difference_type n) const {
-		// 	return * (_current - n - 1);
-		// }
+        return (*(*this + n));
     }
 
         template <class U,class X>

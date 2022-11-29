@@ -157,7 +157,21 @@ int main()
         
     }
     {//map
-    
+        ft::map<std::string,int> map1;// default constructor;
+        map1["1"] = 1;
+        map1["2"] = 2;
+        map1["3"] = 3;
+        map1["4"] = 4;
+        ft::map<std::string, int> map2(map1.begin(), map1.end());
+        std::cout << "map1 contains ";
+        ft::map<std::string, int>::iterator loop;
+        loop = map1.begin();
+        for(; loop != map1.end(); ++loop)
+        {
+            std::cout << "key " << loop->first << "  value: ";
+            std::cout << loop->second;
+        }
+        std::cout << "\n";
     }
 
 }

@@ -11,7 +11,7 @@
 
 namespace ft
 {
-    template < class T, class Alloc >
+    template < class T, class Alloc = std::allocator<T> >
     class node {
     public:
         typedef Alloc allcator_type;
@@ -33,7 +33,7 @@ namespace ft
         }
         node(const node& rhs)
         {
-            // this->data = rhs.data;
+            
             _alloc.construct(&this->data, rhs.data);
             this->height = rhs.height;
             this->left = rhs.left;
@@ -52,7 +52,6 @@ namespace ft
         };
         node &operator=(const node& rhs)
         {
-            // this->data = rhs.data;
             _alloc.construct(&this->data, rhs.data);
             this->height = rhs.height;
             this->left = rhs.left;
@@ -75,7 +74,7 @@ namespace ft
     };
 
     template < class T, typename  Compare = std::less<typename T::first_type>,
-     class Alloc = std::allocator<T> > //, class Allconode = std::allocator<node<T, Alloc> > >
+     class Alloc = std::allocator<T> > 
     class avl_tree
     {
     public:
@@ -83,7 +82,6 @@ namespace ft
         typedef Alloc					allocator_type;
         typedef typename T::first_type	key_type;
         typedef typename T::second_type	mapped_type;
-        // typedef Allconode				alloc_node;
         //typedef typename Alloc::template rebind<node_type>::other alloc_node;
          typedef std::allocator<node_type> alloc_node;
         
@@ -751,24 +749,26 @@ namespace ft
                 std::cout << indent;
                 if (last)
                 {
-                    std::cout << "R----";
+                    std::cout << " R----";
                     indent += "   ";
                 }
                 else
                 {
-                    std::cout << "L----";
-                    indent += "|  ";
+                    std::cout << " L----";
+                    indent += " |  ";
                 }
-                std::cout << root->data.first ;//<<"::"<< root->height;
-                std::cout << " value:"<< root->data.second ;//<<"::"<< root->height;
-                if (root->parent == NULL)
-                	std::cout << " root";
+                std::cout << root->data.first ;
+                std::cout << " value: "<< root->data.second ;
+                //i added this;
+                if(root->right != NULL)
+                    std::cout << " right is " << root->right->data.first << " ";
                 else
-                	std::cout << " parent->" << root->parent->data.first;
-                // if (root->left != NULL)
-                // 	std::cout << " my left is " << root->left->data;
-                // if (root->right != NULL)
-                // 	std::cout << " my right is " << root->right->data;
+                    std::cout << " no right " ;
+                //
+                if (root->parent == NULL)
+                	std::cout << " root ";
+                else
+                	std::cout << " parent-> " << root->parent->data.first;
                 std::cout << std::endl;
                 print_tree(root->left, indent, false);
                 print_tree(root->right, indent, true);
