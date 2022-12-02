@@ -5,6 +5,18 @@
 // #include "../UTILS/pair.hpp"
 #include "../MAP/map.hpp"
 
+void print_map(ft::map<std::string, int> map, std::string map_name)
+{
+        ft::map<std::string, int>::iterator loop;
+        std::cout << map_name << " contains: ";
+        loop = map.begin();
+        for(; loop != map.end(); ++loop)
+        {
+            std::cout << " key-" << loop->first << "-value:-";
+            std::cout << loop->second;
+        }
+        std::cout << "\n";
+}
 
 int main()
 {
@@ -162,16 +174,76 @@ int main()
         map1["2"] = 2;
         map1["3"] = 3;
         map1["4"] = 4;
-        ft::map<std::string, int> map2(map1.begin(), map1.end());
-        std::cout << "map1 contains ";
+        ft::map<std::string, int> map2(map1.begin(), map1.end());// range constructor;
         ft::map<std::string, int>::iterator loop;
-        loop = map1.begin();
-        for(; loop != map1.end(); ++loop)
+
+        print_map(map1,"map1");
+        print_map(map2, "map2");
+        std::cout << "********************* operator=********" << std::endl;
+        ft::map<std::string, int> map3 = map2;
+        print_map(map3, "map3");
+        std::cout << "******************** operator[]***************" << std::endl;
+        std::cout << "print first element with operator[]: " << map3["1"] << std::endl;
+        std::cout << "create a key without a value " << map3["5"] << std::endl;
+        std::cout << "********************* iterators ***************" << std::endl;
+        std::cout << "use begin and end to print map3 :";
+        for(ft::map<std::string, int>::iterator it = map3.begin(); it != map3.end(); ++it)
         {
-            std::cout << "key " << loop->first << "  value: ";
-            std::cout << loop->second;
+            std::cout << " key-"<< it->first << "-value-" ;
         }
         std::cout << "\n";
+
+        std::cout << "use rbegin and rend to print map3 :";
+        for(ft::map<std::string, int>::reverse_iterator it = map3.rbegin(); it != map3.rend(); ++it)
+        {
+            std::cout << " key-"<< it->first << "-value-" ;
+        }
+        std::cout << "\n";
+        std::cout << " ********************* capacity methods ************" << std::endl;
+        std::cout << "map3 size is " << map3.size() << std::endl;
+        std::cout << "map3 max_size is " << map3.max_size() << std::endl;
+        if(!map3.empty())
+            std::cout << "our map is not empty\n";
+        
+        std::cout << " ******************** modifiers *****************" << std::endl;
+        map1.clear();// clear
+        std::cout << "map1 size after clear is "<< map1.size() << "\n";
+        print_map(map1, "map1");
+        std::cout << "************ insert with val****************\n";
+        ft::pair<ft::map<std::string, int>::iterator , bool>  p;
+        p = map1.insert(ft::make_pair("1",1));
+        if(p.second == true)
+        {
+            std::cout << "the element that was inserted is " ;
+            std::cout << p.first->first << std::endl;
+        }
+        std::cout << "************insert with position*************\n";
+        loop = map1.insert(map1.begin(),ft::make_pair("2", 2));
+        std::cout << "the element that was inserted is ";
+        std::cout << loop->first << std::endl;
+        std::cout << "************insert range ************\n";
+        ft::map<std::string, int> inser(map1.begin(), map1.end());
+        print_map(inser, "inser");
+
+        std::cout << "************ erase ***************************\n";
+        inser["3"] = 3;
+        inser["4"] = 4;
+        std::cout << "******erase by key****************************\n";
+        inser.erase("3");
+        print_map(inser, "inser");
+        std::cout << "******erase by position***********************\n";
+        inser.erase(inser.begin());
+        print_map(inser, "inser");
+        std::cout << "******erase range*****************************\n";
+        inser.erase(inser.begin(), inser.end());
+        print_map(inser, "inser");
+        std::cout << "******erase range*****************************\n";
+
+
+        
+        //************* get_allocator*******
+        
+    
     }
 
 }

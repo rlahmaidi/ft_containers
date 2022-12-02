@@ -26,8 +26,6 @@ namespace ft
                 //typedef T* iterator;
                 typedef  ft::random_access<const value_type> const_iterator;
                // typedef pointer iterator;
-                //typedef pointer const_iterator;
-                // if iteratror iterate over int const iterator will iterate over const int;
                 typedef ft::reverse_iterator<iterator>      reverse_iterator;
                 typedef ft::reverse_iterator<const_iterator>      const_reverse_iterator;
                 typedef typename  std::ptrdiff_t      difference_type;
@@ -303,11 +301,9 @@ namespace ft
                 template <class InputIterator>
                 void assign (InputIterator first, InputIterator last)
                 { //Replaces the contents with copies of those in the range [first, last)
-                // . The behavior is undefined if either argument is an iterator into *this
                     difference_type diff;
-                    //diff = std::distance(first,last);
                     diff = last - first;
-                    if(diff < 0)// i need to make sure of this if????
+                    if(diff < 0)
                         diff *= (-1); 
                     
                      arr_size = diff;
@@ -564,7 +560,7 @@ namespace ft
                     size_t i = 0;
                     for(; i < lhs.size() ; i++)
                     {
-                        if(i == rhs.size() || rhs[i] < lhs[i])// try the same thing with operator* ins of []
+                        if(i == rhs.size() || rhs[i] < lhs[i]) 
                             return(false);
                         else if(lhs[i] < rhs[i])
                             return(true);
@@ -598,7 +594,7 @@ namespace ft
                     size_t i = 0;
                     for(; i < rhs.size() ; i++)
                     {
-                        if(i == lhs.size() || rhs[i] > lhs[i])// try the same thing with operator* ins of []
+                        if(i == lhs.size() || rhs[i] > lhs[i])
                             return(false);
                         else if(lhs[i] > rhs[i])
                             return(true);

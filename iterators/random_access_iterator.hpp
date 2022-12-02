@@ -18,7 +18,7 @@ namespace ft
 			typedef typename iterator<std::random_access_iterator_tag, T>::pointer				pointer;
 			typedef typename iterator<std::random_access_iterator_tag, T>::reference			reference;
 			typedef typename iterator<std::random_access_iterator_tag, T>::iterator_category	iterator_category;
-		// perhaps some typdefs are still messing here;
+		
 
             random_access(): ptr(NULL)
 			{
@@ -44,7 +44,7 @@ namespace ft
 				
 			}
 
-			// operator for conversion from 'Iterator<int>' to Iterator<const int>'
+			//operator for conversion from 'Iterator<int>' to Iterator<const int>'
 			operator random_access<const value_type>() const
             {
                 return random_access<const value_type>(ptr);  
@@ -100,13 +100,9 @@ namespace ft
         }
 		pointer operator->() const
 		{ 
-			return (ptr);// it will always return ptr even if you type(obj->tkharbi9a);
+			return (ptr);
 		}
-        //************ dereferenced as an lvalue****
-		// pointer operator&() const 
-		// { 
-		// 	return (ptr);  me and hamid confirmed that we won't need it
-		// }
+    
 		//(*a = t) i think it will work since * and = are already overloaded; I WAS WRONG
 		
 		//***************  INCREMENT AND DECREMENT  *******
@@ -147,35 +143,27 @@ namespace ft
 		}
 
 		//***************   ARITHMETIQUE OPERATORS  *********
-		random_access operator+(difference_type const &n) const // we can replace diffe.. with int if it dosen't work;
+		random_access operator+(difference_type const &n) const 
 		{
-			return(ptr + n);// perhaps it won't work , i need to test it;
+			return(ptr + n);
 		}
 		difference_type operator-(random_access const &it1) const
 		{
-			return(this->ptr - it1.ptr);// perhaps it won't work too;
+			return(this->ptr - it1.ptr);
 		}
 
 	
         random_access operator-(difference_type const &n) const
         {
 			return(random_access(ptr - n));
-			// ptr -= n;
-            // return (*this);
-			// i'm putting the const because we can't call a non-const function on a const object
-			//(const iterator), but it shouldn't fucking work ,since we changed a data member(ptr)??
         }
 		//*********** the [] operator  *********
-		reference operator[](difference_type n) const// should it be refference and why ???????;
+		reference operator[](difference_type n) const
 		 {
 			return ptr[n];
 		 }
 
-		// template <class U>
-		// bool operator== (const random_access<U>& lhs)
-		// {
-		// 	return (lhs.base() == base());
-		// }
+	
 		 pointer base() const 
 		 {
 			 return ptr; 
@@ -191,11 +179,11 @@ namespace ft
 		return(it + nb);
     }
 
-    // template <class T>
-    // bool operator== (const random_access<T>& lhs, const random_access<T>& rhs)
-    // {
-    //     return (lhs.base() == rhs.base());
-    // }
+    template <class T>
+    bool operator== (const random_access<T>& lhs, const random_access<T>& rhs)
+    {
+        return (lhs.base() == rhs.base());
+    }
     template <class T>
     bool operator!= (const random_access<T>& lhs, const random_access<T>& rhs)
     {

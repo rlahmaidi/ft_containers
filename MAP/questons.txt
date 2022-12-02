@@ -16,3 +16,32 @@ an iterator and a const_iterator(?), lower_bound for example?
 
 
 9 - why do we need the parent for in avll_tree??
+
+10 - this part in delete invalide iterators i THINK
+                    else
+                    {
+                        temp->parent = p->parent;
+                        *p = *temp;
+                    }
+
+
+
+
+
+                    // else// till this removed
+                    // {
+                    //     temp->parent = p->parent;
+                    //     *p = *temp;
+                    // }
+                    // _alloc.destroy(&(temp->data));
+                    // _alloc_node.deallocate(temp, 1);
+                    else
+                    {
+                        temp->parent = p->parent;
+                        if(p->parent->left == p)
+                            p->parent->left = temp;
+                        else if(p->parent->right == p)
+                            p->parent->right = temp;
+                    }
+                    _alloc.destroy(&(p->data));
+                    _alloc_node.deallocate(p, 1);

@@ -167,22 +167,19 @@ namespace ft
 
         node_type *find_next(key_type data)
         {
-            // find_parent(_root);
             return find_next(data, _root);
         }
 
         node_type *find_next(node_type *data)
         {
-            // find_parent(_root);
             return find_next(data->data.first, _root);
         }
 
         node_type *find_next(key_type data, node_type *p)//find the node_type in the tree
         {
             node_type *here;
-            if(search(p,data) != NULL/*exist(p, data)*/)
+            if(search(p,data) != NULL)
             {
-                // std::cout << "the node_type is exist" << std::endl;
                 here = search(p, data);
                 if(here->right)
                     return find_min(here->right);
@@ -207,20 +204,18 @@ namespace ft
 
         node_type *find_prev(key_type data)
         {
-            // find_parent(_root);
             return find_prev(data, _root);
         }
 
         node_type *find_prev(node_type *data)
         {
-            // find_parent(_root);
             return find_prev(data->data.first, _root);
         }
 
         node_type *find_prev(key_type data, node_type *p)//find the node_type in the tree
         {
             node_type *here;
-            if(search(p,data) != NULL/*exist(p, data)*/)
+            if(search(p,data) != NULL)
             {
                 here = search(p, data);
                 if(here->left)
@@ -411,7 +406,6 @@ namespace ft
                 return NULL;
             if(p->data.first == data)
                 return p;
-            // if(p->data > data)
             int cmp = _compare(data, p->data.first);
             if (cmp)
                 return search(p->left, data);
@@ -428,13 +422,13 @@ namespace ft
             tp = p->left;
             p->left = tp->right;
             tp->right = p;
-            tp->parent = p->parent; //added
-            p->parent = tp; //added
-            if (p->left) //added
+            tp->parent = p->parent; 
+            p->parent = tp; 
+            if (p->left) 
             {
                 node_type *n;
                 n = p->left;
-                n->parent = p/*tp->right*/; // I MODIFIED THIS;
+                n->parent = p; 
             }
             p->height = calcul_height(p);
             tp->height = calcul_height(tp);
@@ -450,9 +444,9 @@ namespace ft
             tp = p->right;
             p->right = tp->left;
             tp->left = p;
-            tp->parent = p->parent; //added
-            p->parent = tp; //added
-            if (p->right) //added
+            tp->parent = p->parent; 
+            p->parent = tp; 
+            if (p->right) 
             {
                 node_type *n;
                 n = p->right;
@@ -467,23 +461,9 @@ namespace ft
         {
             node_type *p;
             node_type *tp;
-            // node_type *tpp;
 
             p = n;
             tp = p->right;
-            // tpp = tp->left;
-            // p->right = tpp->left;
-            // tp->left = tpp->right;
-            // tpp->left = p;
-            // tpp->right = tp;
-            // tpp->parent = p->parent; //added
-            // p->parent = tpp; //added
-            // tp->parent = tpp; //added
-
-            // p->height = calcul_height(p);
-            // tp->height = calcul_height(tp);
-            // tpp->height = calcul_height(tpp);
-            // return (tpp);
             p->right = llrotation(tp);
             return (rrrotation(p));
         }
@@ -492,22 +472,9 @@ namespace ft
         {
             node_type *p;
             node_type *tp;
-            // node_type *tpp;
 
             p = n;
             tp = p->left;
-            // tpp = tp->right;
-            // p->left = tpp->right;
-            // tp->right = tpp->left;
-            // tpp->right = p;
-            // tpp->left = tp;
-            // tpp->parent = p->parent; //added
-            // p->parent = tpp; //added
-            // tp->parent = tpp; //added
-            // p->height = calcul_height(p);
-            // tp->height = calcul_height(tp);
-            // tpp->height = calcul_height(tpp);
-            // return (tpp);
             p->left = rrrotation(tp);
             return (llrotation(p));
         }
@@ -531,27 +498,8 @@ namespace ft
             if(p->right)
                 clear(p->right);
             _alloc_node.deallocate(p, 1);
-            p = NULL;
-            _size = 0;
-        }
-        void find_parent(node_type *p)
-        {
-            if (p == NULL)
-                return;
-            if (p == _root)
-                p->parent = NULL;
-            if(p->left)
-            {
-                node_type *tmp = p->left;
-                tmp->parent = p;
-                find_parent(tmp);
-            }
-            if(p->right)
-            {
-                node_type *tmp = p->right;
-                tmp->parent = p;
-                find_parent(tmp);
-            }
+            // p = NULL;
+            // _size = 0;
         }
 
         int size() const
@@ -566,38 +514,30 @@ namespace ft
         
         bool insert_(T data)
         {
-            if (search(_root,data.first) != NULL/*exist(_root, data.first)*/)
+            if (search(_root,data.first) != NULL)
                 return false;
             this->_root = this->insert_(_root, data);
             this->_size++;
-            // find_parent(_root);
             return true; 
         }
         node_type* insert(T data)
         {
-            if (search(_root,data.first) != NULL/*exist(_root, data.first)*/)
+            if (search(_root,data.first) != NULL)
                 return search(data.first);
             this->_root = this->insert_(_root, data);
             this->_size++;
-            // find_parent(_root);
             return(search(data.first));
         }
         node_type* insert_(node_type *r,T data)
         {
-            // if (r != NULL)
-            // 	std::cout << "inserting " << data << " in the tree" << r->data << std::endl;
             if(r == NULL)
             {
-                // std::cout << "inserting " << data.first << std::endl;
                 node_type *n;
-                // n = new node_type;
                 n = _alloc_node.allocate(1);
                 _alloc.construct(&(n->data), data);
-                // n->data = data;
                 r = n;
                 r->left = r->right = r->parent = NULL;
                 r->height = 1;
-                // this->_root = r;
                 return r;
             }
             else
@@ -616,14 +556,11 @@ namespace ft
                     new_node->parent = r;
                 }
             }
-        	// print_tree();
-            // std::cout << "--------" << std::endl;
             r->height = calcul_height(r);
             if(bf(r)==2 && bf(r->left)==1)
                 r = llrotation(r);
             else if(bf(r)==-2 && bf(r->right)==-1)
             {
-                // std::cout << "here here" << std::endl;
                 r = rrrotation(r);
             }
             else if(bf(r)==-2 && bf(r->right)==1)
@@ -635,7 +572,6 @@ namespace ft
 
         node_type *min_node(node_type *node)
         {
-            // node_type *current = node_type;
             while (node->left != NULL)
                 node = node->left;
             return node;
@@ -652,13 +588,10 @@ namespace ft
 
         int delete_(key_type key)// for erase (2)
         {
-            if (search(_root, key) == NULL/*!exist(_root, key)*/)
+            if (search(_root, key) == NULL)
                 return (0);
             _root = delete_(_root, key);
             _size--;
-            // std::cout << "==============" << std::endl;
-            // print_tree();
-            // find_parent(_root);
             return (1);
         }
 

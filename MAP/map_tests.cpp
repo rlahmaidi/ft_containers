@@ -25,7 +25,7 @@ bool mycomp (char c1, char c2)
 int main ()
 {
   
-    {
+    { // insert
       // ft::map<char,int> mymap;
 
       // // first insert function version (single parameter):

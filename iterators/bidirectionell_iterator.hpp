@@ -180,12 +180,6 @@ namespace ft
                         tmp = tmp->right;
                       return(tmp);
                     }
-    // node_type max(node_type root){
-    //             node_type tmp = root;
-    //             while (tmp != NULL && tmp->right != NULL) // max value
-    //                     tmp = tmp->right;
-    //             return tmp;
-    //         }
          };
 }
 

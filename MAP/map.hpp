@@ -180,7 +180,6 @@ namespace ft
         // single element (1)
         pair<iterator, bool> insert(const value_type &val)
         {
-            // pair<iterator, bool> to_return;
             iterator tmp_it;
             bool inserted_or_not;
             node_type *tmp_node;
