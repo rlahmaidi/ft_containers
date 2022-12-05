@@ -11,7 +11,7 @@ namespace ft
                 typedef T2  second_type;
                 // member variables
                 first_type  first;
-                second_type second;// because they are public in std;
+                second_type second;
 
                 pair()
                 {

@@ -600,10 +600,8 @@ namespace ft
             if(p == NULL)
                 return p;
             int cmp = _compare(data, p->data.first);
-            // if(p->data < data)
             if(cmp)
                 p->left = delete_(p->left,data);
-            // else if(p->data > data)
             else if(cmp == false && p->right && p->data.first != data)
                 p->right = delete_(p->right,data);
             else
@@ -633,7 +631,6 @@ namespace ft
                     node_type *dad = p->parent;
                     node_type *temp;
                     temp = min_node(p->right);
-                    // p->data = temp->data;
                     _alloc.construct(&(p->data), temp->data);
                     p->parent = dad;
                     p->right = delete_(p->right,temp->data.first);

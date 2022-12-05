@@ -25,57 +25,21 @@ bool mycomp (char c1, char c2)
 int main ()
 {
   
-    { // insert
-      // ft::map<char,int> mymap;
+  {// begin and end();
+    //  ft::map<char,int> mymap;
 
-      // // first insert function version (single parameter):
-      
-      //  mymap.insert ( ft::pair<char,int>('a',100) );
-      
-      // mymap.insert ( ft::pair<char,int>('z',200) );
+    //   mymap['b'] = 100;
+    //   mymap['a'] = 200;
+    //   mymap['c'] = 300;
+    //   mymap['a'] = 400;
 
-      // ft::pair<ft::map<char,int>::iterator,bool> ret;
-      // ret = mymap.insert ( ft::pair<char,int>('z',500) );
-      // if (ret.second==false) 
-      // {
-      //   std::cout << "element 'z' already existed";
-      //   std::cout << " with a value of " << ret.first->second << '\n';
-      // }
-      // std::cout << "map size is " << mymap.size() << std::endl;
-    }
-    {
-      // std::map<char,int> mymap;
+    //   // show content:
+    //   for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+    //     std::cout << it->first << " => " << it->second << '\n';
+  }
 
-      // // first insert function version (single parameter):
-      
-      //  mymap.insert ( std::pair<char,int>('a',100) );
-      
-      // mymap.insert ( std::pair<char,int>('z',200) );
 
-      // std::pair<std::map<char,int>::iterator,bool> ret;
-      // ret = mymap.insert ( std::pair<char,int>('z',500) );
-      // if (ret.second==false) 
-      // {
-      //   std::cout << "element 'z' already existed";
-      //   std::cout << " with a value of " << ret.first->second << '\n';
-      // }
-      // std::cout << " std map size is " << mymap.size() << std::endl;
-    }
-    {
-        // second insert function version (with hint position):
-      // ft::map<char,int> mymap;
-      // ft::map<char,int>::iterator it = mymap.begin();
-      // mymap.insert (it, ft::pair<char,int>('b',300));  // max efficiency inserting
-      // mymap.insert (it, ft::pair<char,int>('c',400));  //
-      // //ft::map<char, int>::iterator it;
-      // for(ft::map<char,int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
-      // {
-      //   //std::cout << "ar we here ? " << std::endl;
-      //   std::cout << "key is " << it->first <<"  value is " << it->second <<  std::endl;
-      // }
-
-    }
-    {
+    {// insert
         // ft::map<char,int> mymap;
 
         // // first insert function version (single parameter):
@@ -109,7 +73,7 @@ int main ()
 
  
     }
-    {
+    { //operator[]
       //   ft::map<char, std::string> mymap;
 
       // mymap['a']="an element";
@@ -152,50 +116,29 @@ int main ()
       // for (it=mymap.begin(); it!=mymap.end(); ++it)
       //   std::cout << it->first << " => " << it->second << '\n';
     }
-    {
-        // std::map<char,int> mymap;
-        // std::map<char,int>::iterator it;
+  
+    {// swap method
+        // ft::map<char,int> foo,bar;
 
-        // // insert some values:
-        // mymap['a']=10;
-        // mymap['b']=20;
-        // mymap['c']=30;
-        // mymap['d']=40;
-        // mymap['e']=50;
-        // mymap['f']=60;
+        // foo['x']=100;
+        // foo['y']=200;
 
-        // it=mymap.find('b');
-        // mymap.erase (it);                   // erasing by iterator
+        // bar['a']=11;
+        // bar['b']=22;
+        // bar['c']=33;
 
-        // std::cout << mymap.erase ('c') << std::endl; 
+        // foo.swap(bar);
 
-    }
-    {
-      // ft::map<char,int> foo,bar;
+        // std::cout << "foo contains:\n";
+        // for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+        //   std::cout << it->first << " => " << it->second << '\n';
 
-      // foo['x']=100;
-      // foo['y']=200;
-
-      // bar['a']=11;
-      // bar['b']=22;
-      // bar['c']=33;
-      // //ft::map<char ,int>::iterator it[2] = {foo.begin(),foo.begin()++};
-      // ft::map<char ,int>::iterator it = foo.begin();
-      // std::cout << "before swap "<< it->first << std::endl;
-      // foo.swap(bar);
-      // it++;
-      // std::cout << "after  swap "<< it->first << std::endl;
-
-      // std::cout << "foo contains:\n";
-      // for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
-      //   std::cout << it->first << " => " << it->second << '\n';
-
-      // std::cout << "bar contains:\n";
-      // for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
-      //   std::cout << it->first << " => " << it->second << '\n';
+        // std::cout << "bar contains:\n";
+        // for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+        //   std::cout << it->first << " => " << it->second << '\n';
 
     }
-    {
+    {// clear
     //  ft::map<char,int> mymap;
 
     //   mymap['x']=100;
@@ -288,7 +231,7 @@ int main ()
           //     std::cout << " is not an element of mymap.\n";
           // }
       }
-      {
+      {// lower and upper bound
         //  ft::map<char,int> mymap;
         //   ft::map<char,int>::const_iterator itlow,itup;
 
@@ -308,28 +251,8 @@ int main ()
         //   for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
         //     std::cout << it->first << " => " << it->second << '\n';
       }
-      {
-          // ft::map<char,int> mymap;
-          // ft::map<char,int>::iterator itlow,itup;
 
-          // mymap['a']=20;
-          // mymap['b']=40;
-          // mymap['c']=60;
-          // mymap['d']=80;
-          // mymap['e']=100;
-
-          // itlow=mymap.lower_bound ('b');  // itlow points to b
-          // itup=mymap.upper_bound ('d');   // itup points to e (not d!)
-
-          // mymap.erase('b');        // erases [itlow,itup)
-          // mymap.erase('c');        // erases [itlow,itup)
-          // mymap.erase('d');        // erases [itlow,itup)
-
-          // // print content:
-          // for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-          //   std::cout << it->first << " => " << it->second << '\n';
-      }
-      {
+      {// get_allocator
         // int psize;
         // ft::map<char,int> mymap;
         // ft::pair<const char,int>* p;
@@ -338,13 +261,13 @@ int main ()
         // p=mymap.get_allocator().allocate(5);
 
         // // assign some values to array
-        // psize = sizeof(ft::map<char,int>::value_type)*5;
+        // psize = sizeof(ft::map<char,int>::value_type) * 5;
 
         // std::cout << "The allocated array has a size of " << psize << " bytes.\n";
 
         // mymap.get_allocator().deallocate(p,5);
       }
-      {
+      {// equal_range
           // std::map<char,int> mymap;
 
           // mymap['a']=10;
@@ -361,32 +284,7 @@ int main ()
           // std::cout << ret.second->first << " => " << ret.second->second << '\n';
       }
       
-      {
-
-
-        
-            // ft::map<char,int> first;
-
-            // first['a']=10;
-            // first['b']=30;
-            // first['c']=50;
-            // first['d']=70;
-
-            // ft::map<char,int> second (first.begin(),first.end());
-
-            // ft::map<char,int> third (second);
-
-            // ft::map<char,int,classcomp> fourth;                 // class as Compare
-
-            // bool(*fn_pt)(char,char) = fncomp;
-            // ft::map<char,int,bool(*)(char,char)> fifth (fn_pt);
-            // for(ft::map<char, int>::iterator it = second.begin(); it != second.end(); ++it)
-            // {
-            //   std::cout << "first equal to " << it->first ;
-            //   std::cout << " second equal to " << it->second << std::endl;
-            // }
-      }
-      {
+      {// equal
         //  int myints[] = {20,40,60,80,100};               //   myints: 20 40 60 80 100
         //   ft::Vector<int>myvector (myints,myints+5);     // myvector: 20 40 60 80 100
 
@@ -404,7 +302,7 @@ int main ()
         //   else
         //     std::cout << "The contents of both sequences differ.\n";
       }
-      {
+      {// lexicograpical_compare
           // char foo[]="Apple";
           // char bar[]="apartment";
 
@@ -421,7 +319,7 @@ int main ()
           // std::cout << '\n';
 
       }
-      {
+      {// compare operators
           // ft::map<int, char> alice;
           // alice[1] = 'a';
           // alice[2] = 'b';
@@ -456,23 +354,42 @@ int main ()
           // std::cout << "alice >  eve returns " << (alice > eve) << '\n';
           // std::cout << "alice >= eve returns " << (alice >= eve) << '\n';
       }
-      {
-        ft::pair<std::string, int> p1;
-        ft::pair<std::string, int> p2;
-        p1 = ft::make_pair("lawla", 1);
-        p2 = ft::make_pair("tanya",2);
+      {// make_pair;
+        // ft::pair<std::string, int> p1;
+        // ft::pair<std::string, int> p2;
+        // p1 = ft::make_pair("lawla", 1);
+        // p2 = ft::make_pair("tanya",2);
 
-        std::cout << p1.first << std::endl;
-        std::cout << p1.second << std::endl;
-        std::cout << p2.first << std::endl;
-        std::cout << p2.second << std::endl;
+        // std::cout << p1.first << std::endl;
+        // std::cout << p1.second << std::endl;
+        // std::cout << p2.first << std::endl;
+        // std::cout << p2.second << std::endl;
 
       }
-      {
-        ft::map<int, char> mp;
-        mp[1] = 'a';
-        mp[2] = 'b';
-        
+      {// iterator invalidation;
+           ft::map<char,int> mymap;
+           ft::map<char, int>::iterator it1,it2,it3,it4;
+
+          mymap['b'] = 100;
+          it1 = mymap.begin();
+          std::cout << "value of it1 before insert is " << it1->first << "=>" << it1->second <<std::endl;
+          
+          it2 = mymap.insert(mymap.begin(),ft::pair<char, int>('a',1));
+          
+          std::cout << "it1 after insert not invalidated with same value " << it1->first << "=>" << it1->second << std::endl;
+          
+          mymap.erase(it2);
+          
+          std::cout << "value of it1 after erase " << it1->first << "=>" << it1->second <<std::endl;
+          std::cout << "oops 'a' value dosen't exist any more "<< it2->second << std::endl;
+          //std::cout << mymap['b'] << std::endl;
+
+
+
+
+          // show content:
+          // for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
+          //   std::cout << it->first << " => " << it->second << '\n';
       }
       
     

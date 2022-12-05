@@ -28,17 +28,16 @@ namespace ft
         typedef typename ft::node<value_type, allocator_type> node_type;
         // typedef ft::node<value_type, allocator_type>    node_type;
 
-        typedef tree_iterator<value_type, node_type *> iterator;             // See 23.1// to
-        typedef tree_iterator<const value_type, node_type *> const_iterator; //
+        typedef tree_iterator<value_type, node_type *> iterator;             
+        typedef tree_iterator<const value_type, node_type *> const_iterator; 
 
-        typedef ptrdiff_t difference_type; // See 23.1// same here;
+        typedef ptrdiff_t difference_type; 
         typedef typename allocator_type::pointer pointer;
         typedef typename allocator_type::const_pointer const_pointer;
-        typedef ft::reverse_iterator<iterator> reverse_iterator;             // remove ft and test???
-        typedef ft::reverse_iterator<const_iterator> const_reverse_iterator; // same here;
+        typedef ft::reverse_iterator<iterator> reverse_iterator;             
+        typedef ft::reverse_iterator<const_iterator> const_reverse_iterator; 
         typedef size_t size_type;
-        // i think the last argument in the above typedef are not neccesserry so i will
-        // test them when the test phase is reached;
+      
 
         typedef class value_compare : public std::binary_function<value_type, value_type, bool>
         {
@@ -91,11 +90,7 @@ namespace ft
         }
         map &operator=(const map &x)
         {
-            // i may need to free something before doing the below;
-            // if(this->tree)
-            // {
-            //     free(tree)
-            // }
+          
             this->tree.clear();
             this->my_allocator = x.my_allocator;
             this->my_compare = x.my_compare;
@@ -195,10 +190,11 @@ namespace ft
             {
                 tmp_node = tree.insert(val);
                 tmp_it = iterator(tmp_node, tree._root);
-                // to_return.second = true;
+               
                 inserted_or_not = true;
             }
-            return (pair<iterator, bool>(tmp_it, inserted_or_not));
+            //return (pair<iterator, bool>(tmp_it, inserted_or_not));
+            return(ft::make_pair<iterator, bool>(tmp_it, inserted_or_not));
         }
         // with hint (2)
         iterator insert(iterator position, const value_type &val)
@@ -337,13 +333,10 @@ namespace ft
         }
 
         pair<const_iterator, const_iterator> equal_range(const key_type &k) const
-        { // to remember:(from cplusplus) Because the elements in a map container have unique keys, the
-            // ange returned will contain a single element at most.
-            //  yet their equal_range return two iterators, on to the upper bound and the
-            //  other to lower bound
+        { 
             pair<const_iterator, const_iterator> ret;
-            ret.first = lower_bound(k) /*find(k)*/;
-            ret.second = upper_bound(k) /*find(k)*/;
+            ret.first = lower_bound(k) ;
+            ret.second = upper_bound(k) ;
             return (ret);
         }
 
